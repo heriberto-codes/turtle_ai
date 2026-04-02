@@ -13,8 +13,8 @@
     Defines how the system is structured and what patterns should be preserved.
 
     3️⃣ REPO_MAP
-    High-level navigation of the repo, protected paths, 
-    critical modules, and important file locations.
+    High-level navigation of the repo, protected paths, critical modules,  
+    and important file locations.
 
 **💡 DISCOVERY (Problem + Opportunity)**
 
@@ -25,8 +25,7 @@
     Store and track feature ideas in: docs/backlog.md
 
     6️⃣ ANALYZE  
-    AI learns the repository. Why this matters:  
-    Without it, AI re-learns the repo every task
+    AI learns the repository. Why this matters: Without it, AI re-learns the repo every task
 
 **🧭 PLANNING (Architecture + Scope)**
 
@@ -55,20 +54,20 @@
 
 **🛡️ HARDENING (Quality Gates)**
 
-1️⃣3️⃣ SECURITY  
-Run focused security review for new or changed behavior
+    1️⃣3️⃣ SECURITY  
+    Run focused security review for new or changed behavior
 
-1️⃣4️⃣ PERF  
-Run targeted performance review when feature touches:
+    1️⃣4️⃣ PERF  
+    Run targeted performance review
 
 **🚀 FINALIZATION (Ship + Record)**
 
-1️⃣5️⃣ BACKLOG UPDATE  
-Mark feature complete
+    1️⃣5️⃣ BACKLOG UPDATE  
+    Mark feature complete
 
-1️⃣6️⃣ DOCUMENT  
-Capture architectural decisions inside the repo  
-Note: Run AFTER feature is complete not after every step
+    1️⃣6️⃣ DOCUMENT  
+    Capture architectural decisions inside the repo  
+    Note: Run AFTER feature is complete not after every step
 
-1️⃣7️⃣ COMMIT  
-Prepare commit message only 
+    1️⃣7️⃣ COMMIT  
+    Prepare commit message only 

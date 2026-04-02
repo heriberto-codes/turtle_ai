@@ -25,6 +25,10 @@ Instead, Turtle AI ensures:
 >Turtle AI is not about writing less code. 
 >It is about retaining control while using AI to move faster — safely.
 
+***
+## 🧠 Turtle AI Workflow Phases
+
+A structured, human-tethered development flow that preserves engineer understanding while leveraging AI.
 
 **🧱 FOUNDATION (Static Context)**
 
@@ -97,7 +101,7 @@ Instead, Turtle AI ensures:
     1️⃣7️⃣ COMMIT  
     Prepare commit message only 
 
-
+***
 **📂 FOLDER STRUCTURE**
 
     project-root

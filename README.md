@@ -2,9 +2,11 @@
 
     Go slower. Understand more. Break less.
 
-    Turtle AI is a human-tethered AI coding workflow designed to preserve engineer understanding, codebase context, and long-term ownership.
+    Turtle AI is a human-tethered AI coding workflow designed to preserve engineer understanding,  
+    codebase context, and long-term ownership.
 
-    Modern AI coding tools optimize for speed — but speed without understanding leads to fragile systems, hidden assumptions, and engineers who gradually lose control of their own codebase.
+    Modern AI coding tools optimize for speed — but speed without understanding leads to fragile. 
+    systems, hidden assumptions, and engineers who gradually lose control of their own codebase.
 
     Turtle AI solves this by slowing AI down just enough to keep the engineer fully engaged in every decision.
 

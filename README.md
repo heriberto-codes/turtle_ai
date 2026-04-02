@@ -25,7 +25,8 @@
     Store and track feature ideas in: docs/backlog.md
 
     6️⃣ ANALYZE  
-    AI learns the repository. Why this matters: Without it, AI re-learns the repo every task
+    AI learns the repository. Why this matters: Without it,  
+    AI re-learns the repo every task
 
 **🧭 PLANNING (Architecture + Scope)**
 
@@ -47,7 +48,8 @@
     Write or update tests for the current task  
 
     1️⃣2️⃣ DEBUG  
-    Conditional step only run when EXECUTE, VERIFY, CHECKPOINT, or TEST reveals problems. 
+    Conditional step only run when EXECUTE, VERIFY, CHECKPOINT,  
+    or TEST reveals problems. 
 
     🔄 LOOP
     Repeat: EXECUTE → VERIFY → CHECKPOINT → TEST → DEBUG
@@ -71,3 +73,24 @@
 
     1️⃣7️⃣ COMMIT  
     Prepare commit message only 
+
+
+**📂 FOLDER STRUCTURE**
+
+    project-root
+    │
+    ├── agents.md
+    ├── architecture.md
+    ├── repo_map.md
+    ├── docs
+    │   │
+    │   ├── analysis
+    │   │   └── repo_analysis.md = broad repo understanding
+    │   │
+    │   ├── backlog.md
+    │   │
+    │   ├── plans
+    │   │   └── <feature_slug>_plan.md = implementation instructions
+    │   │
+    │   └── features
+    │       └── <feature_slug>.md = final feature decision record

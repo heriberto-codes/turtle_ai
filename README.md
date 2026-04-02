@@ -13,43 +13,45 @@
     Defines how the system is structured and what patterns should be preserved.
 
     3️⃣ REPO_MAP
-    High-level navigation of the repo, protected paths, critical modules, and important file locations.
+    High-level navigation of the repo, protected paths, 
+    critical modules, and important file locations.
 
 **💡 DISCOVERY (Problem + Opportunity)**
 
-4️⃣ IDEATE  
-What should we build?
+    4️⃣ IDEATE  
+    What should we build?
 
-5️⃣ BACKLOG  
-Store and track feature ideas in: docs/backlog.md
+    5️⃣ BACKLOG  
+    Store and track feature ideas in: docs/backlog.md
 
-6️⃣ ANALYZE  
-AI learns the repository. Why this matters: Without it, AI re-learns the repo every task
+    6️⃣ ANALYZE  
+    AI learns the repository. Why this matters:  
+    Without it, AI re-learns the repo every task
 
 **🧭 PLANNING (Architecture + Scope)**
 
-7️⃣ PLAN  
-Architect chosen feature → docs/plans/<feature_slug>_plan.md
+    7️⃣ PLAN  
+    Architect chosen feature → docs/plans/<feature_slug>_plan.md
 
 **⚙️ IMPLEMENTATION LOOP (Controlled Development)**
 
-8️⃣ EXECUTE  
-Implement ONLY the next unchecked task from PLAN   
+    8️⃣ EXECUTE  
+    Implement ONLY the next unchecked task from PLAN   
 
-9️⃣ VERIFY  
-AI performs code review 
+    9️⃣ VERIFY  
+    AI performs code review 
 
-🔟 ENGINEER CHECKPOINT
-Engineer comprehension checkpoint
+    🔟 ENGINEER CHECKPOINT
+    Engineer comprehension checkpoint
 
-1️⃣1️⃣ TEST  
-Write or update tests for the current task  
+    1️⃣1️⃣ TEST  
+    Write or update tests for the current task  
 
-1️⃣2️⃣ DEBUG  
-Conditional step only run when EXECUTE, VERIFY, CHECKPOINT, or TEST reveals problems. 
+    1️⃣2️⃣ DEBUG  
+    Conditional step only run when EXECUTE, VERIFY, CHECKPOINT, or TEST reveals problems. 
 
-🔄 LOOP
-Repeat: EXECUTE → VERIFY → CHECKPOINT → TEST → DEBUG
+    🔄 LOOP
+    Repeat: EXECUTE → VERIFY → CHECKPOINT → TEST → DEBUG
 
 **🛡️ HARDENING (Quality Gates)**
 

@@ -8,7 +8,8 @@
     Modern AI coding tools optimize for speed — but speed without understanding leads to fragile. 
     systems, hidden assumptions, and engineers who gradually lose control of their own codebase.
 
-    Turtle AI solves this by slowing AI down just enough to keep the engineer fully engaged in every decision.
+    Turtle AI solves this by slowing AI down just enough to keep the engineer fully. 
+    engaged in every decision.
 
     It introduces a structured loop where:
         •	changes are small and intentional

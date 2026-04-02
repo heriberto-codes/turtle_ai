@@ -1,32 +1,29 @@
 ## 🐢 🐢 Turtle AI 🐢 🐢
 
-    Go slower. Understand more. Break less.
+Go slower. Understand more. Break less.
 
-    Turtle AI is a human-tethered AI coding workflow designed to preserve engineer understanding,  
-    codebase context, and long-term ownership.
+Turtle AI is a human-tethered AI coding workflow designed to preserve engineer understanding codebase context, and long-term ownership.
 
-    Modern AI coding tools optimize for speed — but speed without understanding leads to fragile. 
-    systems, hidden assumptions, and engineers who gradually lose control of their own codebase.
+Modern AI coding tools optimize for speed — but speed without understanding leads to fragile systems, hidden assumptions, and engineers who gradually lose control of their own codebase.
 
-    Turtle AI solves this by slowing AI down just enough to keep the engineer fully. 
-    engaged in every decision.
+Turtle AI solves this by slowing AI down just enough to keep the engineer fully engaged in every decision.
 
-    It introduces a structured loop where:
-        •	changes are small and intentional
-        •	every step is reviewed before moving forward
-        •	the engineer must actively explain and validate the system
+It introduces a structured loop where:
+    •	changes are small and intentional
+    •	every step is reviewed before moving forward
+    •	the engineer must actively explain and validate the system
 
-    This prevents the most common failure mode of AI-assisted development:
+This prevents the most common failure mode of AI-assisted development:
 
-    ➡️ the engineer becoming a passive reviewer of code they don’t fully understand
+➡️ the engineer becoming a passive reviewer of code they don’t fully understand
 
-    Instead, Turtle AI ensures:
-        •	the engineer remains the source of truth
-        •	the system stays aligned with real architecture
-        •	knowledge compounds instead of decays
+Instead, Turtle AI ensures:
+    •	the engineer remains the source of truth
+    •	the system stays aligned with real architecture
+    •	knowledge compounds instead of decays
 
-    Turtle AI is not about writing less code. 
-    It is about retaining control while using AI to move faster — safely.
+Turtle AI is not about writing less code. 
+It is about retaining control while using AI to move faster — safely.
 
 
 **🧱 FOUNDATION (Static Context)**

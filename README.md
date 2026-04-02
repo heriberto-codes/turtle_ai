@@ -1,19 +1,19 @@
 ## 🐢 🐢 Turtle AI  🐢 🐢
     Avoid human context decay
 
-Turtle AI is a human-tethered coding workflow that slows AI down just enough to preserve engineer understanding, codebase context, and long-term ownership. Its purpose is to prevent the engineer from becoming a passive reviewer of AI-written code. This would apply in the loop phase of the workflow. 
+> Turtle AI is a human-tethered coding workflow that slows AI down just enough to preserve engineer understanding, codebase context, and long-term ownership. Its purpose is to prevent the engineer from becoming a passive reviewer of AI-written code. This would apply in the loop phase of the workflow. 
 
 **🧱 FOUNDATION (Static Context)**
 
-1️⃣ AGENTS
-Project rules and safety constraints. Prevents AI from violating conventions.
+    1️⃣ AGENTS
+    Project rules and safety constraints. Prevents AI from violating conventions.
 
-2️⃣ ARCHITECTURE
-System blueprint.
-Defines how the system is structured and what patterns should be preserved.
+    2️⃣ ARCHITECTURE
+    System blueprint.
+    Defines how the system is structured and what patterns should be preserved.
 
-3️⃣ REPO_MAP
-High-level navigation of the repo, protected paths, critical modules, and important file locations.
+    3️⃣ REPO_MAP
+    High-level navigation of the repo, protected paths, critical modules, and important file locations.
 
 **💡 DISCOVERY (Problem + Opportunity)**
 

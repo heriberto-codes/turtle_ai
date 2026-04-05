@@ -114,11 +114,28 @@ A structured, human-tethered development flow that preserves engineer understand
     │   │   └── repo_analysis.md
     │   ├── prompts
     │   │   ├── foundation
+    │   │   │   ├── agents_prompt.md
+    │   │   │   ├── architecture_prompt.md
+    │   │   │   └── repo_map_prompt.md
     │   │   ├── discovery
+    │   │   │   ├── ideate_prompt.md
+    │   │   │   ├── backlog_prompt.md
+    │   │   │   └── analyze_prompt.md
     │   │   ├── planning
+    │   │   │   └── plan_prompt.md
     │   │   ├── loop
+    │   │   │   ├── execute_prompt.md
+    │   │   │   ├── verify_prompt.md
+    │   │   │   ├── engineer_checkpoint_prompt.md
+    │   │   │   ├── test_prompt.md
+    │   │   │   └── debug_prompt.md
     │   │   ├── hardening
+    │   │   │   ├── security_prompt.md
+    │   │   │   └── performance_prompt.md
     │   │   └── finalization
+    │   │       ├── backlog_update_prompt.md
+    │   │       ├── document_prompt.md
+    │   │       └── commit_prompt.md
     │   ├── backlog.md
     │   ├── plans
     │   │   └── <feature_slug>_plan.md

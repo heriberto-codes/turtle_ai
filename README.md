@@ -86,7 +86,7 @@ A structured, human-tethered development flow that preserves engineer understand
     1️⃣3️⃣ SECURITY  
     Run focused security review for new or changed behavior
 
-    1️⃣4️⃣ PERF  
+    1️⃣4️⃣ PERFORMANCE  
     Run targeted performance review
 
 **🚀 FINALIZATION (Ship + Record)**
@@ -110,17 +110,26 @@ A structured, human-tethered development flow that preserves engineer understand
     ├── architecture.md
     ├── repo_map.md
     ├── docs
-    │   │
     │   ├── analysis
-    │   │   └── repo_analysis.md = broad repo understanding
-    │   │
+    │   │   └── repo_analysis.md
+    │   ├── prompts
+    │   │   ├── foundation
+    │   │   ├── discovery
+    │   │   ├── planning
+    │   │   ├── loop
+    │   │   ├── hardening
+    │   │   └── finalization
     │   ├── backlog.md
-    │   │
     │   ├── plans
-    │   │   └── <feature_slug>_plan.md = implementation instructions
-    │   │
+    │   │   └── <feature_slug>_plan.md
     │   └── features
-    │       └── <feature_slug>.md = final feature decision record
+    │       └── <feature_slug>.md
+
+File purposes:
+- docs/analysis/repo_analysis.md = broad repo understanding
+- docs/prompts/ = reusable workflow prompts grouped by phase
+- docs/plans/<feature_slug>_plan.md = implementation instructions
+- docs/features/<feature_slug>.md = final feature decision record
 
 
 ### MORE TO COME 😄

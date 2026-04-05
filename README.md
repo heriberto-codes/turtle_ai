@@ -79,7 +79,7 @@ A structured, human-tethered development flow that preserves engineer understand
     or TEST reveals problems. 
 
     🔄 LOOP
-    Repeat: EXECUTE → VERIFY → CHECKPOINT → TEST → DEBUG
+    Repeat: EXECUTE ➡️ VERIFY ➡️ ENGINEER CHECKPOINT ➡️ TEST ➡️ DEBUG
 
 **🛡️ HARDENING (Quality Gates)**
 
@@ -145,8 +145,8 @@ A structured, human-tethered development flow that preserves engineer understand
 File purposes:
 - docs/analysis/repo_analysis.md = broad repo understanding
 - docs/prompts/ = reusable workflow prompts grouped by phase
-- docs/plans/<feature_slug>_plan.md = implementation instructions
-- docs/features/<feature_slug>.md = final feature decision record
+- docs/plans/```<feature_slug>```_plan.md = implementation instructions
+- docs/features/```<feature_slug>```.md = final feature decision record
 
 
 ### MORE TO COME 😄

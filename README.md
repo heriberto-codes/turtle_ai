@@ -132,7 +132,7 @@ This loop runs repeatedly until all plan steps are complete.
 
 **🌐 GLOBAL RULES**
 
-    Current Step Detector Pattern
+**Current Step Detector Pattern**
 
     Use the plan file as the source of truth for workflow state:
 
@@ -169,9 +169,7 @@ This loop runs repeatedly until all plan steps are complete.
     Use the CURRENT STEP DETECTOR PATTERN to derive workflow state from:
     docs/plans/<feature_slug>_plan.md
 
-    ***
-
-    🔒 Step State Invariant (CRITICAL)
+**Step State Invariant (CRITICAL)**
 
     Throughout the execution loop:
 
@@ -188,9 +186,7 @@ This loop runs repeatedly until all plan steps are complete.
 
     Violation of this rule breaks workflow state consistency.
 
-    ***
-
-    ⚠️ Debug Routing Rule:
+**Debug Routing Rule**
     DEBUG does NOT automatically mean "fix the code".
 
     Always route based on root cause:
@@ -211,9 +207,7 @@ This loop runs repeatedly until all plan steps are complete.
 
     Never fix the wrong layer.
 
-    ***
-
-    🔁 CORE EXECUTION LOOP (Step-by-Step)
+**4️⃣ 🔁 CORE EXECUTION LOOP (Step-by-Step)**
     This loop runs repeatedly until all plan steps are complete.
 
     1. EXECUTE — implement one scoped step

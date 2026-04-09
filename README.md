@@ -29,26 +29,26 @@ A structured, human-tethered development flow that preserves engineer understand
 **🚀 How to Use Turtle AI (Quick Start)**
 
     1️⃣ Run FOUNDATION once:
-    - AGENTS
-    - ARCHITECTURE
-    - REPO_MAP
+    AGENTS
+    ARCHITECTURE
+    REPO_MAP
 
     2️⃣ Choose or generate work:
-    - IDEATE (optional)
-    - BACKLOG (select a feature)
+    IDEATE (optional)
+    BACKLOG (select a feature)
 
     3️⃣ Understand the system (if needed):
-    - ANALYZE
+    ANALYZE
 
     4️⃣ Plan the feature:
-    - PLAN → creates docs/plans/<feature_slug>_plan.md
+    PLAN → creates docs/plans/<feature_slug>_plan.md
 
     5️⃣ Run the IMPLEMENTATION LOOP until complete:
-    - EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
-    - Repeat until no unchecked steps remain
+    EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
+    Repeat until no unchecked steps remain
 
     6️⃣ Finalize:
-    - SECURITY → PERFORMANCE → BACKLOG UPDATE → DOCUMENT → COMMIT
+    SECURITY → PERFORMANCE → BACKLOG UPDATE → DOCUMENT → COMMIT
 ---
 
 **🧱 FOUNDATION (Static Context)**

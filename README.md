@@ -226,7 +226,7 @@ This loop runs repeatedly until all plan steps are complete.
 
 ***
 
-**📂 FOLDER STRUCTURE**
+**📂 FOLDER STRUCTURE** 
     project-root
     │
     ├── agents.md

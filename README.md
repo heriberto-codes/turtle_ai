@@ -1,5 +1,5 @@
 ## 🐢 🐢 Turtle AI 🐢 🐢
-
+***
 >Go slower. Understand more. Break less.
 
 Turtle AI is a human-tethered AI coding workflow designed to preserve engineer understanding codebase context, and long-term ownership.
@@ -22,13 +22,37 @@ Instead, Turtle AI ensures:
 - the system stays aligned with real architecture
 - knowledge compounds instead of decays
 
->Turtle AI is not about writing less code. 
->It is about retaining control while using AI to move faster — safely.
+>Turtle AI is not about writing less code. It is about retaining control while using AI to move faster — safely.
+
+## 🧠 Turtle AI Workflow
 
 ***
-## 🧠 Turtle AI Workflow Phases
 
 A structured, human-tethered development flow that preserves engineer understanding while leveraging AI.
+
+**🚀 How to Use Turtle AI (Quick Start)**
+
+    1️⃣ Run FOUNDATION once:
+    - AGENTS
+    - ARCHITECTURE
+    - REPO_MAP
+
+    2️⃣ Choose or generate work:
+    - IDEATE (optional)
+    - BACKLOG (select a feature)
+
+    3️⃣ Understand the system (if needed):
+    - ANALYZE
+
+    4️⃣ Plan the feature:
+    - PLAN → creates docs/plans/<feature_slug>_plan.md
+
+    5️⃣ Run the IMPLEMENTATION LOOP until complete:
+    - EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
+    - Repeat until no unchecked steps remain
+
+    6️⃣ Finalize:
+    - SECURITY → PERFORMANCE → BACKLOG UPDATE → DOCUMENT → COMMIT
 
 **🧱 FOUNDATION (Static Context)**
 

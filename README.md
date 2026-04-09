@@ -132,99 +132,99 @@ This loop runs repeatedly until all plan steps are complete.
 
 **🌐 GLOBAL RULES**
 
-Current Step Detector Pattern
+    Current Step Detector Pattern
 
-Use the plan file as the source of truth for workflow state:
+    Use the plan file as the source of truth for workflow state:
 
-`docs/plans/<feature_slug>_plan.md`
+    `docs/plans/<feature_slug>_plan.md`
 
-Step state rules
-- The **active loop step** = the first unchecked step:
-  - `- [ ]`
-- The **last completed step** = the most recently checked step:
-  - the last `- [x]`
-- The **plan is complete** when no unchecked steps remain
+    Step state rules
+    - The **active loop step** = the first unchecked step:
+    - `- [ ]`
+    - The **last completed step** = the most recently checked step:
+    - the last `- [x]`
+    - The **plan is complete** when no unchecked steps remain
 
-Detection rules
+    Detection rules
 
-Every prompt that needs step state must determine it from the plan file instead of asking for manual step input.
+    Every prompt that needs step state must determine it from the plan file instead of asking for manual step input.
 
-Use this pattern:
-1. Read `docs/plans/<feature_slug>_plan.md`
-2. Find all checklist items
-3. For EXECUTE, VERIFY, ENGINEER CHECKPOINT, TEST, and DEBUG on active work:
-   - use the first unchecked step `- [ ]`
-4. For prompts that operate on already-completed work after loop completion:
-   - use the most recently checked step `- [x]`
-5. If no unchecked steps remain:
-   - treat the plan as complete
-   - stop or move to FINALIZATION as appropriate
+    Use this pattern:
+    1. Read `docs/plans/<feature_slug>_plan.md`
+    2. Find all checklist items
+    3. For EXECUTE, VERIFY, ENGINEER CHECKPOINT, TEST, and DEBUG on active work:
+    - use the first unchecked step `- [ ]`
+    4. For prompts that operate on already-completed work after loop completion:
+    - use the most recently checked step `- [x]`
+    5. If no unchecked steps remain:
+    - treat the plan as complete
+    - stop or move to FINALIZATION as appropriate
 
-Manual input rule
-- Do NOT ask for `current step name or number` if it can be derived from the plan file
-- The plan file is the single source of truth for step progression
+    Manual input rule
+    - Do NOT ask for `current step name or number` if it can be derived from the plan file
+    - The plan file is the single source of truth for step progression
 
-🗄️ STATE MODEL:
-This workflow is plan-driven. The plan file controls all execution state.
-Use the CURRENT STEP DETECTOR PATTERN to derive workflow state from:
-docs/plans/<feature_slug>_plan.md
+    🗄️ STATE MODEL:
+    This workflow is plan-driven. The plan file controls all execution state.
+    Use the CURRENT STEP DETECTOR PATTERN to derive workflow state from:
+    docs/plans/<feature_slug>_plan.md
 
-***
+    ***
 
-🔒 Step State Invariant (CRITICAL)
+    🔒 Step State Invariant (CRITICAL)
 
-Throughout the execution loop:
+    Throughout the execution loop:
 
-- The active step ALWAYS remains unchecked (- [ ])
-- A step is ONLY marked complete (- [x]) after:
-  EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed)
+    - The active step ALWAYS remains unchecked (- [ ])
+    - A step is ONLY marked complete (- [x]) after:
+    EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed)
 
-This means:
-- EXECUTE, VERIFY, ENGINEER CHECKPOINT, and TEST ALL operate on:
-  → the FIRST unchecked step (- [ ])
+    This means:
+    - EXECUTE, VERIFY, ENGINEER CHECKPOINT, and TEST ALL operate on:
+    → the FIRST unchecked step (- [ ])
 
-- PLAN STEP UPDATE is the ONLY step allowed to:
-  → change [ ] → [x]
+    - PLAN STEP UPDATE is the ONLY step allowed to:
+    → change [ ] → [x]
 
-Violation of this rule breaks workflow state consistency.
+    Violation of this rule breaks workflow state consistency.
 
-***
+    ***
 
-⚠️ Debug Routing Rule:
-DEBUG does NOT automatically mean "fix the code".
+    ⚠️ Debug Routing Rule:
+    DEBUG does NOT automatically mean "fix the code".
 
-Always route based on root cause:
-→ EXECUTE (DEBUG FIX) — code issue
-→ EXECUTE (VERIFY FIX MODE) — plan mismatch
-→ TEST — test issue
+    Always route based on root cause:
+    → EXECUTE (DEBUG FIX) — code issue
+    → EXECUTE (VERIFY FIX MODE) — plan mismatch
+    → TEST — test issue
 
-Always fix the correct layer. Never mix layers.
+    Always fix the correct layer. Never mix layers.
 
-┌─────────────────────────────────────────────────────┐
-│ Root Cause              → Route To                  │
-├─────────────────────────────────────────────────────┤
-│ Code is wrong           → EXECUTE (DEBUG FIX)       │
-│ Code doesn't match plan → EXECUTE (VERIFY FIX MODE) │
-│ Tests are wrong         → TEST                      │
-│ Unclear / mixed         → EXECUTE (DEBUG FIX)       │
-└─────────────────────────────────────────────────────┘
+    ┌─────────────────────────────────────────────────────┐
+    │ Root Cause              → Route To                  │
+    ├─────────────────────────────────────────────────────┤
+    │ Code is wrong           → EXECUTE (DEBUG FIX)       │
+    │ Code doesn't match plan → EXECUTE (VERIFY FIX MODE) │
+    │ Tests are wrong         → TEST                      │
+    │ Unclear / mixed         → EXECUTE (DEBUG FIX)       │
+    └─────────────────────────────────────────────────────┘
 
-Never fix the wrong layer.
+    Never fix the wrong layer.
 
-***
+    ***
 
-🔁 CORE EXECUTION LOOP (Step-by-Step)
-This loop runs repeatedly until all plan steps are complete.
+    🔁 CORE EXECUTION LOOP (Step-by-Step)
+    This loop runs repeatedly until all plan steps are complete.
 
-1. EXECUTE — implement one scoped step
-2. VERIFY — review correctness and scope
-3. ENGINEER CHECKPOINT — confirm understanding
-4. TEST — validate behavior
-5. DEBUG — only if something fails
-6. PLAN STEP UPDATE (REQUIRED) ✅
-   - This step is NOT optional
-   - MUST run after every successful loop
-   - A step is NOT complete until this executes
+    1. EXECUTE — implement one scoped step
+    2. VERIFY — review correctness and scope
+    3. ENGINEER CHECKPOINT — confirm understanding
+    4. TEST — validate behavior
+    5. DEBUG — only if something fails
+    6. PLAN STEP UPDATE (REQUIRED) ✅
+    - This step is NOT optional
+    - MUST run after every successful loop
+    - A step is NOT complete until this executes
 
 ***
 

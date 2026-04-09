@@ -1,5 +1,4 @@
 ## 🐢 🐢 Turtle AI 🐢 🐢
-***
 >Go slower. Understand more. Break less.
 
 Turtle AI is a human-tethered AI coding workflow designed to preserve engineer understanding codebase context, and long-term ownership.
@@ -26,8 +25,6 @@ Instead, Turtle AI ensures:
 
 ## 🧠 Turtle AI Workflow
 
-***
-
 A structured, human-tethered development flow that preserves engineer understanding while leveraging AI.
 
 **🚀 How to Use Turtle AI (Quick Start)**
@@ -53,6 +50,7 @@ A structured, human-tethered development flow that preserves engineer understand
 
     6️⃣ Finalize:
     - SECURITY → PERFORMANCE → BACKLOG UPDATE → DOCUMENT → COMMIT
+---
 
 **🧱 FOUNDATION (Static Context)**
 
@@ -64,68 +62,173 @@ A structured, human-tethered development flow that preserves engineer understand
     Defines how the system is structured and what patterns should be preserved.
 
     3️⃣ REPO_MAP
-    High-level navigation of the repo, protected paths, critical modules,  
-    and important file locations.
+    High-level navigation of the repo, protected paths, critical modules, and important file locations.
 
 **💡 DISCOVERY (Problem + Opportunity)**
 
-    4️⃣ IDEATE  
+    4️⃣ IDEATE
     What should we build?
 
-    5️⃣ BACKLOG  
+    5️⃣ BACKLOG
     Store and track feature ideas in: docs/backlog.md
 
-    6️⃣ ANALYZE  
-    AI learns the repository. Why this matters: Without it,  
-    AI re-learns the repo every task
+    6️⃣ ANALYZE
+    AI learns the repository. Why this matters: without it, AI re-learns the repo every task.
+
 
 **🧭 PLANNING (Architecture + Scope)**
 
-    7️⃣ PLAN  
+    7️⃣ PLAN
     Architect chosen feature → docs/plans/<feature_slug>_plan.md
 
-**⚙️ IMPLEMENTATION LOOP (Controlled Development)**
+**⚙️ IMPLEMENTATION LOOP (Controlled Development Step-by-Step)**
+This loop runs repeatedly until all plan steps are complete.
 
-    8️⃣ EXECUTE  
-    Implement ONLY the next unchecked task from PLAN   
+    8️⃣ EXECUTE
+    Implement only the next unchecked task from the plan
 
-    9️⃣ VERIFY  
-    AI performs code review 
+    9️⃣ VERIFY
+    AI performs code review of correctness and scope
 
     🔟 ENGINEER CHECKPOINT
     Engineer comprehension checkpoint
 
-    1️⃣1️⃣ TEST  
-    Write or update tests for the current task  
+    1️⃣1️⃣ TEST
+    Two-phase step:
 
-    1️⃣2️⃣ DEBUG  
-    Conditional step only run when EXECUTE, VERIFY, CHECKPOINT,  
-    or TEST reveals problems. 
+    A. TEST REVIEW
+    - Determine the smallest correct set of tests required for the current active plan step
 
-    🔄 LOOP
-    Repeat: EXECUTE ➡️ VERIFY ➡️ ENGINEER CHECKPOINT ➡️ TEST ➡️ DEBUG
+    B. TEST IMPLEMENTATION
+    - Implement ONLY the tests identified in TEST REVIEW
+
+    1️⃣2️⃣ DEBUG
+    Diagnose issues and route fixes to the correct layer (EXECUTE or TEST) only if something fails
+
+    PLAN STEP UPDATE (REQUIRED) ✅
+    This step is NOT optional. MUST run after every successful loop. A step is NOT complete until this executes
+
 
 **🛡️ HARDENING (Quality Gates)**
 
-    1️⃣3️⃣ SECURITY  
+    1️⃣3️⃣ SECURITY
     Run focused security review for new or changed behavior
 
-    1️⃣4️⃣ PERFORMANCE  
-    Run targeted performance review
+    1️⃣4️⃣ PERFORMANCE
+    Run targeted performance review when the feature affects performance-sensitive paths
 
 **🚀 FINALIZATION (Ship + Record)**
 
-    1️⃣5️⃣ BACKLOG UPDATE  
+    1️⃣5️⃣ BACKLOG UPDATE
     Mark feature complete
 
-    1️⃣6️⃣ DOCUMENT  
-    Capture architectural decisions inside the repo  
-    Note: Run AFTER feature is complete not after every step
+    1️⃣6️⃣ DOCUMENT
+    Capture architectural decisions inside the repo
+    Note: Run after the feature is complete, not after every step
 
-    1️⃣7️⃣ COMMIT  
-    Prepare commit message only 
+    1️⃣7️⃣ COMMIT
+    Prepare commit message only
 
 ***
+
+**🌐 GLOBAL RULES**
+
+Current Step Detector Pattern
+
+Use the plan file as the source of truth for workflow state:
+
+`docs/plans/<feature_slug>_plan.md`
+
+Step state rules
+- The **active loop step** = the first unchecked step:
+  - `- [ ]`
+- The **last completed step** = the most recently checked step:
+  - the last `- [x]`
+- The **plan is complete** when no unchecked steps remain
+
+Detection rules
+
+Every prompt that needs step state must determine it from the plan file instead of asking for manual step input.
+
+Use this pattern:
+1. Read `docs/plans/<feature_slug>_plan.md`
+2. Find all checklist items
+3. For EXECUTE, VERIFY, ENGINEER CHECKPOINT, TEST, and DEBUG on active work:
+   - use the first unchecked step `- [ ]`
+4. For prompts that operate on already-completed work after loop completion:
+   - use the most recently checked step `- [x]`
+5. If no unchecked steps remain:
+   - treat the plan as complete
+   - stop or move to FINALIZATION as appropriate
+
+Manual input rule
+- Do NOT ask for `current step name or number` if it can be derived from the plan file
+- The plan file is the single source of truth for step progression
+
+🗄️ STATE MODEL:
+This workflow is plan-driven. The plan file controls all execution state.
+Use the CURRENT STEP DETECTOR PATTERN to derive workflow state from:
+docs/plans/<feature_slug>_plan.md
+
+***
+
+🔒 Step State Invariant (CRITICAL)
+
+Throughout the execution loop:
+
+- The active step ALWAYS remains unchecked (- [ ])
+- A step is ONLY marked complete (- [x]) after:
+  EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed)
+
+This means:
+- EXECUTE, VERIFY, ENGINEER CHECKPOINT, and TEST ALL operate on:
+  → the FIRST unchecked step (- [ ])
+
+- PLAN STEP UPDATE is the ONLY step allowed to:
+  → change [ ] → [x]
+
+Violation of this rule breaks workflow state consistency.
+
+***
+
+⚠️ Debug Routing Rule:
+DEBUG does NOT automatically mean "fix the code".
+
+Always route based on root cause:
+→ EXECUTE (DEBUG FIX) — code issue
+→ EXECUTE (VERIFY FIX MODE) — plan mismatch
+→ TEST — test issue
+
+Always fix the correct layer. Never mix layers.
+
+┌─────────────────────────────────────────────────────┐
+│ Root Cause              → Route To                  │
+├─────────────────────────────────────────────────────┤
+│ Code is wrong           → EXECUTE (DEBUG FIX)       │
+│ Code doesn't match plan → EXECUTE (VERIFY FIX MODE) │
+│ Tests are wrong         → TEST                      │
+│ Unclear / mixed         → EXECUTE (DEBUG FIX)       │
+└─────────────────────────────────────────────────────┘
+
+Never fix the wrong layer.
+
+***
+
+🔁 CORE EXECUTION LOOP (Step-by-Step)
+This loop runs repeatedly until all plan steps are complete.
+
+1. EXECUTE — implement one scoped step
+2. VERIFY — review correctness and scope
+3. ENGINEER CHECKPOINT — confirm understanding
+4. TEST — validate behavior
+5. DEBUG — only if something fails
+6. PLAN STEP UPDATE (REQUIRED) ✅
+   - This step is NOT optional
+   - MUST run after every successful loop
+   - A step is NOT complete until this executes
+
+***
+
 **📂 FOLDER STRUCTURE**
 
     project-root

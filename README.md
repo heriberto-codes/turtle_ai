@@ -227,50 +227,63 @@ This loop runs repeatedly until all plan steps are complete.
 ***
 
 **📂 FOLDER STRUCTURE**
-
     project-root
     │
     ├── agents.md
     ├── architecture.md
     ├── repo_map.md
-    ├── docs
-    │   ├── analysis
+    │
+    ├── prompts/
+    │   ├── foundation/
+    │   │   ├── agents_prompt.md
+    │   │   ├── architecture_prompt.md
+    │   │   └── repo_map_prompt.md
+    │   │
+    │   ├── discovery/
+    │   │   ├── ideate_prompt.md
+    │   │   ├── backlog_prompt.md
+    │   │   └── analyze_prompt.md
+    │   │
+    │   ├── planning/
+    │   │   └── plan_prompt.md
+    │   │
+    │   ├── loop/
+    │   │   ├── execute_prompt.md
+    │   │   ├── verify_prompt.md
+    │   │   ├── engineer_checkpoint_prompt.md
+    │   │   ├── test_prompt.md
+    │   │   ├── debug_prompt.md
+    │   │   └── plan_step_update_prompt.md
+    │   │
+    │   ├── hardening/
+    │   │   ├── security_prompt.md
+    │   │   └── performance_prompt.md
+    │   │
+    │   └── finalization/
+    │       ├── backlog_update_prompt.md
+    │       ├── document_prompt.md
+    │       └── commit_prompt.md
+    │
+    ├── docs/
+    │   ├── analysis/
     │   │   └── repo_analysis.md
-    │   ├── prompts
-    │   │   ├── foundation
-    │   │   │   ├── agents_prompt.md
-    │   │   │   ├── architecture_prompt.md
-    │   │   │   └── repo_map_prompt.md
-    │   │   ├── discovery
-    │   │   │   ├── ideate_prompt.md
-    │   │   │   ├── backlog_prompt.md
-    │   │   │   └── analyze_prompt.md
-    │   │   ├── planning
-    │   │   │   └── plan_prompt.md
-    │   │   ├── loop
-    │   │   │   ├── execute_prompt.md
-    │   │   │   ├── verify_prompt.md
-    │   │   │   ├── engineer_checkpoint_prompt.md
-    │   │   │   ├── test_prompt.md
-    │   │   │   └── debug_prompt.md
-    │   │   ├── hardening
-    │   │   │   ├── security_prompt.md
-    │   │   │   └── performance_prompt.md
-    │   │   └── finalization
-    │   │       ├── backlog_update_prompt.md
-    │   │       ├── document_prompt.md
-    │   │       └── commit_prompt.md
+    │   │
+    │   ├── system/
+    │   │   └── current_step_detector.md
+    │   │
     │   ├── backlog.md
-    │   ├── plans
+    │   │
+    │   ├── plans/
     │   │   └── <feature_slug>_plan.md
-    │   └── features
+    │   │
+    │   └── features/
     │       └── <feature_slug>.md
 
-File purposes:
-- docs/analysis/repo_analysis.md = broad repo understanding
-- docs/prompts/ = reusable workflow prompts grouped by phase
-- docs/plans/```<feature_slug>```_plan.md = implementation instructions
-- docs/features/```<feature_slug>```.md = final feature decision record
-
+Folder purposes:
+- prompts/ = reusable workflow behavior
+- docs/analysis/ = repo understanding
+- docs/system/ = shared workflow rules
+- docs/plans/ = active feature execution state
+- docs/features/ = final feature records
 
 ### MORE TO COME 😄

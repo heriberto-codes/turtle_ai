@@ -61,7 +61,8 @@ A structured, human-tethered development flow that preserves engineer understand
     Defines how the system is structured and what patterns should be preserved.
 
     3️⃣ REPO_MAP
-    High-level navigation of the repo, protected paths, critical modules, and important file locations.
+    High-level navigation of the repo, protected paths, critical modules,  
+    and important file locations.
 
 **💡 DISCOVERY (Problem + Opportunity)**
 
@@ -102,10 +103,12 @@ This loop runs repeatedly until all plan steps are complete.
     - Implement ONLY the tests identified in TEST REVIEW
 
     1️⃣2️⃣ DEBUG
-    Diagnose issues and route fixes to the correct layer (EXECUTE or TEST) only if something fails
+    Diagnose issues and route fixes to the correct layer (EXECUTE or TEST). 
+    only if something fails
 
     PLAN STEP UPDATE (REQUIRED) ✅
-    This step is NOT optional. MUST run after every successful loop. A step is NOT complete until this executes
+    This step is NOT optional. MUST run after every successful loop.  
+    A step is NOT complete until this executes
 
 
 **🛡️ HARDENING (Quality Gates)**
@@ -147,7 +150,8 @@ This loop runs repeatedly until all plan steps are complete.
 
     Detection rules
 
-    Every prompt that needs step state must determine it from the plan file instead of asking for manual step input.
+    Every prompt that needs step state must determine. 
+    it from the plan file instead of asking for manual step input.
 
     Use this pattern:
     1. Read docs/plans/<feature_slug>_plan.md

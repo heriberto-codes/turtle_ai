@@ -1,5 +1,4 @@
 ## 🐢 🐢 Turtle AI 🐢 🐢
-
 >Go slower. Understand more. Break less.
 
 Turtle AI is a human-tethered AI coding workflow designed to preserve engineer understanding codebase context, and long-term ownership.
@@ -25,7 +24,6 @@ Instead, Turtle AI ensures:
 >Turtle AI is not about writing less code. It is about retaining control while using AI to move faster — safely.
 
 ## 🧠 Turtle AI Workflow
-
 A structured, human-tethered development flow that preserves engineer understanding while leveraging AI.
 
 **🚀 How to Use Turtle AI (Quick Start)**

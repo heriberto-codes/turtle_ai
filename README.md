@@ -136,32 +136,32 @@ This loop runs repeatedly until all plan steps are complete.
 
     Use the plan file as the source of truth for workflow state:
 
-    `docs/plans/<feature_slug>_plan.md`
+    docs/plans/<feature_slug>_plan.md
 
     Step state rules
-    - The **active loop step** = the first unchecked step:
-    - `- [ ]`
-    - The **last completed step** = the most recently checked step:
-    - the last `- [x]`
-    - The **plan is complete** when no unchecked steps remain
+    - The active loop step = the first unchecked step:
+    - - [ ]
+    - The last completed step = the most recently checked step:
+    - the last - [x]
+    - The plan is complete when no unchecked steps remain
 
     Detection rules
 
     Every prompt that needs step state must determine it from the plan file instead of asking for manual step input.
 
     Use this pattern:
-    1. Read `docs/plans/<feature_slug>_plan.md`
+    1. Read docs/plans/<feature_slug>_plan.md
     2. Find all checklist items
     3. For EXECUTE, VERIFY, ENGINEER CHECKPOINT, TEST, and DEBUG on active work:
-    - use the first unchecked step `- [ ]`
+    - use the first unchecked step - [ ]
     4. For prompts that operate on already-completed work after loop completion:
-    - use the most recently checked step `- [x]`
+    - use the most recently checked step - [x]
     5. If no unchecked steps remain:
     - treat the plan as complete
     - stop or move to FINALIZATION as appropriate
 
     Manual input rule
-    - Do NOT ask for `current step name or number` if it can be derived from the plan file
+    - Do NOT ask for current step name or number if it can be derived from the plan file
     - The plan file is the single source of truth for step progression
 
     🗄️ STATE MODEL:

@@ -57,6 +57,18 @@ Step rules
 - each step independently implementable
 - reference files
 - small, reviewable diffs
+- EVERY step MUST use markdown checkbox format: - [ ]
+- Do NOT use numbered lists or plain bullets
+- If any step is not in checkbox format, the plan is invalid
+- order steps in the sequence they should be completed
+
+Plan completion rule
+Mark a plan step [x] only after it has passed:
+- EXECUTE
+- VERIFY
+- ENGINEER CHECKPOINT
+- TEST
+- DEBUG (if needed)
 
 Constraints
 - no new frameworks
@@ -65,9 +77,14 @@ Constraints
 
 Output style
 - extremely concise
+- the Step-by-step plan section must use markdown checkboxes
 
 Include:
 Assumptions
 Unresolved questions
+
+Validation rule:
+- The Step-by-step plan must contain ONLY checklist items (- [ ])
+- No numbered steps allowed
 
 Do NOT write code.

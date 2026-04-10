@@ -6,20 +6,19 @@ Modes:
 
 --------------------------------------------------
 
-A. Normal Execute
+## A. Normal Execute
 
-## When to use
+### When to use
 Use when implementing the next unchecked plan step for the first time.
 
-## Inputs required
+### Inputs required
 - feature slug
-- current plan step
 - docs/plans/<feature_slug>_plan.md
 - architecture.md
 - repo_map.md
 - relevant existing code
 
-## Output expected
+### Output expected
 - code changes for one scoped step only
 - list of modified files
 - short implementation summary
@@ -33,6 +32,21 @@ You are a Staff Software Engineer implementing a scoped task.
 Task
 Implement ONLY the next unchecked step from:
 docs/plans/<feature_slug>_plan.md
+
+Current step detection (REQUIRED):
+
+- Read docs/plans/<feature_slug>_plan.md
+- Identify the FIRST unchecked step (- [ ])
+- This is the ONLY step allowed for implementation
+- Do NOT ask the user for step input
+
+Fail-safe (CRITICAL):
+- Before proceeding, scan docs/plans/<feature_slug>_plan.md for unchecked steps (- [ ])
+- If NO unchecked steps exist:
+  - STOP immediately
+  - Output exactly:
+    "No remaining unchecked steps. Execution is complete. Proceed to FINALIZATION."
+- Do NOT implement anything if all steps are already marked [x]
 
 Before coding:
 - Read architecture.md
@@ -48,6 +62,9 @@ Execution Rules (STRICT):
 - Do NOT solve future steps
 - Follow existing repo conventions exactly
 - Keep changes minimal and reversible
+- The current step MUST remain unchecked (- [ ])
+- Do NOT modify plan state (no [ ] → [x])
+- Plan state changes are handled ONLY by PLAN STEP UPDATE
 
 Output Requirements:
 1. Files changed
@@ -75,14 +92,13 @@ When the step is complete:
 
 --------------------------------------------------
 
-B. Execute — Verify Fix Mode
+## B. Execute — Verify Fix Mode
 
-## When to use
+### When to use
 Use only when VERIFY returns FAIL and the current plan step needs follow-up fixes.
 
-## Inputs required
+### Inputs required
 - feature slug
-- current plan step
 - docs/plans/<feature_slug>_plan.md
 - agents.md
 - architecture.md
@@ -90,7 +106,7 @@ Use only when VERIFY returns FAIL and the current plan step needs follow-up fixe
 - latest VERIFY findings
 - files changed in last EXECUTE
 
-## Output expected
+### Output expected
 - scoped code fixes for the current step only
 - summary of fixes
 - modified files
@@ -107,10 +123,23 @@ You are a Staff Software Engineer implementing follow-up fixes after a VERIFY re
 Task
 Address all issues identified in the latest VERIFY step for the current feature and current plan step only.
 
+Fail-safe (CRITICAL):
+- Before proceeding, scan docs/plans/<feature_slug>_plan.md for unchecked steps (- [ ])
+- If NO unchecked steps exist:
+  - STOP immediately
+  - Output exactly:
+    "No remaining unchecked steps. Execution is complete. Proceed to FINALIZATION."
+- Do NOT implement anything if all steps are already marked [x]
+
 Context
 - Feature: <feature_slug>
 - Plan file: docs/plans/<feature_slug>_plan.md
-- Current step: <step_number_or_name>
+
+Current step detection (REQUIRED):
+- Read docs/plans/<feature_slug>_plan.md
+- Identify the FIRST unchecked step (- [ ])
+- This is the step being fixed
+- Do NOT rely on manual step input
 
 VERIFY findings
 <paste VERIFY output here>

@@ -190,6 +190,7 @@ This loop runs repeatedly until all plan steps are complete.
 
     Violation of this rule breaks workflow state consistency.
 
+
 **Debug Routing Rule**
     DEBUG does NOT automatically mean "fix the code".
 
@@ -211,7 +212,29 @@ This loop runs repeatedly until all plan steps are complete.
 
     Never fix the wrong layer.
 
-**4️⃣ 🔁 CORE EXECUTION LOOP (Step-by-Step)**
+**Engineer Checkpoint Rule (CRITICAL)**
+
+    ENGINEER CHECKPOINT is a required comprehension gate before moving forward.
+
+    The engineer must be able to:
+    - explain what was implemented
+    - explain why it works
+    - explain how it fits into the system
+
+    If the engineer cannot confidently answer:
+    - STOP the workflow
+    - do NOT proceed to TEST or PLAN STEP UPDATE
+    - revisit the implementation
+
+    Rules:
+    - This step enforces understanding, not correctness
+    - Passing VERIFY does NOT guarantee passing ENGINEER CHECKPOINT
+    - The engineer is the source of truth, not the AI
+
+    Purpose:
+    Prevent passive approval of code and ensure long-term ownership of the system.
+
+**🔁 CORE EXECUTION LOOP (Step-by-Step)**
     This loop runs repeatedly until all plan steps are complete.
 
     1. EXECUTE — implement one scoped step

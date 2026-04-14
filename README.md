@@ -1,25 +1,32 @@
 ## 🐢 🐢 Turtle AI 🐢 🐢
 >Go slower. Understand more. Break less.
 
-Turtle AI is a human-tethered AI coding workflow designed to preserve engineer understanding codebase context, and long-term ownership.
+Turtle AI is an AI coding workflow where progress is gated by engineer comprehension, not just code generation.
 
-Modern AI coding tools optimize for speed — but speed without understanding leads to fragile systems, hidden assumptions, and engineers who gradually lose control of their own codebase.
+It is designed to preserve engineer understanding, codebase context, and long-term ownership while still using AI to move faster.
 
-Turtle AI solves this by slowing AI down just enough to keep the engineer fully engaged in every decision.
+Most AI coding tools optimize for speed. Turtle AI optimizes for control.
 
-It introduces a structured loop where:
-- changes are small and intentional
-- every step is reviewed before moving forward
-- the engineer must actively explain and validate the system
+Its key distinction is the **⚙️ IMPLEMENTATION LOOP (Controlled Development Step-by-Step)**:
+
+`EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG → PLAN STEP UPDATE`
+
+At the center of that loop is **ENGINEER CHECKPOINT**.
+
+This is the comprehension gate. Before work can move forward, the engineer must be able to explain:
+- what was implemented
+- why it works
+- how it fits into the system
+
+That changes the role of AI completely.
+
+Instead of turning the engineer into a passive reviewer, Turtle AI keeps the engineer as the source of truth and uses AI as a constrained implementation partner.
 
 This prevents the most common failure mode of AI-assisted development:
 
-➡️ the engineer becoming a passive reviewer of code they don’t fully understand
+➡️ the engineer gradually losing real understanding of their own codebase
 
-Instead, Turtle AI ensures:
-- the engineer remains the source of truth
-- the system stays aligned with real architecture
-- knowledge compounds instead of decays
+Turtle AI keeps changes small, reviewable, and aligned with actual architecture so knowledge compounds instead of decays.
 
 >Turtle AI is not about writing less code. It is about retaining control while using AI to move faster — safely.
 
@@ -309,4 +316,3 @@ Folder purposes:
 - docs/system/ = shared workflow rules
 - docs/plans/ = active feature execution state
 - docs/features/ = final feature records
-

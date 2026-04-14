@@ -1,8 +1,7 @@
 ## 🐢 🐢 Turtle AI 🐢 🐢
 >Go slower. Understand more. Break less.
 
-Turtle AI is an AI coding workflow where progress is gated by engineer comprehension, not just code generation.
-It is designed to preserve engineer understanding, codebase context, and long-term ownership while still using AI to move faster. Most AI coding tools optimize for speed. Turtle AI optimizes for control.
+Turtle AI is an AI coding workflow where progress is gated by engineer comprehension, not just code generation. It is designed to preserve engineer understanding, codebase context, and long-term ownership while still using AI to move faster. Most AI coding tools optimize for speed. Turtle AI optimizes for control.
 
 Its key distinction is the **⚙️ IMPLEMENTATION LOOP (Controlled Development Step-by-Step)**:
 

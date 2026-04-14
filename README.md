@@ -22,7 +22,6 @@ This prevents the most common failure mode of AI-assisted development: `the engi
 Turtle AI keeps changes small, reviewable, and aligned with actual architecture so knowledge compounds instead of decays.
 
 ## 🧠 Turtle AI Workflow
-A structured, human-tethered development flow that preserves engineer understanding while leveraging AI.
 
 **🚀 How to Use Turtle AI (Quick Start)**
 
@@ -112,6 +111,8 @@ Folder purposes:
 - docs/features/ = final feature records
 
 ---
+
+**⚙️ SKILLS / PROMPTS**
 
 **🧱 FOUNDATION (Static Context)**
 

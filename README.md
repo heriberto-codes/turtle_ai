@@ -106,29 +106,29 @@ This loop runs repeatedly until all plan steps are complete.
     Diagnose issues and route fixes to the correct layer (EXECUTE or TEST). 
     only if something fails
 
-    PLAN STEP UPDATE (REQUIRED) ✅
+    1️⃣3️⃣ PLAN STEP UPDATE (REQUIRED) ✅
     This step is NOT optional. MUST run after every successful loop.  
     A step is NOT complete until this executes
 
 
 **🛡️ HARDENING (Quality Gates)**
 
-    1️⃣3️⃣ SECURITY
+    1️⃣4️⃣ SECURITY
     Run focused security review for new or changed behavior
 
-    1️⃣4️⃣ PERFORMANCE
+    1️⃣5️⃣ PERFORMANCE
     Run targeted performance review when the feature affects performance-sensitive paths
 
 **🚀 FINALIZATION (Ship + Record)**
 
-    1️⃣5️⃣ BACKLOG UPDATE
+    1️⃣6️⃣ BACKLOG UPDATE
     Mark feature complete
 
-    1️⃣6️⃣ DOCUMENT
+    1️⃣7️⃣ DOCUMENT
     Capture architectural decisions inside the repo
     Note: Run after the feature is complete, not after every step
 
-    1️⃣7️⃣ COMMIT
+    1️⃣8️⃣ COMMIT
     Prepare commit message only
 
 ***

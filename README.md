@@ -2,7 +2,7 @@
 >Go slower. Understand more. Break less.
 
 Turtle AI is an AI coding workflow where progress is gated by engineer comprehension, not just code generation.
-It is designed to preserve engineer understanding, codebase context, and long-term ownership while still using AI to move faster.Most AI coding tools optimize for speed. Turtle AI optimizes for control.
+It is designed to preserve engineer understanding, codebase context, and long-term ownership while still using AI to move faster. Most AI coding tools optimize for speed. Turtle AI optimizes for control.
 
 Its key distinction is the **⚙️ IMPLEMENTATION LOOP (Controlled Development Step-by-Step)**:
 
@@ -15,7 +15,7 @@ This is the comprehension gate. Before work can move forward, the engineer must 
 - why it works
 - how it fits into the system
 
-That changes the role of AI completely.Instead of turning the engineer into a passive reviewer, Turtle AI keeps the engineer as the source of truth and uses AI as a constrained implementation partner.
+That changes the role of AI completely. Instead of turning the engineer into a passive reviewer, Turtle AI keeps the engineer as the source of truth and uses AI as a constrained implementation partner.
 
 This prevents the most common failure mode of AI-assisted development: `the engineer gradually losing real understanding of their own codebase`
 
@@ -47,6 +47,70 @@ A structured, human-tethered development flow that preserves engineer understand
 
     6️⃣ Finalize:
     SECURITY → PERFORMANCE → BACKLOG UPDATE → DOCUMENT → COMMIT
+
+---
+
+**📂 FOLDER STRUCTURE** 
+
+    project-root
+    │
+    ├── agents.md
+    ├── architecture.md
+    ├── repo_map.md
+    │
+    ├── prompts/
+    │   ├── foundation/
+    │   │   ├── agents_prompt.md
+    │   │   ├── architecture_prompt.md
+    │   │   └── repo_map_prompt.md
+    │   │
+    │   ├── discovery/
+    │   │   ├── ideate_prompt.md
+    │   │   ├── backlog_prompt.md
+    │   │   └── analyze_prompt.md
+    │   │
+    │   ├── planning/
+    │   │   └── plan_prompt.md
+    │   │
+    │   ├── loop/
+    │   │   ├── execute_prompt.md
+    │   │   ├── verify_prompt.md
+    │   │   ├── engineer_checkpoint_prompt.md
+    │   │   ├── test_prompt.md
+    │   │   ├── debug_prompt.md
+    │   │   └── plan_step_update_prompt.md
+    │   │
+    │   ├── hardening/
+    │   │   ├── security_prompt.md
+    │   │   └── performance_prompt.md
+    │   │
+    │   └── finalization/
+    │       ├── backlog_update_prompt.md
+    │       ├── document_prompt.md
+    │       └── commit_prompt.md
+    │
+    ├── docs/
+    │   ├── analysis/
+    │   │   └── repo_analysis.md
+    │   │
+    │   ├── system/
+    │   │   └── current_step_detector.md
+    │   │
+    │   ├── backlog.md
+    │   │
+    │   ├── plans/
+    │   │   └── <feature_slug>_plan.md
+    │   │
+    │   └── features/
+    │       └── <feature_slug>.md
+
+Folder purposes:
+- prompts/ = reusable workflow behavior
+- docs/analysis/ = repo understanding
+- docs/system/ = shared workflow rules
+- docs/plans/ = active feature execution state
+- docs/features/ = final feature records
+
 ---
 
 **🧱 FOUNDATION (Static Context)**
@@ -246,64 +310,3 @@ This loop runs repeatedly until all plan steps are complete.
     - A step is NOT complete until this executes
 
 ***
-
-**📂 FOLDER STRUCTURE** 
-
-    project-root
-    │
-    ├── agents.md
-    ├── architecture.md
-    ├── repo_map.md
-    │
-    ├── prompts/
-    │   ├── foundation/
-    │   │   ├── agents_prompt.md
-    │   │   ├── architecture_prompt.md
-    │   │   └── repo_map_prompt.md
-    │   │
-    │   ├── discovery/
-    │   │   ├── ideate_prompt.md
-    │   │   ├── backlog_prompt.md
-    │   │   └── analyze_prompt.md
-    │   │
-    │   ├── planning/
-    │   │   └── plan_prompt.md
-    │   │
-    │   ├── loop/
-    │   │   ├── execute_prompt.md
-    │   │   ├── verify_prompt.md
-    │   │   ├── engineer_checkpoint_prompt.md
-    │   │   ├── test_prompt.md
-    │   │   ├── debug_prompt.md
-    │   │   └── plan_step_update_prompt.md
-    │   │
-    │   ├── hardening/
-    │   │   ├── security_prompt.md
-    │   │   └── performance_prompt.md
-    │   │
-    │   └── finalization/
-    │       ├── backlog_update_prompt.md
-    │       ├── document_prompt.md
-    │       └── commit_prompt.md
-    │
-    ├── docs/
-    │   ├── analysis/
-    │   │   └── repo_analysis.md
-    │   │
-    │   ├── system/
-    │   │   └── current_step_detector.md
-    │   │
-    │   ├── backlog.md
-    │   │
-    │   ├── plans/
-    │   │   └── <feature_slug>_plan.md
-    │   │
-    │   └── features/
-    │       └── <feature_slug>.md
-
-Folder purposes:
-- prompts/ = reusable workflow behavior
-- docs/analysis/ = repo understanding
-- docs/system/ = shared workflow rules
-- docs/plans/ = active feature execution state
-- docs/features/ = final feature records

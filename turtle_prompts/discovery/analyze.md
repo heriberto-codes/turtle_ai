@@ -1,4 +1,7 @@
-/analyze_prompt
+---
+name: analyze
+description: Explain exactly when this skill should and should not trigger.
+---
 
 ## When to use
 Run when:

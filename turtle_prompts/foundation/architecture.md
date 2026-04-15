@@ -1,4 +1,7 @@
-/architecture_prompt
+---
+name: turtle-architecture
+description: Use this when creating or updating architecture.md to define the system blueprint, including components, data flow, and architectural constraints. Typically used during initial project setup or when the system structure has changed significantly. Do not use for feature planning, implementation, debugging, or testing.
+---
 
 ## When to use
 Use when creating or refreshing the system blueprint for the repository.
@@ -9,6 +12,10 @@ Use when creating or refreshing the system blueprint for the repository.
 - major app components
 - frameworks and services detected in repo
 - known integrations and constraints
+
+## Always read
+- agents.md
+- repo_map.md
 
 ## Output expected
 - `architecture.md`
@@ -25,7 +32,8 @@ This is a living document designed to give agents and engineers a fast, accurate
 
 Before writing:
 - check if architecture.md exists in the project root
-- if it exists, read it and extend/update it
+- if it exists, read it and preserve its structure while extending it incrementally
+- prefer editing existing sections over creating new ones; avoid duplication
 - if it does not exist, create it
 
 Rules
@@ -36,6 +44,10 @@ Rules
 - prefer repository facts over guesses
 - if something is unclear, state it as an assumption or open question
 - only document components that actually exist in the repo
+- do NOT invent architecture, services, or components that do not exist
+- do NOT assume future or planned features are implemented
+- prioritize actual code and repository structure over documentation
+- if architecture.md conflicts with code, treat code as source of truth
 
 Save path:
 architecture.md

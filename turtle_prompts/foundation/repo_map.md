@@ -1,4 +1,7 @@
-/repo_map_prompt
+---
+name: turtle-repo-map
+description: description here
+---
 
 ## When to use
 Use when creating or refreshing a high-level navigation map of the repository.

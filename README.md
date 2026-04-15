@@ -58,34 +58,34 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
     │
     ├── prompts/
     │   ├── foundation/
-    │   │   ├── agents_prompt.md
-    │   │   ├── architecture_prompt.md
-    │   │   └── repo_map_prompt.md
+    │   │   ├── agents.md
+    │   │   ├── architecture.md
+    │   │   └── repo_map.md
     │   │
     │   ├── discovery/
-    │   │   ├── ideate_prompt.md
-    │   │   ├── backlog_prompt.md
-    │   │   └── analyze_prompt.md
+    │   │   ├── ideate.md
+    │   │   ├── backlog.md
+    │   │   └── analyze.md
     │   │
     │   ├── planning/
-    │   │   └── plan_prompt.md
+    │   │   └── plan.md
     │   │
     │   ├── loop/
-    │   │   ├── execute_prompt.md
-    │   │   ├── verify_prompt.md
-    │   │   ├── engineer_checkpoint_prompt.md
-    │   │   ├── test_prompt.md
-    │   │   ├── debug_prompt.md
-    │   │   └── plan_step_update_prompt.md
+    │   │   ├── execute.md
+    │   │   ├── verify.md
+    │   │   ├── engineer_checkpoint.md
+    │   │   ├── test.md
+    │   │   ├── debug.md
+    │   │   └── plan_step_update.md
     │   │
     │   ├── hardening/
-    │   │   ├── security_prompt.md
-    │   │   └── performance_prompt.md
+    │   │   ├── security.md
+    │   │   └── performance.md
     │   │
     │   └── finalization/
-    │       ├── backlog_update_prompt.md
-    │       ├── document_prompt.md
-    │       └── commit_prompt.md
+    │       ├── backlog_update.md
+    │       ├── document.md
+    │       └── commit.md
     │
     ├── docs/
     │   ├── analysis/

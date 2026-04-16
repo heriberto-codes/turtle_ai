@@ -1,10 +1,25 @@
-/debug_prompt
+---
+name: turtle-debug
+description: Use this when diagnosing failures detected in VERIFY, TEST, ENGINEER CHECKPOINT, or runtime validation, and determining the minimal safe fix and correct routing (EXECUTE or TEST). Do not use for planning, feature implementation, or routine changes.
+---
 
 Modes:
 - A = Diagnose the failure and identify the minimal safe fix
 - B = Apply the fix identified in DEBUG mode A
 
 --------------------------------------------------
+
+## Always read
+- agents.md
+- architecture.md
+- repo_map.md
+
+## Before diagnosing
+- read docs/plans/<feature_slug>_plan.md to determine current step
+- review full error output, logs, and failing behavior
+- inspect only relevant code and tests
+- do not modify code in Diagnose mode; this step is read-only
+
 
 ## A. Debug / Diagnose
 
@@ -78,7 +93,7 @@ Never mix layers.
 ---
 
 ### Inputs required
-- feature slug
+- feature_slug
 - docs/plans/<feature_slug>_plan.md
 - full error output
 - logs
@@ -198,8 +213,13 @@ Be concise.
 ### When to use
 Use only after DEBUG mode A identifies the fix.
 
+## Before fixing
+- read DEBUG findings
+- read docs/plans/<feature_slug>_plan.md for current step
+- follow repo patterns from agents.md and architecture.md
+
 ### Inputs required
-- feature slug
+- feature_slug
 - docs/plans/<feature_slug>_plan.md
 - agents.md
 - architecture.md

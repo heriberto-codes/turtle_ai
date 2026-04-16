@@ -52,11 +52,46 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
     project-root
     │
-    ├── agents.md
-    ├── architecture.md
-    ├── repo_map.md
+    ├── .agents/
+    │   └── skills/
+    │       ├── turtle-agents/
+    │       │   └── SKILL.md
+    │       ├── turtle-architecture/
+    │       │   └── SKILL.md
+    │       ├── turtle-repo-map/
+    │       │   └── SKILL.md
+    │       ├── turtle-ideate/
+    │       │   └── SKILL.md
+    │       ├── turtle-backlog/
+    │       │   └── SKILL.md
+    │       ├── turtle-analyze/
+    │       │   └── SKILL.md
+    │       ├── turtle-plan/
+    │       │   └── SKILL.md
+    │       ├── turtle-execute/
+    │       │   └── SKILL.md
+    │       ├── turtle-verify/
+    │       │   └── SKILL.md
+    │       ├── turtle-engineer-checkpoint/
+    │       │   └── SKILL.md
+    │       ├── turtle-test/
+    │       │   └── SKILL.md
+    │       ├── turtle-debug/
+    │       │   └── SKILL.md
+    │       ├── turtle-plan-step-update/
+    │       │   └── SKILL.md
+    │       ├── turtle-security/
+    │       │   └── SKILL.md
+    │       ├── turtle-performance/
+    │       │   └── SKILL.md
+    │       ├── turtle-backlog-update/
+    │       │   └── SKILL.md
+    │       ├── turtle-document/
+    │       │   └── SKILL.md
+    │       └── turtle-commit/
+    │           └── SKILL.md
     │
-    ├── prompts/
+    ├── turtle_prompts/
     │   ├── foundation/
     │   │   ├── agents.md
     │   │   ├── architecture.md
@@ -101,9 +136,14 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
     │   │
     │   └── features/
     │       └── <feature_slug>.md
+    │
+    ├── agents.md
+    ├── architecture.md
+    └── repo_map.md
 
 Folder purposes:
-- prompts/ = reusable workflow behavior
+- .agents/skills/ = Codex skills that execute the Turtle AI workflow
+- turtle_prompts/ = source prompts for each Turtle AI workflow step
 - docs/analysis/ = repo understanding
 - docs/system/ = shared workflow rules
 - docs/plans/ = active feature execution state

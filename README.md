@@ -48,6 +48,54 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 ---
 
+## ⚡ Codex Skills Support
+
+Turtle AI is fully compatible with **Codex Skills**.
+
+This repository includes a complete set of pre-built skills located in:
+
+```
+.agents/skills/
+```
+
+These allow you to run the workflow using simple commands like:
+
+```
+/turtle-plan
+/turtle-execute
+/turtle-verify
+```
+
+### 🛠️ How to Use with Codex
+
+1. Clone this repository
+2. Open it in Codex (or your local Codex-enabled environment)
+3. Ensure the `.agents/skills/` directory is present
+4. Start a session and run any Turtle command:
+   - `/turtle-plan`
+   - `/turtle-execute`
+   - `/turtle-verify`
+   - etc.
+
+Codex will automatically detect and execute the corresponding skill.
+
+> Note: Skills follow a deterministic workflow. Always start with FOUNDATION steps before running the implementation loop.
+
+---
+
+## 🤖 Claude Code Support (Coming Soon)
+
+A version of Turtle AI optimized for **Claude Code** is currently in development.
+
+This will include:
+- Native slash command support
+- Improved multi-step reasoning workflows
+- Enhanced context handling for large repositories
+
+Stay tuned for updates.
+
+---
+
 **📂 TARGET PROJECT STRUCTURE AFTER APPLYING TURTLE AI**
 
 This is the recommended structure a project should have after adopting the Turtle AI workflow. It is not the literal file tree of this repository.

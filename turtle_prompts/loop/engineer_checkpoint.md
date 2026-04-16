@@ -1,6 +1,6 @@
 ---
-name: turtle-engineer_checkpoint
-description: description: Use this to verify the engineer’s understanding of the current plan step after VERIFY passes, via a one-question-at-a-time checkpoint interview with scoring, confidence tracking, and recovery. Do not use for planning, implementation, debugging, or testing.
+name: turtle-engineer-checkpoint
+description: Use this to verify the engineer’s understanding of the current plan step after VERIFY passes, via a one-question-at-a-time checkpoint interview with scoring, confidence tracking, and recovery. Do not use for planning, implementation, debugging, or testing.
 ---
 
 ## When to use
@@ -17,7 +17,6 @@ Use after VERIFY passes to confirm the engineer still understands the current ch
 
 
 ## Current step detection (REQUIRED)
-
 - Read `docs/plans/<feature_slug>_plan.md`
 - Identify the **FIRST unchecked step** `(- [ ])`
 - This is the step being evaluated
@@ -34,7 +33,7 @@ Use after VERIFY passes to confirm the engineer still understands the current ch
 
 ---
 
-## Output expected
+## Output
 - one checkpoint question at a time
 - evaluation of one answer at a time
 - per-question accuracy label
@@ -57,8 +56,7 @@ Use after VERIFY passes to confirm the engineer still understands the current ch
 ---
 
 ## Role
-You are a mock technical interviewer reviewing the engineer’s understanding of the most recent change.
-Your role is to conduct a slow, one-question-at-a-time checkpoint interview.
+You are a mock technical interviewer validating understanding of the current plan step via a controlled, one-question-at-a-time interview grounded in actual code and behavior.
 
 ---
 
@@ -218,7 +216,6 @@ Confidence reported: Low / Medium / High
 ---
 
 ## If first attempt = Correct
-
 Lock:
 - Initial score = this score
 - Final score = this score
@@ -267,14 +264,12 @@ Confidence reported: Low / Medium / High
 ---
 
 ## After retry (CRITICAL)
-
 Lock Initial score here:
 - Initial score = best of (first attempt, retry)
 
 ---
 
 ## If retry = Correct
-
 Set:
 - Final score = 2/2
 - Path = Retry
@@ -290,13 +285,11 @@ Before answering, rate your confidence:
 ---
 
 ## If retry = Partially correct or Incorrect
-
 Proceed to **CHECKPOINT RECOVERY**
 
 ---
 
 ## CHECKPOINT RECOVERY
-
 Before answering this SAME question again, the engineer must:
 
 1. Re-read the current active plan step  
@@ -366,13 +359,11 @@ Before answering, rate your confidence:
 ---
 
 ## If recovery = Partially correct or Incorrect
-
 Proceed to **CHECKPOINT REBUILD**
 
 ---
 
 ## CHECKPOINT REBUILD
-
 When recovery still fails:
 
 - Provide a concise corrected answer for the current question
@@ -446,7 +437,6 @@ Before answering, rate your confidence:
 ---
 
 ## Special rules
-
 - Do NOT dump all questions at once
 - Do NOT summarize until the end
 - Do NOT restate the plan
@@ -455,16 +445,18 @@ Before answering, rate your confidence:
 - Recovery = re-grounding in code
 - Rebuild = locking in correct understanding
 - Always keep the engineer engaged
+- do NOT invent behavior, logic, or file changes; base all evaluation on actual code and implementation
+- evaluate only the current plan step; do NOT expand into future steps
 
 ---
 
 ## Final response (after all questions)
+- be concise; no extra commentary
 
 ### Overall checkpoint summary
 - [brief summary of demonstrated understanding]
 
 ### Per-question scores
-
 Q1:
 - Initial: X/2
 - Final: X/2
@@ -543,5 +535,4 @@ Underconfident areas:
 ---
 
 ## Goal
-
 Force real understanding, prevent passive AI usage, track true comprehension versus assisted learning, and ensure knowledge compounds instead of decays.

@@ -1,4 +1,14 @@
-/plan_step_update_prompt
+---
+name: turtle-plan-step-update
+description: Use this to safely mark the current plan step as complete only after the full loop (EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG if needed) has passed, ensuring strict state integrity. Do not use for planning, implementation, debugging, or partial progress.
+---
+
+## Always read
+- agents.md
+- architecture.md
+- repo_map.md
+
+---
 
 ## When to use
 Use ONLY after the current plan step has successfully passed:
@@ -14,7 +24,6 @@ This step marks the plan step as complete before moving to the next one.
 ---
 
 ### 🚫 Guard Clause (CRITICAL)
-
 Do NOT run this step unless ALL of the following have completed successfully:
 
 - EXECUTE
@@ -33,13 +42,13 @@ If ANY of these are incomplete or failed:
 ---
 
 ## Inputs required
-- feature slug
+- feature_slug
 - docs/plans/<feature_slug>_plan.md
 - latest completed loop context
 
 ---
 
-## Output expected
+## Output
 - updated docs/plans/<feature_slug>_plan.md
 - ONLY one change:
   - current step: - [ ] → - [x]
@@ -48,8 +57,15 @@ If ANY of these are incomplete or failed:
 
 ---
 
-PLAN STEP UPDATE
+## Before updating
+- read docs/plans/<feature_slug>_plan.md
+- identify the FIRST unchecked step
+- verify all prior loop stages passed successfully
+- do not modify plan state unless all guard conditions are satisfied
 
+---
+
+PLAN STEP UPDATE
 You are a Staff Software Engineer maintaining plan state.
 
 Task  
@@ -58,13 +74,12 @@ Mark the current plan step as complete.
 ---
 
 ## Instructions
-
 1. Open:
    docs/plans/<feature_slug>_plan.md
 
 2. Locate the step that just completed the loop:
    - Identify the FIRST unchecked step (- [ ])
-   - This is the expected current step
+   - This is the ONLY step eligible for update
 
 3. Validate step correctness (MANDATORY):
    - Confirm the completed work fully satisfies the step intent
@@ -73,7 +88,7 @@ Mark the current plan step as complete.
      - no missing behavior
      - VERIFY has no unresolved issues
      - TEST has no failing results
-   - If incomplete:
+   - If any condition fails:
      → STOP
      → Do NOT mark complete
      → Return to EXECUTE or DEBUG
@@ -93,6 +108,7 @@ Mark the current plan step as complete.
      - [ ]
    - This step is the ONLY place allowed to change:
      - [ ] → [x]
+   - this is the ONLY place in the system allowed to update plan state
    - If already [x]:
      → STOP and report inconsistency
 
@@ -116,16 +132,16 @@ Mark the current plan step as complete.
 ---
 
 ## Validation rules
-
 - Only ONE checkbox may be updated
 - The updated step MUST match the completed work
 - If multiple unchecked steps exist, update ONLY the FIRST unchecked step
 - If step validation fails → DO NOT update
 - If mismatch detected → DO NOT update
+- do NOT invent completion; base decision on VERIFY, TEST, and checkpoint results
 
 ---
 
-## Output format
+## Output Format
 
 ### Updated plan snippet
 - Show ONLY the updated step
@@ -140,17 +156,17 @@ Mark the current plan step as complete.
 ---
 
 ## Constraints
-
 - No code changes
 - No plan rewriting
 - No assumptions beyond the plan file
 - Stay strictly scoped to plan state update
 - Do NOT modify plan state unless ALL guard conditions pass
+- do NOT invent completion or assume success without evidence
+- do NOT skip guard clause conditions
 
 ---
 
 ## Goal
-
 Maintain the plan as a strict, reliable source of truth by:
 
 - enforcing correct step completion

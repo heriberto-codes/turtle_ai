@@ -1,4 +1,12 @@
-/execute_prompt
+---
+name: turtle-execute
+description: Use this to implement exactly one scoped plan step or apply minimal fixes after VERIFY fails, using the Current Step Detector to act only on the first unchecked step. Do not use for planning, testing, reviewing, or multi-step changes.
+---
+
+## Always read
+- agents.md
+- architecture.md
+- repo_map.md
 
 Modes:
 - A = Normal implementation
@@ -11,14 +19,14 @@ Modes:
 ### When to use
 Use when implementing the next unchecked plan step for the first time.
 
-### Inputs required
-- feature slug
+### Inputs
+- feature_slug
 - docs/plans/<feature_slug>_plan.md
 - architecture.md
 - repo_map.md
 - relevant existing code
 
-### Output expected
+### Output
 - code changes for one scoped step only
 - list of modified files
 - short implementation summary
@@ -34,11 +42,16 @@ Implement ONLY the next unchecked step from:
 docs/plans/<feature_slug>_plan.md
 
 Current step detection (REQUIRED):
-
 - Read docs/plans/<feature_slug>_plan.md
 - Identify the FIRST unchecked step (- [ ])
 - This is the ONLY step allowed for implementation
 - Do NOT ask the user for step input
+
+## Before coding
+- read docs/plans/<feature_slug>_plan.md and identify the FIRST unchecked step
+- read architecture.md and repo_map.md
+- inspect only the relevant existing code for this step
+- do not modify plan state; this step remains unchecked
 
 Fail-safe (CRITICAL):
 - Before proceeding, scan docs/plans/<feature_slug>_plan.md for unchecked steps (- [ ])
@@ -47,11 +60,6 @@ Fail-safe (CRITICAL):
   - Output exactly:
     "No remaining unchecked steps. Execution is complete. Proceed to FINALIZATION."
 - Do NOT implement anything if all steps are already marked [x]
-
-Before coding:
-- Read architecture.md
-- Read repo_map.md
-- Review relevant existing code
 
 Execution Rules (STRICT):
 - Implement ONE task only
@@ -65,17 +73,21 @@ Execution Rules (STRICT):
 - The current step MUST remain unchecked (- [ ])
 - Do NOT modify plan state (no [ ] → [x])
 - Plan state changes are handled ONLY by PLAN STEP UPDATE
+- do NOT invent files, modules, or behaviors; base changes on existing code and patterns
+- stay within the current step scope; flag if broader changes are required
+- prefer existing utilities and helpers over creating new ones
 
-Output Requirements:
+## Output Format
 1. Files changed
-2. Code changes (only what is necessary)
-3. Short explanation of what was implemented (1–3 sentences max)
-4. Any assumptions made
+2. Code changes
+3. Short explanation of what was implemented
+4. Assumptions made
 
-Stop Conditions:
+## Stop Conditions
 - Task is complete
 - OR task is too large for a single step → clearly say so
 - OR you are blocked → clearly state blocker
+- OR required changes exceed current step scope → STOP and state scope violation
 
 Do NOT:
 - Add tests (that is a separate step)
@@ -97,8 +109,8 @@ When the step is complete:
 ### When to use
 Use only when VERIFY returns FAIL and the current plan step needs follow-up fixes.
 
-### Inputs required
-- feature slug
+### Inputs
+- feature_slug
 - docs/plans/<feature_slug>_plan.md
 - agents.md
 - architecture.md
@@ -106,7 +118,7 @@ Use only when VERIFY returns FAIL and the current plan step needs follow-up fixe
 - latest VERIFY findings
 - files changed in last EXECUTE
 
-### Output expected
+### Output
 - scoped code fixes for the current step only
 - summary of fixes
 - modified files
@@ -141,13 +153,11 @@ Current step detection (REQUIRED):
 - This is the step being fixed
 - Do NOT rely on manual step input
 
-VERIFY findings
-<paste VERIFY output here>
-
-Before fixing:
-- Read the current plan step carefully
-- Re-read the files changed in the last EXECUTE
-- Compare VERIFY findings against the intended scope of the step
+## Before fixing
+- read docs/plans/<feature_slug>_plan.md and detect current step (first unchecked)
+- read agents.md, architecture.md, and repo_map.md
+- review latest VERIFY findings and prior changes
+- do not modify plan state; this step remains unchecked
 
 Responsibilities
 - Fix all implementation issues identified in VERIFY
@@ -164,41 +174,46 @@ Constraints
 - Follow agents.md rules and protected patterns
 - Prefer minimal, safe, reversible changes
 - Maintain existing architecture and repo patterns
+- do NOT invent fixes; base changes on VERIFY findings and code evidence
+- prefer existing utilities and helpers over creating new ones
 
-Decision Rules
+## Decision Rules
 - If implementation is incorrect → fix the code
-- If implementation is correct but the current plan step is wrong → update that step minimally
-- If VERIFY findings conflict with the plan → choose the safest repo-consistent approach and note it
-- If the required fix would exceed the current step → STOP and say so
+- If implementation is correct but VERIFY is incorrect → note the discrepancy and proceed cautiously
+- If the current plan step is incorrect → propose a minimal plan update for the current step only
+- If VERIFY findings conflict with the plan → choose the safest repo-consistent approach and document it
+- If the required fix exceeds current step scope → STOP and report scope violation
 
-Stop Conditions:
-- All VERIFY issues for this step are fixed
-- OR the fix would require expanding scope → clearly say so
-- OR VERIFY findings are unclear or conflicting → clearly say so
+## Stop Conditions
+- all VERIFY issues for this step are fixed
+- OR the required fix exceeds current step scope → STOP and report scope violation
+- OR VERIFY findings are unclear or conflicting → STOP and state the issue clearly
 
-Output Requirements:
+## Output Format
 1. Summary of fixes
-- What issues were addressed
+- what issues were addressed
 
 2. Files changed
-- Full paths of modified files
+- full paths of modified files
 
 3. Code changes
-- What changed and why
+- what changed and why
 
-4. Plan updates (if any)
-- Exact updates made to docs/plans/<feature_slug>_plan.md
-- Only include current-step changes
+4. Proposed plan updates (if any)
+- exact proposed updates to docs/plans/<feature_slug>_plan.md
+- current-step changes only; do NOT modify plan state
 
 5. Validation notes
-- Why the fixes now align with VERIFY expectations
+- why the fixes now align with VERIFY expectations
 
 6. Remaining risks / follow-ups
-- What should be validated in TEST or later steps
+- what should be validated in TEST or later steps
 
 Completion confirmation:
-- Confirm only the current plan step was fixed
-- Confirm no future steps were implemented
+- confirm only the current plan step was fixed
+- confirm no future steps were implemented
+- confirm no plan state changes were made
+- confirm any plan updates were proposed only, not applied
 
 Do NOT:
 - Write tests

@@ -48,7 +48,9 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 ---
 
-**📂 FOLDER STRUCTURE** 
+**📂 TARGET PROJECT STRUCTURE AFTER APPLYING TURTLE AI**
+
+This is the recommended structure a project should have after adopting the Turtle AI workflow. It is not the literal file tree of this repository.
 
     project-root
     │

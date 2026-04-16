@@ -1,4 +1,12 @@
-/test_prompt
+---
+name: turtle-test
+description: Use this to determine and implement the minimal, correct set of tests for the current active plan step, ensuring behavior validation without modifying feature logic or expanding scope.
+---
+
+## Always read
+- agents.md
+- architecture.md
+- repo_map.md
 
 Modes:
 - A = Determine required test coverage for the current active plan step under validation
@@ -11,14 +19,14 @@ Modes:
 ### When to use
 Use after ENGINEER CHECKPOINT to determine the smallest correct set of tests needed for the current active plan step under validation.
 
-### Inputs required
+### Inputs
 - feature slug
 - docs/plans/<feature_slug>_plan.md
 - implemented code
 - existing test files and patterns
 - agents.md
 
-### Output expected
+### Output
 - test coverage summary
 - tests to update now
 - tests to add now
@@ -26,6 +34,13 @@ Use after ENGINEER CHECKPOINT to determine the smallest correct set of tests nee
 - edge cases
 - regression risks
 - exact file paths for test work
+
+## Before testing
+- read docs/plans/<feature_slug>_plan.md
+- identify the FIRST unchecked step
+- review implemented code for that step
+- review existing test patterns
+- do not modify plan state
 
 TEST
 
@@ -45,13 +60,6 @@ Current step detection:
 - Use the FIRST unchecked step (- [ ])
 - This is the step being validated with tests
 
-Before testing:
-1. Read docs/plans/<feature_slug>_plan.md
-2. Identify the current active step under validation
-3. Review implemented code for that step
-4. Review existing test patterns
-5. Review agents.md
-
 Responsibilities
 - verify expected behavior for this step
 - identify missing test coverage
@@ -66,7 +74,7 @@ Testing requirements
 5. Cover edge cases
 6. Cover failure states relevant to this step
 
-Output format
+## Output Format
 
 Test coverage summary
 - [concise]
@@ -96,6 +104,8 @@ Rules
 - only modify relevant tests
 - always specify exact file paths
 - if no test convention exists, recommend one standard convention
+- do NOT invent behavior; base tests on actual implementation
+- prefer existing test utilities and helpers
 
 Goal:
 Identify the smallest correct set of tests needed to validate the current active plan step under validation.
@@ -109,14 +119,14 @@ Be concise.
 ### When to use
 Use only after TEST mode A identifies the exact tests to add or update.
 
-### Inputs required
+### Inputs
 - feature slug
 - docs/plans/<feature_slug>_plan.md
 - TEST mode A output
 - existing test files and patterns
 - relevant implementation files
 
-### Output expected
+### Output
 - new or updated tests only
 - modified test file paths
 - coverage notes
@@ -146,16 +156,20 @@ Current step detection (REQUIRED):
 - This is the step under test
 - Do NOT rely on manual input
 
+## Before writing tests
+- read docs/plans/<feature_slug>_plan.md and detect current step
+- review implementation from last EXECUTE
+- review TEST mode A output
+- review existing test structure
+- do not modify plan state
+
 Tests to implement
 <paste tests from TEST mode A here>
 
-Before writing tests:
-- Read the current active plan step under validation carefully
-- Review implementation from last EXECUTE
-- Review existing test structure and naming conventions
-
-Scope
-- Only address the specific tests identified above
+## Stop Conditions
+- All identified tests implemented
+- OR feature logic must change → STOP
+- OR test expectations unclear → STOP
 
 Rules
 - Only implement or update tests
@@ -167,18 +181,10 @@ Rules
 - Keep changes minimal
 - Do NOT fix unrelated failing tests
 - Do NOT expand beyond current active plan step under validation
+- do NOT invent tests beyond TEST mode A scope
+- prefer existing test utilities and helpers
 
-If a test fails due to unclear implementation:
-- clearly state issue
-- suggest minimal fix
-- do NOT implement feature fix
-
-Stop Conditions:
-- All identified tests implemented
-- OR feature logic must change → STOP
-- OR test expectations unclear → STOP
-
-Output Requirements:
+## Output Format
 1. Tests added or updated
 2. Files changed
 3. Test coverage notes

@@ -21,6 +21,47 @@ This prevents the most common failure mode of AI-assisted development: `the engi
 
 Turtle AI keeps changes small, reviewable, and aligned with actual architecture so knowledge compounds instead of decays.
 
+**📦 What's Inside Turtle AI**
+
+- 🧠 13 Roles
+| Role Type            | Derived From        |
+| -------------------- | ------------------- |
+| Planner              | PLAN                |
+| Implementer          | EXECUTE             |
+| Reviewer             | VERIFY              |
+| Comprehension Gate   | ENGINEER CHECKPOINT |
+| Tester               | TEST                |
+| Debugger             | DEBUG               |
+| Security Reviewer    | SECURITY            |
+| Performance Reviewer | PERFORMANCE         |
+| Documenter           | DOCUMENT            |
+| System Architect     | ARCHITECTURE        |
+| Rules Engine         | AGENTS              |
+| Repo Navigator       | REPO_MAP            |
+| Analyzer             | ANALYZE             |
+
+- ⚙️ 18 Skills
+    - turtle-agents
+    - turtle-architecture
+    - turtle-repo-map
+    - turtle-ideate
+    - turtle-backlog
+    - turtle-analyze
+    - turtle-plan
+    - turtle-execute
+    - turtle-verify
+    - turtle-engineer-checkpoint
+    - turtle-test
+    - turtle-debug
+    - turtle-plan-step-update
+    - turtle-security
+    - turtle-performance
+    - turtle-backlog-update
+    - turtle-document
+    - turtle-commit
+- 🔁 6 LOOP STEPS
+- 📄 1 Plan-Driven State System
+
 ![What's Inside Turtle AI](./assets/turtleAI.png)
 
 ---

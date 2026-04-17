@@ -61,12 +61,12 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
     - turtle-document
     - turtle-commit
 - 🔁 6 LOOP STEPS
-    - EXECUTE  
-    - VERIFY  
-    - ENGINEER CHECKPOINT  
-    - TEST  
-    - DEBUG (if needed)  
-    - PLAN STEP UPDATE
+    - turtle-execute  
+    - turtle-verify
+    - turtle-engineer-checkpoint  
+    - turtle-test
+    - turtle-debug (if needed)  
+    - turtle-plan-step-update
 - 📄 1 Plan-Driven State System
 
 ![What's Inside Turtle AI](./assets/turtleAI.png)

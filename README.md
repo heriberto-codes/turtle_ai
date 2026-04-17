@@ -1,4 +1,5 @@
 ## 🐢 🐢 Turtle AI 🐢 🐢
+**Version:** v1.0.0
 >Build with AI without losing understanding.
 
 Turtle AI is an AI coding workflow where progress is gated by engineer comprehension, not just code generation. It is designed to preserve engineer understanding, codebase context, and long-term ownership while still using AI to move faster. Most AI coding tools optimize for speed. Turtle AI optimizes for control.

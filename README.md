@@ -371,13 +371,26 @@ This loop runs repeatedly until all plan steps are complete.
     Use the CURRENT STEP DETECTOR PATTERN to derive workflow state from:
     docs/plans/<feature_slug>_plan.md
 
+**State Reconciliation Rule**
+
+    If the FIRST unchecked step already appears implemented in the working tree:
+
+    - EXECUTE may return: already_satisfied
+    - This does NOT mark the step complete
+    - VERIFY must review the existing repo state for that step
+    - TEST still runs if applicable
+    - PLAN STEP UPDATE remains the ONLY step allowed to change [ ] → [x]
+
+    Purpose:
+    Prevent workflow deadlocks when repo state already satisfies the current unchecked step but plan state has not yet been updated.
+
 **Step State Invariant (CRITICAL)**
 
     Throughout the execution loop:
 
     - The active step ALWAYS remains unchecked (- [ ])
     - A step is ONLY marked complete (- [x]) after:
-    EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed)
+    EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
 
     This means:
     - EXECUTE, VERIFY, ENGINEER CHECKPOINT, and TEST ALL operate on:

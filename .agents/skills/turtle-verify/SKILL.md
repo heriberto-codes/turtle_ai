@@ -26,7 +26,9 @@ Use immediately after EXECUTE to review the latest implementation for the curren
 ## Inputs
 - feature_slug
 - docs/plans/<feature_slug>_plan.md
-- files changed in last EXECUTE
+- EXECUTE outcome: implemented | already_satisfied
+- files changed in last EXECUTE (if any)
+- files or code evidence identified by EXECUTE when outcome = already_satisfied
 - implemented code for the current step
 
 ## Output
@@ -43,15 +45,26 @@ You are a Senior Reviewer performing a code review.
 
 ## Task
 
-Review ONLY the changes from the last EXECUTE step for the current plan step.
+Review the current plan step using the correct evidence source:
+- if EXECUTE outcome = `implemented`, review the changes from the last EXECUTE step
+- if EXECUTE outcome = `already_satisfied`, review the files and repo state that already satisfy the current unchecked step
 
 ## Before reviewing
 - read docs/plans/<feature_slug>_plan.md
 - identify the FIRST unchecked step
 - understand intended behavior of that step
-- review ONLY files changed in last EXECUTE
+- determine evidence source from EXECUTE outcome
+- if outcome = `implemented`, review ONLY files changed in last EXECUTE
+- if outcome = `already_satisfied`, review ONLY the files identified as existing evidence for the current unchecked step
 - compare expected vs actual implementation
 - do not modify plan state
+
+## State reconciliation rule (CRITICAL)
+- `already_satisfied` is a valid EXECUTE outcome when the first unchecked step is already present in the working tree.
+- This is NOT an automatic PASS.
+- VERIFY must confirm that the current unchecked step is actually satisfied by the existing repo state.
+- If the evidence is incomplete, ambiguous, or outside current-step scope, return FAIL.
+- If the evidence fully satisfies the current unchecked step, PASS is allowed even when the latest EXECUTE made no new file changes.
 
 ## Review for
 
@@ -85,6 +98,7 @@ Review ONLY the changes from the last EXECUTE step for the current plan step.
 - do NOT invent behavior; base review on actual code
 - do NOT implement fixes
 - do NOT expand scope
+- do NOT fail solely because the latest EXECUTE made no file changes when EXECUTE explicitly returned `already_satisfied`
 
 ## Output Format
 

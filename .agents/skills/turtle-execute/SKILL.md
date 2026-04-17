@@ -32,11 +32,12 @@ Use when implementing the next unchecked plan step for the first time.
 - relevant existing code
 
 ### Output
-- code changes for one scoped step only
+- code changes for one scoped step only OR an explicit already_satisfied determination
 - list of modified files
 - short implementation summary
 - assumptions made
-- confirmation that only the current plan step was implemented
+- execution outcome: implemented | already_satisfied
+- confirmation that only the current plan step was evaluated or implemented
 
 EXECUTE
 
@@ -57,6 +58,14 @@ Current step detection (REQUIRED):
 - read architecture.md and repo_map.md
 - inspect only the relevant existing code for this step
 - do not modify plan state; this step remains unchecked
+
+## Step reconciliation rule (CRITICAL)
+- If the FIRST unchecked step already appears fully satisfied in the current working tree, do NOT force unnecessary code edits.
+- In that case, return the explicit outcome: `already_satisfied`
+- Treat this as state reconciliation, not completion.
+- Do NOT mark the step complete.
+- Do NOT skip VERIFY, TEST, or PLAN STEP UPDATE.
+- VERIFY must review the existing repo state for that step before progression continues.
 
 Fail-safe (CRITICAL):
 - Before proceeding, scan docs/plans/<feature_slug>_plan.md for unchecked steps (- [ ])
@@ -81,12 +90,19 @@ Execution Rules (STRICT):
 - do NOT invent files, modules, or behaviors; base changes on existing code and patterns
 - stay within the current step scope; flag if broader changes are required
 - prefer existing utilities and helpers over creating new ones
+- if no code change is required because the current unchecked step is already implemented, report `already_satisfied` explicitly instead of returning an ambiguous no-op
 
 ## Output Format
-1. Files changed
-2. Code changes
-3. Short explanation of what was implemented
-4. Assumptions made
+1. Execution outcome
+- `implemented` or `already_satisfied`
+
+2. Files changed
+
+3. Code changes / existing evidence
+
+4. Short explanation of what was implemented or why the step already appears satisfied
+
+5. Assumptions made
 
 ## Stop Conditions
 - Task is complete
@@ -102,10 +118,16 @@ Do NOT:
 Goal:
 Make a small, correct, isolated change that is easy to understand and verify.
 
-When the step is complete:
+When the step is implemented:
 - summarize the changes made
 - list modified files
 - confirm that only the current plan step was implemented
+
+When the step is already satisfied:
+- state that no new code changes were required
+- identify the files that already satisfy the step
+- confirm that plan state remains unchanged
+- explicitly instruct VERIFY to review the current repo state for this step
 
 --------------------------------------------------
 

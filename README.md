@@ -42,6 +42,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | Analyzer             | ANALYZE             |
 
 - ⚙️ 18 Skills
+
     - turtle-agents
     - turtle-architecture
     - turtle-repo-map
@@ -61,12 +62,14 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
     - turtle-document
     - turtle-commit
 - 🔁 6 LOOP STEPS
+
     - turtle-execute  
     - turtle-verify
     - turtle-engineer-checkpoint  
     - turtle-test
     - turtle-debug (if needed)  
     - turtle-plan-step-update
+    
 - 📄 1 Plan-Driven State System
 
 ![What's Inside Turtle AI](./assets/turtleAI.png)

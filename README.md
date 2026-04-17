@@ -293,7 +293,15 @@ This loop runs repeatedly until all plan steps are complete.
     - Implement ONLY the tests identified in TEST REVIEW
 
     1️⃣2️⃣ /turtle-debug
-    Diagnose issues and route fixes to the correct layer (EXECUTE or TEST). 
+    Two-phase step:
+
+    A. DEBUG / DIAGNOSE
+    - Identify root cause of failure from VERIFY, TEST, ENGINEER CHECKPOINT, or runtime
+
+    B. DEBUG FIX / APPLY
+    - Apply ONLY the minimal fix identified in Diagnose mode
+
+    Diagnose issues and route fixes to the correct layer (EXECUTE or TEST).  
     only if something fails
 
     1️⃣3️⃣ /turtle-plan-step-update (REQUIRED) ✅

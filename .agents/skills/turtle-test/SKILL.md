@@ -8,6 +8,11 @@ description: Use this to determine and implement the minimal, correct set of tes
 - architecture.md
 - repo_map.md
 
+## External documentation rule
+- If test design or implementation depends on third-party framework, test runner, library, or SDK behavior, use Context7 to consult current official documentation before making assumptions.
+- Prefer repository code as the source of truth for local behavior and architecture.
+- If repo code and external docs conflict, call out the conflict explicitly and favor the repo for existing implementation intent.
+
 Modes:
 - A = Determine required test coverage for the current active plan step under validation
 - B = Implement the tests identified in TEST mode A

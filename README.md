@@ -23,7 +23,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 **📦 What's Inside Turtle AI**
 
-- 🧠 13 Roles
+- 🧠 13 Roles (Derived From Worflow)
 
 | Role Type            | Derived From        |
 |----------------------|---------------------|
@@ -69,7 +69,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
     - turtle-test
     - turtle-debug (if needed)  
     - turtle-plan-step-update
-    
+
 - 📄 1 Plan-Driven State System
 
 ![What's Inside Turtle AI](./assets/turtleAI.png)

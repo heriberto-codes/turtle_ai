@@ -1,11 +1,17 @@
 ---
 name: turtle-verify
 description: Use this to review the latest implementation for the current plan step and determine PASS or FAIL based on correctness, scope, risks, and alignment with the plan. Do not implement fixes or expand scope.
+---
 
 ## Always read
 - agents.md
 - architecture.md
 - repo_map.md
+
+## External documentation rule
+- If correctness review depends on third-party framework, library, or SDK behavior, use Context7 to consult current official documentation before making assumptions.
+- Prefer repository code as the source of truth for local behavior and architecture.
+- If repo code and external docs conflict, call out the conflict explicitly and favor the repo for existing implementation intent.
 
 ## When to use
 Use immediately after EXECUTE to review the latest implementation for the current plan step.

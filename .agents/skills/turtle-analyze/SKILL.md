@@ -8,6 +8,11 @@ description: Use this when analyzing a repository to build or refresh understand
 - architecture.md
 - repo_map.md
 
+## External documentation rule
+- If repository understanding depends on third-party framework, library, or SDK behavior, use Context7 to consult current official documentation before making assumptions.
+- Prefer repository code as the source of truth for local behavior and architecture.
+- If repo code and external docs conflict, call out the conflict explicitly and favor the repo for existing implementation intent.
+
 ## When to use
 Run when:
 - starting in a new repo

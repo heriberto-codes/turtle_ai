@@ -87,17 +87,21 @@ For a deeper understanding of the workflow, see "How Turtle AI Works" below.
    - `/turtle-agents`
    - `/turtle-architecture`
    - `/turtle-repo-map`
-4. Pick a feature from `docs/backlog.md`
-5. Plan it:
+4. (Optional) Discovery:
+   - `/turtle-ideate` (if you don’t know what to build)
+   - `/turtle-backlog` (to create or review features)
+   - `/turtle-analyze` (recommended for unfamiliar repos)
+5. Pick a feature from `docs/backlog.md`
+6. Plan it:
    - `/turtle-plan`
-6. Run the loop until complete:
+7. Run the loop until complete:
    - `/turtle-execute`
    - `/turtle-verify`
    - `/turtle-engineer-checkpoint`
    - `/turtle-test`
    - `/turtle-debug` (if needed)
    - `/turtle-plan-step-update`
-7. Finalize:
+8. Finalize:
    - `/turtle-security`
    - `/turtle-performance`
    - `/turtle-backlog-update`
@@ -105,35 +109,6 @@ For a deeper understanding of the workflow, see "How Turtle AI Works" below.
    - `/turtle-commit`
 
 > Tip: The active step is always the first unchecked item in `docs/plans/<feature_slug>_plan.md`.
-
----
-
-## 🧠 How It Works
-
-This section explains the full Turtle AI workflow.  
-If you just want to get started quickly, use "Quick Start (30 seconds)" above.
-
-    1️⃣ Run FOUNDATION once:
-    AGENTS
-    ARCHITECTURE
-    REPO_MAP
-
-    2️⃣ Choose or generate work:
-    IDEATE (optional)
-    BACKLOG (select a feature)
-
-    3️⃣ Understand the system (if needed):
-    ANALYZE
-
-    4️⃣ Plan the feature:
-    PLAN → creates docs/plans/<feature_slug>_plan.md
-
-    5️⃣ Run the IMPLEMENTATION LOOP until complete:
-    EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
-    Repeat until no unchecked steps remain
-
-    6️⃣ Finalize:
-    SECURITY → PERFORMANCE → BACKLOG UPDATE → DOCUMENT → COMMIT
 
 ---
 
@@ -263,51 +238,52 @@ Folder purposes:
 
 ---
 
-**⚙️ SKILLS / PROMPTS**
+**⚙️ SKILLS**
 
 **🧱 FOUNDATION (Static Context)**
 
-    1️⃣ AGENTS
+    1️⃣ /turtle-agents
     Project rules and safety constraints. Prevents AI from violating conventions.
 
-    2️⃣ ARCHITECTURE
+    2️⃣ /turtle-architecture
     System blueprint.
     Defines how the system is structured and what patterns should be preserved.
 
-    3️⃣ REPO_MAP
+    3️⃣ /turtle-repo-map
     High-level navigation of the repo, protected paths, critical modules,  
     and important file locations.
 
 **💡 DISCOVERY (Problem + Opportunity)**
 
-    4️⃣ IDEATE
-    What should we build?
+    4️⃣ /turtle-ideate
+    Generate or explore potential features when direction is unclear
 
-    5️⃣ BACKLOG
-    Store and track feature ideas in: docs/backlog.md
+    5️⃣ /turtle-backlog
+    Persist and prioritize features in docs/backlog.md
 
-    6️⃣ ANALYZE
-    AI learns the repository. Why this matters: without it, AI re-learns the repo every task.
+    6️⃣ /turtle-analyze
+    Build a working mental model of the repository
+    Use when entering unfamiliar code or when context is missing
 
 
 **🧭 PLANNING (Architecture + Scope)**
 
-    7️⃣ PLAN
+    7️⃣ /turtle-plan
     Architect chosen feature → docs/plans/<feature_slug>_plan.md
 
 **⚙️ IMPLEMENTATION LOOP (Controlled Development Step-by-Step)**
 This loop runs repeatedly until all plan steps are complete.
 
-    8️⃣ EXECUTE
+    8️⃣ /turtle-execute EXECUTE
     Implement only the next unchecked task from the plan
 
-    9️⃣ VERIFY
+    9️⃣ /turtle-verify VERIFY
     AI performs code review of correctness and scope
 
-    🔟 ENGINEER CHECKPOINT
+    🔟 /turtle-engineer-checkpoint
     Engineer comprehension checkpoint
 
-    1️⃣1️⃣ TEST
+    1️⃣1️⃣ /turtle-test
     Two-phase step:
 
     A. TEST REVIEW
@@ -316,33 +292,33 @@ This loop runs repeatedly until all plan steps are complete.
     B. TEST IMPLEMENTATION
     - Implement ONLY the tests identified in TEST REVIEW
 
-    1️⃣2️⃣ DEBUG
+    1️⃣2️⃣ /turtle-debug
     Diagnose issues and route fixes to the correct layer (EXECUTE or TEST). 
     only if something fails
 
-    1️⃣3️⃣ PLAN STEP UPDATE (REQUIRED) ✅
+    1️⃣3️⃣ /turtle-plan-step-update (REQUIRED) ✅
     This step is NOT optional. MUST run after every successful loop.  
     A step is NOT complete until this executes
 
 
 **🛡️ HARDENING (Quality Gates)**
 
-    1️⃣4️⃣ SECURITY
+    1️⃣4️⃣ /turtle-security
     Run focused security review for new or changed behavior
 
-    1️⃣5️⃣ PERFORMANCE
+    1️⃣5️⃣ /turtle-performance
     Run targeted performance review when the feature affects performance-sensitive paths
 
 **🚀 FINALIZATION (Ship + Record)**
 
-    1️⃣6️⃣ BACKLOG UPDATE
+    1️⃣6️⃣ /turtle-backlog-update
     Mark feature complete
 
-    1️⃣7️⃣ DOCUMENT
+    1️⃣7️⃣ /turtle-document
     Capture architectural decisions inside the repo
     Note: Run after the feature is complete, not after every step
 
-    1️⃣8️⃣ COMMIT
+    1️⃣8️⃣ /turtle-commit
     Prepare commit message only
 
 ***

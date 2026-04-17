@@ -24,6 +24,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 **📦 What's Inside Turtle AI**
 
 - 🧠 13 Roles
+
 | Role Type            | Derived From        |
 |----------------------|---------------------|
 | Planner              | PLAN                |

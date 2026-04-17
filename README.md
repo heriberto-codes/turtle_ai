@@ -1,5 +1,5 @@
 ## 🐢 🐢 Turtle AI 🐢 🐢
->Go slower. Understand more. Break less.
+>Build with AI without losing understanding.
 
 Turtle AI is an AI coding workflow where progress is gated by engineer comprehension, not just code generation. It is designed to preserve engineer understanding, codebase context, and long-term ownership while still using AI to move faster. Most AI coding tools optimize for speed. Turtle AI optimizes for control.
 
@@ -19,6 +19,8 @@ That changes the role of AI completely. Instead of turning the engineer into a p
 This prevents the most common failure mode of AI-assisted development: `the engineer gradually losing real understanding of their own codebase`
 
 Turtle AI keeps changes small, reviewable, and aligned with actual architecture so knowledge compounds instead of decays.
+
+---
 
 ## ⚡ Quick Start (30 seconds)
 
@@ -52,7 +54,7 @@ For a deeper understanding of the workflow, see "How Turtle AI Works" below.
 
 ---
 
-## 🧠 How Turtle AI Works (Workflow Overview)
+## 🧠 How It Works
 
 This section explains the full Turtle AI workflow.  
 If you just want to get started quickly, use "Quick Start (30 seconds)" above.
@@ -99,24 +101,20 @@ These allow you to run the workflow using simple commands like:
 /turtle-verify
 ```
 
-### 🛠️ How to Use with Codex
+### 🛠️ Codex Setup
 
-1. Clone this repository
-2. Open it in Codex (or your local Codex-enabled environment)
-3. Ensure the `.agents/skills/` directory is present
-4. Start a session and run any Turtle command:
-   - `/turtle-plan`
-   - `/turtle-execute`
-   - `/turtle-verify`
-   - etc.
+Turtle AI runs as a set of Codex Skills located in:
 
-Codex will automatically detect and execute the corresponding skill.
+```
+.agents/skills/
+```
+
+Codex automatically discovers and loads these skills when the repository is opened.
 
 🚨 **Important**
 Turtle AI is repo-scoped and requires the `.agents/skills/` directory.
 
-Codex will automatically discover these skills when the repository is opened.  
-If the directory is missing, Turtle commands will not be available.
+Codex will automatically discover these skills when the repository is opened. If the directory is missing, Turtle commands will not be available.
 
 > Note: Skills follow a deterministic workflow. Always start with FOUNDATION steps before running the implementation loop.
 
@@ -134,6 +132,8 @@ This will include:
 Stay tuned for updates.
 
 ---
+
+## 📚 System Reference
 
 **📂 TARGET PROJECT STRUCTURE AFTER APPLYING TURTLE AI**
 

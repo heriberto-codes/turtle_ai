@@ -21,6 +21,8 @@ This prevents the most common failure mode of AI-assisted development: `the engi
 
 Turtle AI keeps changes small, reviewable, and aligned with actual architecture so knowledge compounds instead of decays.
 
+![What's Inside Turtle AI](./assets/turtleAI.png)
+
 ---
 
 ## ⚡ Quick Start (30 seconds)

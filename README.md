@@ -20,9 +20,42 @@ This prevents the most common failure mode of AI-assisted development: `the engi
 
 Turtle AI keeps changes small, reviewable, and aligned with actual architecture so knowledge compounds instead of decays.
 
-## 🧠 Turtle AI Workflow
+## ⚡ Quick Start (30 seconds)
 
-**🚀 How to Use Turtle AI (Quick Start)**
+If you're new, start here.  
+For a deeper understanding of the workflow, see "How Turtle AI Works" below.
+
+1. Open this repo in Codex
+2. Ensure `.agents/skills/` exists
+3. Run FOUNDATION once:
+   - `/turtle-agents`
+   - `/turtle-architecture`
+   - `/turtle-repo-map`
+4. Pick a feature from `docs/backlog.md`
+5. Plan it:
+   - `/turtle-plan`
+6. Run the loop until complete:
+   - `/turtle-execute`
+   - `/turtle-verify`
+   - `/turtle-engineer-checkpoint`
+   - `/turtle-test`
+   - `/turtle-debug` (if needed)
+   - `/turtle-plan-step-update`
+7. Finalize:
+   - `/turtle-security`
+   - `/turtle-performance`
+   - `/turtle-backlog-update`
+   - `/turtle-document`
+   - `/turtle-commit`
+
+> Tip: The active step is always the first unchecked item in `docs/plans/<feature_slug>_plan.md`.
+
+---
+
+## 🧠 How Turtle AI Works (Workflow Overview)
+
+This section explains the full Turtle AI workflow.  
+If you just want to get started quickly, use "Quick Start (30 seconds)" above.
 
     1️⃣ Run FOUNDATION once:
     AGENTS
@@ -78,6 +111,12 @@ These allow you to run the workflow using simple commands like:
    - etc.
 
 Codex will automatically detect and execute the corresponding skill.
+
+🚨 **Important**
+Turtle AI is repo-scoped and requires the `.agents/skills/` directory.
+
+Codex will automatically discover these skills when the repository is opened.  
+If the directory is missing, Turtle commands will not be available.
 
 > Note: Skills follow a deterministic workflow. Always start with FOUNDATION steps before running the implementation loop.
 
@@ -140,37 +179,6 @@ This is the recommended structure a project should have after adopting the Turtl
     │       │   └── SKILL.md
     │       └── turtle-commit/
     │           └── SKILL.md
-    │
-    ├── turtle_prompts/
-    │   ├── foundation/
-    │   │   ├── agents.md
-    │   │   ├── architecture.md
-    │   │   └── repo_map.md
-    │   │
-    │   ├── discovery/
-    │   │   ├── ideate.md
-    │   │   ├── backlog.md
-    │   │   └── analyze.md
-    │   │
-    │   ├── planning/
-    │   │   └── plan.md
-    │   │
-    │   ├── loop/
-    │   │   ├── execute.md
-    │   │   ├── verify.md
-    │   │   ├── engineer_checkpoint.md
-    │   │   ├── test.md
-    │   │   ├── debug.md
-    │   │   └── plan_step_update.md
-    │   │
-    │   ├── hardening/
-    │   │   ├── security.md
-    │   │   └── performance.md
-    │   │
-    │   └── finalization/
-    │       ├── backlog_update.md
-    │       ├── document.md
-    │       └── commit.md
     │
     ├── docs/
     │   ├── analysis/

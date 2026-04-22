@@ -43,32 +43,37 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 - ⚙️ 18 Skills
 
-    - turtle-agents
-    - turtle-architecture
-    - turtle-repo-map
-    - turtle-ideate
-    - turtle-backlog
-    - turtle-analyze
-    - turtle-plan
-    - turtle-execute
-    - turtle-verify
-    - turtle-engineer-checkpoint
-    - turtle-test
-    - turtle-debug
-    - turtle-plan-step-update
-    - turtle-security
-    - turtle-performance
-    - turtle-backlog-update
-    - turtle-document
-    - turtle-commit
+| Skill Name                     | Category        |
+|-------------------------------|-----------------|
+| turtle-agents                 | Foundation      |
+| turtle-architecture           | Foundation      |
+| turtle-repo-map               | Foundation      |
+| turtle-ideate                 | Discovery       |
+| turtle-backlog                | Discovery       |
+| turtle-analyze                | Discovery       |
+| turtle-plan                   | Planning        |
+| turtle-execute                | Implementation  |
+| turtle-verify                 | Implementation  |
+| turtle-engineer-checkpoint    | Implementation  |
+| turtle-test                   | Implementation  |
+| turtle-debug                  | Implementation  |
+| turtle-plan-step-update       | Implementation  |
+| turtle-security               | Hardening       |
+| turtle-performance            | Hardening       |
+| turtle-backlog-update         | Finalization    |
+| turtle-document               | Finalization    |
+| turtle-commit                 | Finalization    |
+
 - 🔁 6 LOOP STEPS
 
-    - turtle-execute  
-    - turtle-verify
-    - turtle-engineer-checkpoint  
-    - turtle-test
-    - turtle-debug (if needed)  
-    - turtle-plan-step-update
+| Step Order | Skill Name                  | Description                                      |
+|------------|-----------------------------|--------------------------------------------------|
+| 1          | turtle-execute              | Implement the next unchecked plan step           |
+| 2          | turtle-verify               | Review correctness and scope                     |
+| 3          | turtle-engineer-checkpoint  | Ensure engineer comprehension                    |
+| 4          | turtle-test                 | Validate behavior with tests                     |
+| 5          | turtle-debug (if needed)    | Diagnose and fix issues                          |
+| 6          | turtle-plan-step-update     | Mark step complete after all checks pass         |
 
 - 📄 1 Plan-Driven State System
 

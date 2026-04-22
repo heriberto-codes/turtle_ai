@@ -23,7 +23,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 **📦 What's Inside Turtle AI**
 
-- 🧠 13 Roles (Derived From Worflow)
+🧠 13 Roles (Derived From Worflow)
 
 | Role Type            | Derived From        |
 |----------------------|---------------------|
@@ -41,7 +41,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | Repo Navigator       | REPO_MAP            |
 | Analyzer             | ANALYZE             |
 
-- ⚙️ 18 Skills
+⚙️ 18 Skills
 
 | Skill Name                     | Category        |
 |-------------------------------|-----------------|
@@ -64,7 +64,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | turtle-document               | Finalization    |
 | turtle-commit                 | Finalization    |
 
-- 🔁 6 LOOP STEPS
+🔁 6 LOOP STEPS
 
 | Step Order | Skill Name                  | Description                                      |
 |------------|-----------------------------|--------------------------------------------------|
@@ -75,7 +75,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | 5          | turtle-debug (if needed)    | Diagnose and fix issues                          |
 | 6          | turtle-plan-step-update     | Mark step complete after all checks pass         |
 
-- 📄 1 Plan-Driven State System
+📄 1 Plan-Driven State System
 
 ![What's Inside Turtle AI](./assets/turtleAI.png)
 

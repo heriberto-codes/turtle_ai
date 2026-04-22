@@ -79,8 +79,6 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 ![What's Inside Turtle AI](./assets/turtleAI.png)
 
----
-
 ## ⚡ Quick Start (30 seconds)
 
 If you're new, start here.  
@@ -114,8 +112,6 @@ For a deeper understanding of the workflow, see "How Turtle AI Works" below.
    - `/turtle-commit`
 
 > Tip: The active step is always the first unchecked item in `docs/plans/<feature_slug>_plan.md`.
-
----
 
 ## ⚡ Codex Skills Support
 
@@ -152,8 +148,6 @@ Codex will automatically discover these skills when the repository is opened. If
 
 > Note: Skills follow a deterministic workflow. Always start with FOUNDATION steps before running the implementation loop.
 
----
-
 ## 🤖 Claude Code Support (Coming Soon)
 
 A version of Turtle AI optimized for **Claude Code** is currently in development.
@@ -164,8 +158,6 @@ This will include:
 - Enhanced context handling for large repositories
 
 Stay tuned for updates.
-
----
 
 ## 📚 System Reference
 

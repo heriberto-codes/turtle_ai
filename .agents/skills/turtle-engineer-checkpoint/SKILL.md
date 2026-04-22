@@ -582,13 +582,19 @@ Final score:
 ### Confidence pattern
 
 Overconfident areas:
-- [questions or themes]
+- [e.g., Q5: What is the biggest risk introduced by this change?]
+- [or None; confidence was consistently low]
 
 Well-calibrated areas:
-- [questions or themes]
+- Q1: What changed?
+- Q2: Why was this change made?
+- Q3: Which files were touched?
+- Q4: What is the most important piece of logic introduced or modified?
+- (include only the questions that were well-calibrated)
 
 Underconfident areas:
-- [questions or themes]
+- [e.g., Q2: Why was this change made? (after rebuild)]
+- (include question text for clarity)
 
 ### Strong areas
 - [bullets]

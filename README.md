@@ -25,7 +25,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 ![What's Inside Turtle AI](./assets/turtleAI.png)
 
-🧠 13 Roles (Derived From Worflow)
+### 🧠 13 Roles (Derived From Workflow)
 
 | Role Type            | Derived From        |
 |----------------------|---------------------|
@@ -43,7 +43,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | Repo Navigator       | REPO_MAP            |
 | Analyzer             | ANALYZE             |
 
-⚙️ 18 Skills
+### ⚙️ 18 Skills
 
 | Skill Name                     | Category        |
 |-------------------------------|-----------------|
@@ -66,7 +66,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | turtle-document               | Finalization    |
 | turtle-commit                 | Finalization    |
 
-🔁 6 LOOP STEPS
+### 🔁 6 Loop Steps
 
 | Step Order | Skill Name                  | Description                                      |
 |------------|-----------------------------|--------------------------------------------------|
@@ -77,7 +77,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | 5          | turtle-debug (if needed)    | Diagnose and fix issues                          |
 | 6          | turtle-plan-step-update     | Mark step complete after all checks pass         |
 
-📄 1 Plan-Driven State System
+### 📄 1 Plan-Driven State System
 
 The Plan-Driven State System is the control layer of Turtle AI.
 
@@ -109,7 +109,7 @@ This ensures:
 ## ⚡ Quick Start (30 seconds)
 
 If you're new, start here.  
-For a deeper understanding of the workflow, see "How Turtle AI Works" below.
+For a deeper understanding of the workflow, see the System Reference below.
 
 1. Open this repo in Codex
 2. Ensure `.agents/skills/` exists
@@ -142,15 +142,13 @@ For a deeper understanding of the workflow, see "How Turtle AI Works" below.
 
 ## ⚡ Codex Skills Support
 
-Turtle AI is fully compatible with **Codex Skills**.
-
-This repository includes a complete set of pre-built skills located in:
+Turtle AI is fully compatible with **Codex Skills** and runs as a repo-scoped skill set located in:
 
 ```
 .agents/skills/
 ```
 
-These allow you to run the workflow using simple commands like:
+Once the repository is opened, Codex discovers these skills automatically, making commands like these available:
 
 ```
 /turtle-plan
@@ -158,22 +156,9 @@ These allow you to run the workflow using simple commands like:
 /turtle-verify
 ```
 
-### 🛠️ Codex Setup
-
-Turtle AI runs as a set of Codex Skills located in:
-
-```
-.agents/skills/
-```
-
-Codex automatically discovers and loads these skills when the repository is opened.
-
-🚨 **Important**
-Turtle AI is repo-scoped and requires the `.agents/skills/` directory.
-
-Codex will automatically discover these skills when the repository is opened. If the directory is missing, Turtle commands will not be available.
-
-> Note: Skills follow a deterministic workflow. Always start with FOUNDATION steps before running the implementation loop.
+> Important: Turtle AI requires the `.agents/skills/` directory. If it is missing, Turtle commands will not be available.
+>
+> Note: Always start with the FOUNDATION steps before entering the implementation loop.
 
 ## 🤖 Claude Code Support (Coming Soon)
 
@@ -257,7 +242,6 @@ Folder purposes:
 | Folder / File        | Purpose                                                      |
 |---------------------|--------------------------------------------------------------|
 | `.agents/skills/`   | Codex skills that execute the Turtle AI workflow             |
-| `turtle_prompts/`   | Source prompts for each workflow step                        |
 | `docs/analysis/`    | Repository understanding and system insights                 |
 | `docs/system/`      | Shared workflow rules (e.g., step detection)                 |
 | `docs/backlog.md`   | Feature backlog and prioritization                           |
@@ -315,7 +299,6 @@ Folder purposes:
     Architect chosen feature → docs/plans/<feature_slug>_plan.md
 
 **⚙️ IMPLEMENTATION LOOP (Controlled Development Step-by-Step)**
-This loop runs repeatedly until all plan steps are complete.
 
     8️⃣ /turtle-execute EXECUTE
     Implement only the next unchecked task from the plan
@@ -378,41 +361,16 @@ This loop runs repeatedly until all plan steps are complete.
 
 **Current Step Detector Pattern**
 
-    Use the plan file as the source of truth for workflow state:
+Use this pattern:
+1. Read `docs/plans/<feature_slug>_plan.md`
+2. Find all checklist items
+3. The active step is the first unchecked `[ ]` item
+4. For EXECUTE, VERIFY, ENGINEER CHECKPOINT, TEST, and DEBUG on active work, operate on that first unchecked step
+5. For prompts acting on completed work after loop completion, use the most recently checked `[x]` item
+6. If no unchecked steps remain, treat the plan as complete and move to FINALIZATION as appropriate
 
-    docs/plans/<feature_slug>_plan.md
-
-    Step state rules
-    - The active loop step = the first unchecked step:
-    - - [ ]
-    - The last completed step = the most recently checked step:
-    - the last - [x]
-    - The plan is complete when no unchecked steps remain
-
-    Detection rules
-
-    Every prompt that needs step state must determine. 
-    it from the plan file instead of asking for manual step input.
-
-    Use this pattern:
-    1. Read docs/plans/<feature_slug>_plan.md
-    2. Find all checklist items
-    3. For EXECUTE, VERIFY, ENGINEER CHECKPOINT, TEST, and DEBUG on active work:
-    - use the first unchecked step - [ ]
-    4. For prompts that operate on already-completed work after loop completion:
-    - use the most recently checked step - [x]
-    5. If no unchecked steps remain:
-    - treat the plan as complete
-    - stop or move to FINALIZATION as appropriate
-
-    Manual input rule
-    - Do NOT ask for current step name or number if it can be derived from the plan file
-    - The plan file is the single source of truth for step progression
-
-    🗄️ STATE MODEL:
-    This workflow is plan-driven. The plan file controls all execution state.
-    Use the CURRENT STEP DETECTOR PATTERN to derive workflow state from:
-    docs/plans/<feature_slug>_plan.md
+Manual input rule:
+- Do not ask for the current step if it can be derived from the plan file
 
 **State Reconciliation Rule**
 
@@ -449,20 +407,15 @@ This loop runs repeatedly until all plan steps are complete.
     DEBUG does NOT automatically mean "fix the code".
 
     Always route based on root cause:
-    → EXECUTE (DEBUG FIX) — code issue
-    → EXECUTE (VERIFY FIX MODE) — plan mismatch
-    → TEST — test issue
+
+| Root Cause | Route To |
+|---|---|
+| Code is wrong | EXECUTE (DEBUG FIX) |
+| Code doesn't match plan | EXECUTE (VERIFY FIX MODE) |
+| Tests are wrong | TEST |
+| Unclear / mixed | EXECUTE (DEBUG FIX) |
 
     Always fix the correct layer. Never mix layers.
-
-    ┌─────────────────────────────────────────────────────┐
-    │ Root Cause              → Route To                  │
-    ├─────────────────────────────────────────────────────┤
-    │ Code is wrong           → EXECUTE (DEBUG FIX)       │
-    │ Code doesn't match plan → EXECUTE (VERIFY FIX MODE) │
-    │ Tests are wrong         → TEST                      │
-    │ Unclear / mixed         → EXECUTE (DEBUG FIX)       │
-    └─────────────────────────────────────────────────────┘
 
     Never fix the wrong layer.
 
@@ -501,11 +454,11 @@ This loop runs repeatedly until all plan steps are complete.
 
 ---
 
-    This loop runs repeatedly until all plan steps are complete.
+This loop runs repeatedly until all plan steps are complete.
 
-    Key rules:
-    - Always follow the sequence: EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
-    - PLAN STEP UPDATE is REQUIRED — a step is not complete until this runs
-    - Never skip ENGINEER CHECKPOINT — understanding is mandatory before moving forward
+Key rules:
+- Always follow the sequence: EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
+- PLAN STEP UPDATE is REQUIRED — a step is not complete until this runs
+- Never skip ENGINEER CHECKPOINT — understanding is mandatory before moving forward
 
 ***

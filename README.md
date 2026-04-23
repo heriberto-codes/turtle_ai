@@ -316,25 +316,49 @@ Folder purposes:
     Engineer comprehension checkpoint
 
     1️⃣1️⃣ /turtle-test
-    Two-phase step:
+    Two-mode step:
 
-    A. TEST REVIEW
-    - Determine the smallest correct set of tests required for the current active plan step
+    A. TEST MODE A — REVIEW
+    - Identify the smallest correct set of tests required for the current active plan step
+    - Determine whether existing tests already cover the behavior
+    - Do NOT write or modify tests in this mode
 
-    B. TEST IMPLEMENTATION
-    - Implement ONLY the tests identified in TEST REVIEW
+    B. TEST MODE B — IMPLEMENT
+    - Write or update ONLY the tests identified in Review mode
+    - Keep test scope limited to the current active plan step
+    - Follow existing test patterns and conventions in the repo
+
+    Rules:
+    - Always run Mode A before Mode B
+    - Do not write tests for future plan steps
+    - Do not change production code in this step
+    - Prefer the smallest correct test set
+
+    Purpose:
+    Separate test planning from test writing so test coverage stays scoped, intentional, and aligned with the current plan step
 
     1️⃣2️⃣ /turtle-debug
-    Two-phase step:
+    Two-mode step:
 
-    A. DEBUG / DIAGNOSE
-    - Identify root cause of failure from VERIFY, TEST, ENGINEER CHECKPOINT, or runtime
+    A. DEBUG MODE A — DIAGNOSE
+    - Identify the root cause of the failure
+    - Determine whether the issue is in code, plan alignment, or tests
+    - Do NOT apply fixes in this mode
 
-    B. DEBUG FIX / APPLY
+    B. DEBUG MODE B — APPLY FIX
     - Apply ONLY the minimal fix identified in Diagnose mode
+    - Fix the correct layer (code or tests)
+    - Do NOT introduce new scope or changes
 
-    Diagnose issues and route fixes to the correct layer (EXECUTE or TEST).  
-    only if something fails
+    Rules:
+    - Always run Mode A before Mode B
+    - Never skip diagnosis
+    - Do not fix multiple layers at once
+
+    Purpose:
+    Separate thinking from fixing to avoid incorrect or rushed changes
+
+    Only run DEBUG if something fails in EXECUTE, VERIFY, ENGINEER CHECKPOINT, or TEST.
 
     1️⃣3️⃣ /turtle-plan-step-update (REQUIRED) ✅
     This step is NOT optional. MUST run after every successful loop.  

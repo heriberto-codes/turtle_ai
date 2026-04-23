@@ -462,16 +462,23 @@ This loop runs repeatedly until all plan steps are complete.
     Prevent passive approval of code and ensure long-term ownership of the system.
 
 **🔁 CORE EXECUTION LOOP (Step-by-Step)**
+
+| Step | Name | What Happens | Gate Type |
+|------|------|--------------|-----------|
+| 1 | EXECUTE | Implement one scoped plan step | Build |
+| 2 | VERIFY | Review correctness and scope | Quality |
+| 3 | ENGINEER CHECKPOINT | Ensure engineer understanding | 🧠 Comprehension |
+| 4 | TEST | Validate behavior with tests | Validation |
+| 5 | DEBUG | Diagnose and fix issues if needed | Recovery |
+| 6 | PLAN STEP UPDATE | Mark step complete only after all checks pass | State Control |
+
+---
+
     This loop runs repeatedly until all plan steps are complete.
 
-    1. EXECUTE — implement one scoped step
-    2. VERIFY — review correctness and scope
-    3. ENGINEER CHECKPOINT — confirm understanding
-    4. TEST — validate behavior
-    5. DEBUG — only if something fails
-    6. PLAN STEP UPDATE (REQUIRED) ✅
-    - This step is NOT optional
-    - MUST run after every successful loop
-    - A step is NOT complete until this executes
+    Key rules:
+    - Always follow the sequence: EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
+    - PLAN STEP UPDATE is REQUIRED — a step is not complete until this runs
+    - Never skip ENGINEER CHECKPOINT — understanding is mandatory before moving forward
 
 ***

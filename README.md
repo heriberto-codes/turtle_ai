@@ -374,16 +374,23 @@ Manual input rule:
 
 **State Reconciliation Rule**
 
-    If the FIRST unchecked step already appears implemented in the working tree:
+If the FIRST unchecked step already appears implemented in the working tree:
 
-    - EXECUTE may return: already_satisfied
-    - This does NOT mark the step complete
-    - VERIFY must review the existing repo state for that step
-    - TEST still runs if applicable
-    - PLAN STEP UPDATE remains the ONLY step allowed to change [ ] → [x]
+| Condition | Behavior |
+|----------|----------|
+| Step already implemented in code | EXECUTE may return `already_satisfied` |
+| Step appears complete but not marked | Step remains unchecked `[ ]` |
+| Verification required | VERIFY must review existing implementation |
+| Testing required | TEST still runs if applicable |
+| State update | Only `turtle-plan-step-update` can change `[ ] → [x]` |
 
-    Purpose:
-    Prevent workflow deadlocks when repo state already satisfies the current unchecked step but plan state has not yet been updated.
+Rules:
+- Do not mark steps complete based on code alone
+- Always pass through VERIFY and TEST before updating state
+- Never skip PLAN STEP UPDATE
+
+Purpose:
+Prevent workflow deadlocks and ensure the plan file remains the single source of truth even when code and plan state are temporarily out of sync.
 
 **Step State Invariant (CRITICAL)**
 
@@ -404,9 +411,10 @@ Manual input rule:
 
 
 **Debug Routing Rule**
-    DEBUG does NOT automatically mean "fix the code".
 
-    Always route based on root cause:
+DEBUG does NOT automatically mean "fix the code".
+
+Always route based on root cause:
 
 | Root Cause | Route To |
 |---|---|
@@ -415,9 +423,13 @@ Manual input rule:
 | Tests are wrong | TEST |
 | Unclear / mixed | EXECUTE (DEBUG FIX) |
 
-    Always fix the correct layer. Never mix layers.
+Rules:
+- Always fix the correct layer
+- Never mix layers
+- Do not apply fixes without identifying the root cause
 
-    Never fix the wrong layer.
+Purpose:
+Ensure issues are resolved at the correct layer to maintain system integrity and avoid introducing hidden bugs.
 
 **Engineer Checkpoint Rule (CRITICAL)**
 

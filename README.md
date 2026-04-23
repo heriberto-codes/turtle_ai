@@ -160,17 +160,6 @@ Once the repository is opened, Codex discovers these skills automatically, makin
 >
 > Note: Always start with the FOUNDATION steps before entering the implementation loop.
 
-## 🤖 Claude Code Support (Coming Soon)
-
-A version of Turtle AI optimized for **Claude Code** is currently in development.
-
-This will include:
-- Native slash command support
-- Improved multi-step reasoning workflows
-- Enhanced context handling for large repositories
-
-Stay tuned for updates.
-
 ## 📚 System Reference
 
 **📂 TARGET PROJECT STRUCTURE AFTER APPLYING TURTLE AI**

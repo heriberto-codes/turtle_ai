@@ -319,7 +319,8 @@ Folder purposes:
     Two-mode step:
 
     A. TEST MODE A — REVIEW
-    - Identify the smallest correct set of tests required for the current active plan step
+    - Identify the smallest correct set of tests required for  
+    the current active plan step
     - Determine whether existing tests already cover the behavior
     - Do NOT write or modify tests in this mode
 
@@ -335,7 +336,8 @@ Folder purposes:
     - Prefer the smallest correct test set
 
     Purpose:
-    Separate test planning from test writing so test coverage stays scoped, intentional, and aligned with the current plan step
+    Separate test planning from test writing so test coverage stays scoped,  
+    intentional, and aligned with the current plan step
 
     1️⃣2️⃣ /turtle-debug
     Two-mode step:

@@ -106,6 +106,9 @@ This ensures:
 | Completion Condition | No `[ ]` items remain |
 | State Ownership | Controlled by the plan file, not the user |
 
+
+**State Flow Overview**
+
 ```mermaid
 flowchart TD
 A[Plan file: docs/plans/<feature_slug>_plan.md]-->B[Current Step Detector]
@@ -414,26 +417,23 @@ Purpose:
 Guarantee consistent state progression and prevent partial or invalid step completion that could corrupt workflow state.
 
 
-**Debug Routing Rule**
+**Debug Routing Rule (Simple)**
 
-DEBUG does NOT automatically mean "fix the code".
+When something fails, first identify what is actually wrong:
 
-Always route based on root cause:
-
-| Root Cause | Route To |
-|---|---|
-| Code is wrong | EXECUTE (DEBUG FIX) |
-| Code doesn't match plan | EXECUTE (VERIFY FIX MODE) |
-| Tests are wrong | TEST |
-| Unclear / mixed | EXECUTE (DEBUG FIX) |
+| What’s wrong? | What to fix |
+|--------------|------------|
+| The code is incorrect | Fix the code (EXECUTE) |
+| The implementation doesn’t match the plan | Adjust the code to match the plan |
+| The test is incorrect | Fix the test (TEST) |
 
 Rules:
-- Always fix the correct layer
-- Never mix layers
-- Do not apply fixes without identifying the root cause
+- Do not guess — identify the root cause first
+- Do not change multiple layers at once
+- Fix only what is actually broken
 
 Purpose:
-Ensure issues are resolved at the correct layer to maintain system integrity and avoid introducing hidden bugs.
+Ensure problems are fixed at the correct layer instead of masking issues.
 
 **Engineer Checkpoint Rule (CRITICAL)**
 

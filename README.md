@@ -488,8 +488,8 @@ Ensure problems are fixed at the correct layer instead of masking issues.
 | 1 | EXECUTE | Implement one scoped plan step | Build |
 | 2 | VERIFY | Review correctness and scope | Quality |
 | 3 | ENGINEER CHECKPOINT | Ensure engineer understanding | 🧠 Comprehension |
-| 4 | TEST | Validate behavior with tests | Validation |
-| 5 | DEBUG | Diagnose and fix issues if needed | Recovery |
+| 4 | TEST | Review required tests, then implement the smallest correct test set | Validation |
+| 5 | DEBUG | Diagnose the root cause first, then apply the minimal correct fix if needed | Recovery |
 | 6 | PLAN STEP UPDATE | Mark step complete only after all checks pass | State Control |
 
 ---

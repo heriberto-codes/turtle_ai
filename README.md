@@ -494,13 +494,9 @@ Ensure problems are fixed at the correct layer instead of masking issues.
 | 5 | DEBUG | Diagnose the root cause first, then apply the minimal correct fix if needed | Recovery |
 | 6 | PLAN STEP UPDATE | Mark step complete only after all checks pass | State Control |
 
----
-
 This loop runs repeatedly until all plan steps are complete.
 
 Key rules:
 - Always follow the sequence: EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
 - PLAN STEP UPDATE is REQUIRED — a step is not complete until this runs
 - Never skip ENGINEER CHECKPOINT — understanding is mandatory before moving forward
-
-***

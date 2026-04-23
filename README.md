@@ -106,6 +106,20 @@ This ensures:
 | Completion Condition | No `[ ]` items remain |
 | State Ownership | Controlled by the plan file, not the user |
 
+```mermaid
+flowchart TD
+A[Plan file: docs/plans/<feature_slug>_plan.md]-->B[Current Step Detector]
+B-->C[EXECUTE]
+C-->D[VERIFY]
+D-->E[ENGINEER CHECKPOINT]
+E-->F[TEST]
+F-->G{Issues?}
+G--Yes-->H[DEBUG]
+H-->C
+G--No-->I[PLAN STEP UPDATE]
+I-->A
+```
+
 ## ⚡ Quick Start (30 seconds)
 
 If you're new, start here.  
@@ -383,20 +397,21 @@ Prevent workflow deadlocks and ensure the plan file remains the single source of
 
 **Step State Invariant (CRITICAL)**
 
-    Throughout the execution loop:
+| Constraint | Description |
+|-----------|-------------|
+| Active step remains unchecked | The current step ALWAYS stays as `[ ]` during the loop |
+| Completion gating | A step is ONLY marked `[x]` after the full loop passes |
+| Loop order enforcement | EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE |
+| Single write authority | Only `turtle-plan-step-update` can change `[ ] → [x]` |
+| Scope of work | EXECUTE, VERIFY, ENGINEER CHECKPOINT, and TEST operate on the FIRST unchecked step |
 
-    - The active step ALWAYS remains unchecked (- [ ])
-    - A step is ONLY marked complete (- [x]) after:
-    EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG (if needed) → PLAN STEP UPDATE
+Rules:
+- Never mark a step complete during EXECUTE, VERIFY, ENGINEER CHECKPOINT, TEST, or DEBUG
+- Always complete the full loop before updating plan state
+- Do not skip any stage in the loop
 
-    This means:
-    - EXECUTE, VERIFY, ENGINEER CHECKPOINT, and TEST ALL operate on:
-    → the FIRST unchecked step (- [ ])
-
-    - PLAN STEP UPDATE is the ONLY step allowed to:
-    → change [ ] → [x]
-
-    Violation of this rule breaks workflow state consistency.
+Purpose:
+Guarantee consistent state progression and prevent partial or invalid step completion that could corrupt workflow state.
 
 
 **Debug Routing Rule**

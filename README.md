@@ -23,6 +23,8 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 **📦 What's Inside Turtle AI**
 
+![What's Inside Turtle AI](./assets/turtleAI.png)
+
 🧠 13 Roles (Derived From Worflow)
 
 | Role Type            | Derived From        |
@@ -77,7 +79,32 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 📄 1 Plan-Driven State System
 
-![What's Inside Turtle AI](./assets/turtleAI.png)
+The Plan-Driven State System is the control layer of Turtle AI.
+
+All workflow state is derived from a single source of truth:
+
+docs/plans/<feature_slug>_plan.md
+
+Instead of tracking progress manually, Turtle AI determines:
+- the current step
+- the next action
+- completion status
+
+by reading the plan file.
+
+This ensures:
+- deterministic execution
+- no hidden state
+- consistent progress tracking across all steps
+
+| Concept | Description |
+|--------|-------------|
+| Source of Truth | `docs/plans/<feature_slug>_plan.md` |
+| Active Step | First unchecked `[ ]` item |
+| Completed Step | Most recent `[x]` item |
+| Step Transition | Only via `turtle-plan-step-update` |
+| Completion Condition | No `[ ]` items remain |
+| State Ownership | Controlled by the plan file, not the user |
 
 ## ⚡ Quick Start (30 seconds)
 

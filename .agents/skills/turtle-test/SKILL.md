@@ -171,6 +171,13 @@ Current step detection (REQUIRED):
 Tests to implement
 <paste tests from TEST mode A here>
 
+## Guard (CRITICAL)
+- If "Tests to implement" section is empty → STOP:
+  "Missing TEST mode A output. Cannot safely proceed."
+
+- If BOTH "Tests to update now" AND "Tests to add now" are empty → STOP:
+  "No actionable tests found from TEST mode A. Nothing to implement."
+
 ## Stop Conditions
 - All identified tests implemented
 - OR feature logic must change → STOP

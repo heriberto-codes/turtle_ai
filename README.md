@@ -254,22 +254,8 @@ Folder purposes:
 | `docs/plans/`       | Active feature execution state                               |
 | `docs/features/`    | Finalized feature records and outcomes                       |
 
----
 
 **⚙️ TURTLE AI CODING WORKFLOW**
-
-| Phase | Step | Skill | Purpose |
-|------|------|------|--------|
-| 🧱 Foundation | 1 | turtle-agents | Define rules and constraints |
-| 🧱 Foundation | 2 | turtle-architecture | Define system structure |
-| 🧱 Foundation | 3 | turtle-repo-map | Map repo and key modules |
-| 💡 Discovery | 4 | turtle-ideate | Explore feature ideas |
-| 💡 Discovery | 5 | turtle-backlog | Store and prioritize work |
-| 💡 Discovery | 6 | turtle-analyze | Understand the codebase |
-| 🧭 Planning | 7 | turtle-plan | Create implementation plan |
-| ⚙️ Loop | 8–13 | multiple | Execute step-by-step loop |
-| 🛡️ Hardening | 14–15 | security/performance | Validate quality |
-| 🚀 Finalization | 16–18 | finalize skills | Ship and record |
 
 ---
 

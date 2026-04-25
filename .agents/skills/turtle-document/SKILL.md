@@ -22,7 +22,31 @@ description: Use this when creating or updating docs/features/<feature_slug>.md 
 
 ## Output
 - create or update: docs/features/<feature_slug>.md
+- write the full markdown directly to docs/features/<feature_slug>.md
 - a concise, factual feature record including summary, decisions, architecture impact, tests, and follow-ups
+- do not only print the markdown to the terminal
+
+## Plan-Driven Guardrail
+Before documenting, verify that the feature is fully completed in the Plan-Driven State System.
+
+Required checks:
+
+1. Locate the related plan in `docs/plans/`.
+2. Confirm every actionable plan step is checked `[x]`.
+3. Confirm there are no remaining unchecked actionable steps `[ ]`.
+4. Confirm the feature passed the required validation gates:
+   - EXECUTE
+   - VERIFY
+   - ENGINEER CHECKPOINT
+   - TEST
+   - DEBUG, only if debugging was needed
+5. Confirm the related backlog item is already marked `[x]` in `docs/backlog.md`.
+
+If these checks do not pass, stop and report:
+
+```text
+Documentation blocked. Feature is not fully completed in the Plan-Driven State System.
+```
 
 ## Before writing
 - check if docs/features/<feature_slug>.md exists
@@ -54,9 +78,18 @@ Include the following sections (only if applicable):
 - treat code and tests as source of truth over documentation
 
 ## Output Format
-Return only the full markdown for docs/features/<feature_slug>.md
+- create or update the file: docs/features/<feature_slug>.md
+- write the full markdown directly to that file
+- do NOT only print the markdown to the terminal
+- do NOT ask the user to manually copy/paste the documentation
+- return the markdown as plain output only if file writing fails
 
 ## Constraints
+- only modify docs/features/<feature_slug>.md
+- if the file exists, update it in place
+- if the file does not exist, create it
 - do NOT modify any files other than docs/features/<feature_slug>.md
+- do NOT ask the user to manually copy/paste
+- do NOT return the markdown as plain output unless file writing fails
 - do NOT include git commands or extra commentary
 - if context is incomplete, state assumptions briefly under Follow-ups / Accepted Risks

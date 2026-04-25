@@ -1,3 +1,5 @@
+<!-- #TODO make sure the plan document does not check off the backlog before I hit the /Turtle-backlog-update skill -->
+
 ---
 name: turtle-plan
 description: Use this to generate a concise, repo-aligned implementation plan for a selected backlog item, producing atomic, checkbox-based steps scoped to the current feature. Do not write code or modify plan state.

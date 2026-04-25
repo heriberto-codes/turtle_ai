@@ -1,17 +1,63 @@
 ---
 name: turtle-execute
-description: Use this to implement exactly one scoped plan step or apply minimal fixes after VERIFY fails, using the Current Step Detector to act only on the first unchecked step. Do not use for planning, testing, reviewing, or multi-step changes.
+description: Use this to implement exactly the first unchecked step in the active plan file, or apply minimal fixes after VERIFY fails. Do not skip steps, expand scope, modify plan state, update backlog status, test, review, or perform multi-step changes.
 ---
 
 ## Always read
 - agents.md
 - architecture.md
 - repo_map.md
+- docs/backlog.md
+- active plan file in docs/plans/
 
 ## External documentation rule
 - If implementation depends on third-party framework, library, or SDK behavior, use Context7 to consult current official documentation before making assumptions.
 - Prefer repository code as the source of truth for local behavior and architecture.
 - If repo code and external docs conflict, call out the conflict explicitly and favor the repo for existing implementation intent.
+
+## Global Execution Invariants
+These rules apply to both Mode A and Mode B.
+
+- use the Current Step Detector before making any code changes
+- implement or fix ONLY the first unchecked actionable step marked `- [ ]`
+- do NOT implement later unchecked steps
+- do NOT combine multiple plan steps into one execution
+- do NOT modify `docs/plans/*`
+- do NOT modify `docs/backlog.md`
+- do NOT mark plan steps complete
+- do NOT check off backlog items
+- do NOT run `/turtle-plan-step-update`
+- do NOT run `/turtle-backlog-update`
+
+The current step remains unchecked until the full validation loop passes and `/turtle-plan-step-update` is run.
+
+## Architecture Alignment
+Implementation must follow the system structure documented in `architecture.md`.
+
+Before coding or fixing:
+- read `architecture.md`
+- confirm the current step aligns with the documented architecture
+- prefer existing repository patterns over introducing new patterns
+- do not introduce new frameworks, directories, abstractions, or architectural layers unless the current plan step explicitly requires it
+
+If the current plan step conflicts with `architecture.md`, STOP and report:
+
+```text
+Execution blocked. Current step conflicts with architecture.md.
+Update the plan before executing this work.
+```
+
+## Scope Expansion Guardrail
+If the current step cannot be completed without extra work that is not explicitly described in the step, STOP and report:
+
+```text
+Execution blocked. Current step requires scope not captured in the plan.
+Update the plan before executing this work.
+```
+
+Do not silently expand the implementation.
+Do not “helpfully” complete adjacent work.
+Do not add cleanup or refactors unless the current step explicitly asks for them.
 
 Modes:
 - A = Normal implementation
@@ -80,12 +126,17 @@ Execution Rules (STRICT):
 - If the task feels larger than a single step, STOP and say so
 - Touch ONLY the files required for this task
 - Do NOT refactor unrelated code
+- Do NOT implement later plan steps
+- Do NOT combine multiple plan steps into one execution
 - Do NOT introduce new patterns or frameworks
 - Do NOT solve future steps
 - Follow existing repo conventions exactly
 - Keep changes minimal and reversible
 - The current step MUST remain unchecked (- [ ])
 - Do NOT modify plan state (no [ ] → [x])
+- Do NOT modify `docs/plans/*`
+- Do NOT modify `docs/backlog.md`
+- Do NOT check off backlog items
 - Plan state changes are handled ONLY by PLAN STEP UPDATE
 - do NOT invent files, modules, or behaviors; base changes on existing code and patterns
 - stay within the current step scope; flag if broader changes are required
@@ -114,6 +165,8 @@ Do NOT:
 - Add tests (that is a separate step)
 - Perform a review (that is VERIFY)
 - Continue beyond this task
+- Update the plan checkbox
+- Update the backlog
 
 Goal:
 Make a small, correct, isolated change that is easy to understand and verify.
@@ -198,11 +251,16 @@ Constraints
 - Do NOT expand scope
 - Do NOT add tests yet
 - Do NOT refactor unrelated code
+- Do NOT implement later plan steps
+- Do NOT combine multiple plan steps into one execution
 - Follow agents.md rules and protected patterns
 - Prefer minimal, safe, reversible changes
 - Maintain existing architecture and repo patterns
 - do NOT invent fixes; base changes on VERIFY findings and code evidence
-- prefer existing utilities and helpers over creating new ones
+- Do NOT modify `docs/plans/*`
+- Do NOT modify `docs/backlog.md`
+- Do NOT mark plan steps complete
+- Do NOT check off backlog items
 
 ## Decision Rules
 - If implementation is incorrect → fix the code
@@ -246,3 +304,8 @@ Do NOT:
 - Write tests
 - Skip any VERIFY issue
 - Proceed beyond this step
+
+Next step:
+- after Mode A or Mode B completes, proceed to `/turtle-verify`
+- do not mark the current plan step complete from this skill
+- do not update backlog status from this skill

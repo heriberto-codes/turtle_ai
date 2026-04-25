@@ -7,11 +7,33 @@ description: Use this to generate a concise, repo-aligned implementation plan fo
 - agents.md
 - architecture.md
 - repo_map.md
+- docs/backlog.md
 
 ## External documentation rule
 - If planning depends on third-party framework, library, or SDK behavior, use Context7 to consult current official documentation before making assumptions.
 - Prefer repository code as the source of truth for local behavior and architecture.
 - If repo code and external docs conflict, call out the conflict explicitly and favor the repo for existing implementation intent.
+
+## Architecture grounding rule
+`architecture.md` is the primary source of truth for system structure.
+
+Before generating a plan, extract and use the following from `architecture.md` when available:
+
+- backend framework and architectural pattern
+- frontend framework and routing pattern
+- API structure and naming conventions
+- data flow and state management approach
+- database and persistence decisions
+- authentication/session model
+- testing approach
+- deployment/runtime assumptions
+- known constraints and protected boundaries
+
+Planning must align with the architecture described in `architecture.md`.
+
+If `architecture.md` does not contain enough information, inspect the repository and state the gap under Assumptions or Unresolved questions.
+
+If repository code conflicts with `architecture.md`, do not guess. Call out the conflict explicitly in the plan and favor existing repository behavior for implementation safety.
 
 ## Inputs
 - selected_backlog_item
@@ -23,9 +45,13 @@ description: Use this to generate a concise, repo-aligned implementation plan fo
 - repository code
 
 ## Before planning
-- read agents.md, architecture.md, repo_map.md
+- read agents.md, architecture.md, repo_map.md, docs/backlog.md
+- extract the current system architecture from `architecture.md`
 - inspect repository structure and conventions
+- compare repo structure against `architecture.md`
 - map backlog item to existing modules and patterns
+- use `architecture.md` to ground framework, routing, API, data, auth, testing, and deployment assumptions
+- do NOT invent architectural patterns that are not present in `architecture.md` or the repository
 - do NOT modify plan state
 - do NOT modify docs/backlog.md
 - do NOT mark any backlog item complete
@@ -48,8 +74,8 @@ Responsibilities
 - follow existing patterns
 
 ## Plan Sections
-1. Architecture overview (concise)
-2. Tech stack detected (from repo)
+1. Architecture grounding from `architecture.md` (concise)
+2. Tech stack detected from `architecture.md` and confirmed against repo
 3. Files impacted (paths)
 4. Data / DB changes (if any)
 5. API endpoints (if any)
@@ -58,7 +84,8 @@ Responsibilities
 8. Risks & edge cases
 9. Security concerns
 10. Testing strategy
-11. Step-by-step plan (checkboxes only)
+11. Assumptions and unresolved questions
+12. Step-by-step plan (checkboxes only)
 
 ## Step Rules
 - atomic steps only
@@ -86,7 +113,9 @@ Mark a plan step [x] ONLY after it has passed:
 ## Constraints
 - no new frameworks
 - no scope expansion
-- align with repo patterns
+- align with `architecture.md`
+- align with existing repo patterns
+- do NOT introduce new architectural patterns unless explicitly required by the backlog item and called out as a risk
 - do NOT write code
 - do NOT modify docs/backlog.md
 - do NOT check off backlog items

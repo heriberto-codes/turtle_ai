@@ -50,7 +50,7 @@ Prepare a git commit message for the completed feature based on repository chang
 - modified source files (git diff)
 
 ## Output
-Return only the following sections:
+Return the following sections:
 
 1) Subject
 `type(scope): short summary`
@@ -63,8 +63,25 @@ Return only the following sections:
 3) Files Changed
 - list of main files (paths)
 
+
 ## Constraints
 - do NOT include git commands
 - do NOT include extra commentary
 - keep output minimal and structured
 - if context is incomplete, state assumptions briefly in the body
+
+## Optional commit step
+After generating the commit message, prompt the user with:
+
+```text
+Would you like Turtle AI to start the commit process using this message?
+```
+
+If the user says yes:
+- show the exact git commands to run (e.g., `git add`, `git commit -m`)
+- do NOT execute git commands automatically
+- do NOT modify any files
+- require explicit user confirmation before any command execution
+
+If the user says no:
+- stop after providing the commit message

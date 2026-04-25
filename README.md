@@ -25,7 +25,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 
 ![What's Inside Turtle AI](./assets/turtleAI.png)
 
-### 🧠 13 Roles (Derived From Workflow)
+**🧠 13 Roles (Derived From Workflow)**
 
 | Role Type            | Derived From        |
 |----------------------|---------------------|
@@ -43,7 +43,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | Repo Navigator       | REPO_MAP            |
 | Analyzer             | ANALYZE             |
 
-### ⚙️ 18 Skills
+**⚙️ 18 Skills**
 
 | Skill Name                     | Category        |
 |-------------------------------|-----------------|
@@ -66,7 +66,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | turtle-document               | Finalization    |
 | turtle-commit                 | Finalization    |
 
-### 🔁 6 Loop Steps
+**🔁 6 Loop Steps**
 
 | Step Order | Skill Name                  | Description                                      |
 |------------|-----------------------------|--------------------------------------------------|
@@ -77,7 +77,7 @@ Turtle AI keeps changes small, reviewable, and aligned with actual architecture 
 | 5          | turtle-debug (if needed)    | Diagnose and fix issues                          |
 | 6          | turtle-plan-step-update     | Mark step complete after all checks pass         |
 
-### 📄 1 Plan-Driven State System
+**📄 1 Plan-Driven State System**
 
 The Plan-Driven State System is the control layer of Turtle AI.
 
@@ -123,7 +123,7 @@ G--No-->I[PLAN STEP UPDATE]
 I-->A
 ```
 
-## ⚡ Quick Start (30 seconds)
+**⚡ Quick Start (30 seconds)**
 
 If you're new, start here.  
 For a deeper understanding of the workflow, see the System Reference below.
@@ -157,7 +157,7 @@ For a deeper understanding of the workflow, see the System Reference below.
 
 > Tip: The active step is always the first unchecked item in `docs/plans/<feature_slug>_plan.md`.
 
-## ⚡ Codex Skills Support
+**⚡ Codex Skills Support**
 
 Turtle AI is fully compatible with **Codex Skills** and runs as a repo-scoped skill set located in:
 
@@ -179,7 +179,7 @@ Once the repository is opened, Codex discovers these skills automatically, makin
 
 ## 📚 System Reference
 
-**📂 TARGET PROJECT STRUCTURE AFTER APPLYING TURTLE AI**
+**📂 Target project structure after applying Turtle AI**
 
 This is the recommended structure a project should have after adopting the Turtle AI workflow. It is not the literal file tree of this repository.
 
@@ -254,10 +254,10 @@ Folder purposes:
 | `docs/plans/`       | Active feature execution state                               |
 | `docs/features/`    | Finalized feature records and outcomes                       |
 
+***
 
-**⚙️ TURTLE AI CODING WORKFLOW**
+### ⚙️ TURTLE AI CODING WORKFLOW
 
----
 
 **🧱 FOUNDATION (Static Context)**
 

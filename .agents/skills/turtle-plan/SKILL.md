@@ -1,8 +1,6 @@
-<!-- #TODO make sure the plan document does not check off the backlog before I hit the /Turtle-backlog-update skill -->
-
 ---
 name: turtle-plan
-description: Use this to generate a concise, repo-aligned implementation plan for a selected backlog item, producing atomic, checkbox-based steps scoped to the current feature. Do not write code or modify plan state.
+description: Use this to generate a concise, repo-aligned implementation plan for a selected backlog item. Produces atomic, checkbox-based steps scoped to the current feature. Do NOT write code or modify backlog state.
 ---
 
 ## Always read
@@ -28,12 +26,14 @@ description: Use this to generate a concise, repo-aligned implementation plan fo
 - read agents.md, architecture.md, repo_map.md
 - inspect repository structure and conventions
 - map backlog item to existing modules and patterns
-- do not modify plan state
+- do NOT modify plan state
+- do NOT modify docs/backlog.md
+- do NOT mark any backlog item complete
 
 ## Output
-- docs/plans/<feature_slug>_plan.md
+- create or update docs/plans/<feature_slug>_plan.md
 - concise plan with atomic checkbox steps
-- risks, assumptions, testing strategy
+- include risks, assumptions, and testing strategy
 
 You are a Staff Software Engineer planning a feature.
 
@@ -66,25 +66,50 @@ Responsibilities
 - reference exact file paths
 - small, reviewable diffs
 - EVERY step MUST use markdown checkbox format: - [ ]
-- no numbered lists or plain bullets
+- ALL steps must start as unchecked: - [ ]
+- NEVER generate - [x] steps in this skill
+- no numbered lists or plain bullets inside step section
 - order steps sequentially
 
 ## Plan completion rule
-Mark a plan step [x] only after it has passed:
+Mark a plan step [x] ONLY after it has passed:
 - EXECUTE
 - VERIFY
 - ENGINEER CHECKPOINT
 - TEST
 - DEBUG (if needed)
-- this is the ONLY place where completion criteria is defined; do NOT mark steps here
+
+- This skill must NOT mark steps complete
+- This skill must NOT modify docs/backlog.md
+- Backlog completion is ONLY done via /turtle-backlog-update
 
 ## Constraints
 - no new frameworks
 - no scope expansion
 - align with repo patterns
 - do NOT write code
+- do NOT modify docs/backlog.md
+- do NOT check off backlog items
+
+## Backlog update guardrail
+This skill creates a plan only.
+
+It must never mark the backlog item complete.
+
+Backlog updates are ONLY allowed after full completion of the Plan-Driven State System via:
+
+```text
+/turtle-backlog-update
+```
+
+If asked to modify docs/backlog.md, STOP and respond:
+
+```text
+Backlog update blocked. Run /turtle-backlog-update after the feature is complete.
+```
 
 ## Output Format
+- write directly to docs/plans/<feature_slug>_plan.md
 - concise sections per Plan Sections
 - Step-by-step plan uses ONLY - [ ] items
 - include Assumptions and Unresolved questions

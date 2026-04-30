@@ -292,10 +292,10 @@ Folder purposes:
 
 **⚙️ IMPLEMENTATION LOOP (Controlled Development Step-by-Step)**
 
-    8️⃣ /turtle-execute EXECUTE
+    8️⃣ /turtle-execute
     Implement only the next unchecked task from the plan
 
-    9️⃣ /turtle-verify VERIFY
+    9️⃣ /turtle-verify
     AI performs code review of correctness and scope
 
     🔟 /turtle-engineer-checkpoint

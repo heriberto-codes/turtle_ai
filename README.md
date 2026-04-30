@@ -335,16 +335,13 @@ Folder purposes:
 
     B. DEBUG MODE B — APPLY FIX
     - Apply ONLY the minimal fix identified in Diagnose mode
-    - Use this mode ONLY when DEBUG MODE A routes to DEBUG FIX
-    - If DEBUG MODE A routes to VERIFY FIX MODE, hand off to EXECUTE
-    - If DEBUG MODE A routes to TEST, hand off to TEST
+    - Fix the correct layer (code or tests)
     - Do NOT introduce new scope or changes
 
     Rules:
     - Always run Mode A before Mode B
     - Never skip diagnosis
     - Do not fix multiple layers at once
-    - Do not use Mode B for TEST or VERIFY FIX MODE routes
 
     Purpose:
     Separate thinking from fixing to avoid incorrect or rushed changes

@@ -5,7 +5,7 @@ description: Use this when diagnosing failures detected in VERIFY, TEST, ENGINEE
 
 Modes:
 - A = Diagnose the failure and identify the minimal safe fix
-- B = Apply the fix identified in DEBUG mode A
+- B = Apply the fix identified in DEBUG mode A, but ONLY when mode A routes to DEBUG FIX
 
 --------------------------------------------------
 
@@ -213,6 +213,18 @@ Be concise.
 ### When to use
 Use only after DEBUG mode A identifies the fix.
 
+### Routing constraint (CRITICAL)
+Mode B is used ONLY when DEBUG mode A selects:
+- `DEBUG FIX`
+
+Do NOT use mode B when mode A selects:
+- `VERIFY FIX MODE`
+- `TEST`
+
+If mode A routes to:
+- `VERIFY FIX MODE` → hand off to `EXECUTE (VERIFY FIX MODE)`
+- `TEST` → hand off to `TEST`
+
 ## Before fixing
 - read DEBUG findings
 - read docs/plans/<feature_slug>_plan.md for current step
@@ -239,6 +251,15 @@ You are a Staff Software Engineer applying the fix identified in DEBUG.
 Task
 Implement the minimal safe fix.
 
+Only proceed if DEBUG mode A explicitly selected:
+- `DEBUG FIX`
+
+If the selected routing path was:
+- `VERIFY FIX MODE`
+- `TEST`
+
+STOP and hand off to the correct workflow step instead of applying a code fix here.
+
 Current step detection (REQUIRED):
 - Read docs/plans/<feature_slug>_plan.md
 - Identify:
@@ -255,6 +276,7 @@ Rules
 - minimal, reversible changes
 - do NOT modify plan state (no [ ] → [x])
 - plan updates are handled ONLY by PLAN STEP UPDATE
+- do NOT apply fixes here unless DEBUG mode A explicitly routed to `DEBUG FIX`
 
 Output
 1. Files changed

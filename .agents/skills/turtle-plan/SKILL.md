@@ -101,6 +101,10 @@ Responsibilities
 - NEVER generate a step that edits `docs/backlog.md`
 - NEVER generate a step that says to check off, mark complete, or update a backlog item
 - `/turtle-backlog-update` is the ONLY allowed backlog completion mechanism and must NOT appear as a step inside the implementation plan
+- NEVER include final documentation as a plan step
+- NEVER generate a step that edits `docs/features/*`
+- NEVER generate a step that says to document the feature, write final docs, or update feature documentation
+- `/turtle-document` is the ONLY allowed final documentation mechanism and must NOT appear as a step inside the implementation plan
 
 ## Plan completion rule
 Mark a plan step [x] ONLY after it has passed:
@@ -141,6 +145,24 @@ If asked to modify docs/backlog.md, STOP and respond:
 
 ```text
 Backlog update blocked. Run /turtle-backlog-update after the feature is complete.
+```
+
+## Documentation guardrail
+This skill creates an implementation plan only.
+
+It must never include final documentation as a generated plan step.
+It must never include `docs/features/*` edits in the step list.
+
+Final documentation is ONLY allowed after full completion of the Plan-Driven State System via:
+
+```text
+/turtle-document
+```
+
+If asked to include final documentation work in the plan, STOP and respond:
+
+```text
+Documentation step blocked. Run /turtle-document after the feature is complete.
 ```
 
 ## Output Format

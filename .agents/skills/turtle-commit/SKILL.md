@@ -71,28 +71,53 @@ Return the following sections:
 - keep output minimal and structured
 - if context is incomplete, state assumptions briefly in the body
 
-## Optional commit step
+## Optional staging step
 After generating the commit message, prompt the user with:
 
 ```text
-Would you like Turtle AI to start the commit process using this message?
+Would you like Turtle AI to stage the relevant files for this commit?
 ```
 
 If the user says yes:
-- show the exact git commands to run
+- show the exact staging commands to run
 - include `git status` before staging files
-- include `git diff --stat` before committing
-- use the generated commit message exactly unless the user asks to edit it
+- include `git diff --stat` before staging files
+- stage only the relevant files for this commit
 - do NOT execute git commands automatically
 - do NOT modify any files
 - require explicit user confirmation before any command execution
 
-Suggested command sequence:
+Suggested staging command sequence:
 
 ```bash
 git status
 git diff --stat
 git add <files>
+```
+
+If the user says no:
+- stop after providing the commit message
+
+## Optional commit step
+After staging succeeds or the user confirms files are already staged, prompt the user with:
+
+```text
+Would you like Turtle AI to create the commit using this message?
+```
+
+If the user says yes:
+- show the exact commit commands to run
+- include `git status` before committing
+- confirm the intended files are staged
+- use the generated commit message exactly unless the user asks to edit it
+- do NOT execute git commands automatically
+- do NOT modify any files
+- require explicit user confirmation before any command execution
+
+Suggested commit command sequence:
+
+```bash
+git status
 git commit -m "type(scope): short summary" -m "commit body"
 ```
 

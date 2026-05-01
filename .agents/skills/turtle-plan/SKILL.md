@@ -97,6 +97,10 @@ Responsibilities
 - NEVER generate - [x] steps in this skill
 - no numbered lists or plain bullets inside step section
 - order steps sequentially
+- NEVER include backlog status changes as a plan step
+- NEVER generate a step that edits `docs/backlog.md`
+- NEVER generate a step that says to check off, mark complete, or update a backlog item
+- `/turtle-backlog-update` is the ONLY allowed backlog completion mechanism and must NOT appear as a step inside the implementation plan
 
 ## Plan completion rule
 Mark a plan step [x] ONLY after it has passed:
@@ -124,6 +128,8 @@ Mark a plan step [x] ONLY after it has passed:
 This skill creates a plan only.
 
 It must never mark the backlog item complete.
+It must never include backlog completion as a step in the generated plan.
+It must never include `docs/backlog.md` edits in the step list.
 
 Backlog updates are ONLY allowed after full completion of the Plan-Driven State System via:
 

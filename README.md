@@ -303,6 +303,8 @@ Folder purposes:
 
     1️⃣1️⃣ /turtle-test
     Two-mode step:
+    Mode A automatically runs before Mode B. If Mode A identifies tests to add
+    or update, run `/turtle-test` again and it will continue in the correct mode.
 
     A. TEST MODE A — REVIEW
     - Identify the smallest correct set of tests required for  
@@ -316,7 +318,7 @@ Folder purposes:
     - Follow existing test patterns and conventions in the repo
 
     Rules:
-    - Always run Mode A before Mode B
+    - Mode selection self-corrects based on the latest review state
     - Do not write tests for future plan steps
     - Do not change production code in this step
     - Prefer the smallest correct test set

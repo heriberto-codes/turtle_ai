@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/user/3a78d911-a08a-40c2-bf2c-782c4d20eb23/project/083c1137-37af-417a-8f7d-632880b2dc31.svg)](https://wakatime.com/badge/user/3a78d911-a08a-40c2-bf2c-782c4d20eb23/project/083c1137-37af-417a-8f7d-632880b2dc31)
+
 ## 🐢 🐢 Turtle AI 🐢 🐢
 **Version:** v1.0.0
 >Build with AI without losing understanding.

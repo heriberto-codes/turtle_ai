@@ -1,6 +1,6 @@
 ---
 name: turtle-plan
-description: Use this to generate a concise, repo-aligned implementation plan for a selected backlog item. Produces atomic, checkbox-based steps scoped to the current feature. Do NOT write code or modify backlog state.
+description: Use this to generate a concise, repo-aligned implementation plan for a selected backlog item, or the next unchecked backlog item when none is provided. Produces atomic, checkbox-based steps scoped to the current feature. Do NOT write code or modify backlog state.
 ---
 
 ## Always read
@@ -36,16 +36,46 @@ If `architecture.md` does not contain enough information, inspect the repository
 If repository code conflicts with `architecture.md`, do not guess. Call out the conflict explicitly in the plan and favor existing repository behavior for implementation safety.
 
 ## Inputs
-- selected_backlog_item
-- feature_slug
+- selected_backlog_item (optional; if omitted, use auto-selection)
+- feature_slug (optional; if omitted, generate from selected backlog item)
 - docs/backlog.md
 - architecture.md
 - repo_map.md
 - agents.md
 - repository code
 
+## Backlog item selection
+Manual selection is allowed and takes precedence:
+- If `selected_backlog_item` is provided, use that exact backlog item.
+- If `feature_slug` is provided, use that exact slug only if it is valid snake_case.
+- If a provided `feature_slug` is not valid snake_case, convert it to valid snake_case before using it.
+
+Auto-selection is the default when inputs are omitted:
+- Read `docs/backlog.md`.
+- Select the first unchecked backlog item that uses markdown checkbox format: `- [ ]`.
+- Ignore checked items: `- [x]` or `- [X]`.
+- Preserve the exact selected backlog item text for planning context.
+- Do NOT modify `docs/backlog.md`.
+- If no unchecked backlog item exists, stop and report that there is no backlog item to plan.
+
+Feature slug generation:
+- If `feature_slug` is omitted, derive it from the selected backlog item text.
+- Remove the leading markdown checkbox marker.
+- Remove markdown formatting, issue labels, priority markers, and trailing punctuation when practical.
+- Convert to lowercase snake_case.
+- Use only letters, numbers, and underscores.
+- Collapse repeated underscores and trim leading/trailing underscores.
+- Keep the slug concise but recognizable.
+
+Snake case requirement:
+- `feature_slug` MUST be snake_case.
+- The plan file path MUST be `docs/plans/<feature_slug>_plan.md` using the snake_case slug.
+- Never create a plan file with spaces, hyphens, camelCase, PascalCase, uppercase letters, or punctuation in the slug.
+- If the backlog item title contains hyphens, slashes, punctuation, or mixed casing, normalize them before writing the file.
+
 ## Before planning
 - read agents.md, architecture.md, repo_map.md, docs/backlog.md
+- determine `selected_backlog_item` and `feature_slug` using manual inputs or auto-selection
 - extract the current system architecture from `architecture.md`
 - inspect repository structure and conventions
 - compare repo structure against `architecture.md`
@@ -173,10 +203,10 @@ Documentation step blocked. Run /turtle-document after the feature is complete.
 - no code blocks
 
 selected_backlog_item:
-[paste exact item]
+[optional; paste exact item or omit to use first unchecked backlog item]
 
 feature_slug:
-[snake_case]
+[optional; snake_case or omit to auto-generate]
 
 Save as:
 docs/plans/<feature_slug>_plan.md

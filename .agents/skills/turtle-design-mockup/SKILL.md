@@ -1,5 +1,5 @@
 ---
-name: turtle-mockup
+name: turtle-design-mockup
 description: Use this after a Turtle design audit to create or revise isolated, editable visual mockups and an implementation-oriented design specification. Do not use it to modify production code or approve a design for planning.
 ---
 

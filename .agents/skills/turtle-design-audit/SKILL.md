@@ -46,7 +46,7 @@ Include concise sections for:
 - Existing components, tokens, and assets to reuse
 - Responsive and accessibility considerations
 - Constraints, assumptions, and missing evidence
-- Prioritized opportunities for `turtle-mockup`
+- Prioritized opportunities for `turtle-design-mockup`
 
 For each significant finding, explain the observed evidence, likely user impact, and recommended design response without prescribing implementation code.
 

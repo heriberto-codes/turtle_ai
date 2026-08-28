@@ -43,8 +43,8 @@ Only files useful to the actual design should be created. A mockup may keep its 
 | Artifact | Write authority | Purpose |
 | --- | --- | --- |
 | `audit.md` | `turtle-design-audit` | Evidence-based assessment of the current experience and design constraints |
-| `design-spec.md` | `turtle-mockup` | Implementable description of the proposed directions and design decisions |
-| `mockups/*` | `turtle-mockup` | Isolated, editable visual concepts and optional rendered previews |
+| `design-spec.md` | `turtle-design-mockup` | Implementable description of the proposed directions and design decisions |
+| `mockups/*` | `turtle-design-mockup` | Isolated, editable visual concepts and optional rendered previews |
 | `checkpoint.md` | `turtle-design-checkpoint` | Review status, user feedback, decisions, and requested revisions |
 | `approved-design.md` | `turtle-design-checkpoint` | Explicitly approved source of truth handed to `turtle-plan` |
 
@@ -107,7 +107,7 @@ The checkpoint establishes:
 4. whether desktop and mobile behavior are acceptable
 5. whether the user explicitly approves the design for planning
 
-When changes are requested, set the checkpoint status to `changes_requested`, record actionable feedback, do not create `approved-design.md`, and route the work back to `turtle-mockup`.
+When changes are requested, set the checkpoint status to `changes_requested`, record actionable feedback, do not create `approved-design.md`, and route the work back to `turtle-design-mockup`.
 
 Only after explicit user approval may the checkpoint set its status to `approved` and create `approved-design.md`.
 

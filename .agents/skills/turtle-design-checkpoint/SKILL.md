@@ -22,7 +22,7 @@ The audit, design specification, and at least one editable mockup direction must
 If they do not, stop and report:
 
 ```text
-Design checkpoint blocked. Run /turtle-mockup for this feature first.
+Design checkpoint blocked. Run /turtle-design-mockup for this feature first.
 ```
 
 ## Purpose
@@ -75,7 +75,7 @@ When the user requests revisions:
 - translate feedback into concise, observable revision requirements
 - do not edit the mockup or design specification
 - do not create `approved-design.md`
-- route the feature back to `/turtle-mockup`
+- route the feature back to `/turtle-design-mockup`
 
 ## Approval
 
@@ -99,4 +99,4 @@ Do not infer approval from positive feedback, direction selection, silence, or a
 
 ## Completion
 
-If changes are requested, report the revision requirements and recommend `/turtle-mockup`. If approved, link the approval artifact and recommend `/turtle-plan` for the same `feature_slug`.
+If changes are requested, report the revision requirements and recommend `/turtle-design-mockup`. If approved, link the approval artifact and recommend `/turtle-plan` for the same `feature_slug`.

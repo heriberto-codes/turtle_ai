@@ -12,6 +12,7 @@ description: Use this after a Turtle design audit to create or revise isolated, 
 - `docs/design/<feature_slug>/audit.md`
 
 Also read `docs/design/<feature_slug>/checkpoint.md` when it exists and its status is `changes_requested`.
+Also read `docs/design/<feature_slug>/workflow-state.md` when it exists. Treat it as controller-owned and do not modify it.
 
 If a foundation file is absent, inspect the repository directly and record the missing context in the design specification instead of inventing it.
 
@@ -78,6 +79,21 @@ When `checkpoint.md` requests changes:
 - update the design specification to match the revised visual
 - do not change checkpoint status or create approval artifacts
 
+When workflow state routes a revision to a specific section, revise only that section and necessary dependent assembly details. Preserve other selected sections.
+
+## State-aware section behavior
+
+When `workflow-state.md` exists:
+
+- work only on the controller-designated `current_section`, unless the controller explicitly routes full-page assembly
+- preserve the confirmed section order and all sections marked `selected`
+- create section artifacts in a clearly named location under `mockups/` and identify their direction names in `design-spec.md`
+- do not create or update `workflow-state.md`
+- after section mockups are ready, ask the user to select, combine, or revise directions
+- do not recommend the final design checkpoint while any confirmed section is not `selected` or while `assembly_status` is not `complete`
+
+When routed to full-page assembly, combine the selected section directions into one responsive page in the existing mockup workspace. Update `design-spec.md` with the assembly order and cross-section behavior. Do not silently redesign a selected section to make assembly easier.
+
 ## Boundaries
 
 - Do not modify production application code or assets.
@@ -85,8 +101,13 @@ When `checkpoint.md` requests changes:
 - Do not create or modify `approved-design.md`.
 - Do not declare a direction approved.
 - Do not modify backlog or plan state.
+- Do not create or modify `workflow-state.md`.
 - Do not describe the mockup as production-ready code.
 
 ## Completion
 
-Return links to the editable mockup and design specification, identify the available directions, summarize visual verification performed, and recommend running `/turtle-design-checkpoint` next.
+Return links to the editable mockup and design specification, identify the available directions, and summarize visual verification performed.
+
+When workflow state exists, report the controller-designated section or assembly result and recommend `/turtle-design-next` for the next transition. Only identify the final design checkpoint as ready when all confirmed sections are selected and `assembly_status` is `complete`.
+
+Without workflow state, preserve standalone behavior and recommend `/turtle-design-checkpoint` next.

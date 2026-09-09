@@ -13,6 +13,8 @@ description: Use this after Turtle mockups exist to review one design decision a
 - `docs/design/<feature_slug>/design-spec.md`
 - relevant files under `docs/design/<feature_slug>/mockups/`
 
+Also read `docs/design/<feature_slug>/workflow-state.md` when it exists. Treat it as controller-owned and do not modify it.
+
 If a foundation file is absent, rely on the design artifacts and repository evidence that are available. Do not invent missing constraints.
 
 ## Preconditions
@@ -23,6 +25,18 @@ If they do not, stop and report:
 
 ```text
 Design checkpoint blocked. Run /turtle-design-mockup for this feature first.
+```
+
+When `workflow-state.md` exists, final approval also requires:
+
+- the user-confirmed section list is present
+- every confirmed section has status `selected` and an explicit selected direction
+- `assembly_status` is `complete`
+
+If any condition is missing, do not begin or approve the final checkpoint. Report:
+
+```text
+Design checkpoint blocked. Select every confirmed section and assemble the complete page first. Run /turtle-design-next to continue.
 ```
 
 ## Purpose
@@ -46,6 +60,8 @@ Cover only the decisions relevant to the feature, including:
 5. whether the selected direction is explicitly approved for planning
 
 The final approval question must clearly state that approval authorizes `turtle-plan`, not implementation.
+
+When workflow state exists, review the complete assembled page at the feature level. Section-level selection is handled before this checkpoint and must not be mistaken for final approval.
 
 ## Checkpoint state
 
@@ -96,7 +112,10 @@ Do not infer approval from positive feedback, direction selection, silence, or a
 - Do not answer checkpoint questions on the user's behalf.
 - Do not create approval for an unnamed or ambiguous direction.
 - Do not invoke implementation as part of approval.
+- Do not create or modify `workflow-state.md`.
 
 ## Completion
 
-If changes are requested, report the revision requirements and recommend `/turtle-design-mockup`. If approved, link the approval artifact and recommend `/turtle-plan` for the same `feature_slug`.
+If changes are requested, report the revision requirements. Recommend `/turtle-design-next` when workflow state exists; otherwise recommend `/turtle-design-mockup`.
+
+If approved, link the approval artifact. Recommend `/turtle-design-next` when workflow state exists so backlog creation and planning occur as separate safe transitions; otherwise recommend `/turtle-plan` for the same `feature_slug`.

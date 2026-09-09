@@ -9,6 +9,8 @@ description: Use this to generate a concise, repo-aligned implementation plan fo
 - repo_map.md
 - docs/backlog.md
 
+After determining `feature_slug`, also read `docs/system/design-workflow.md` and `docs/design/<feature_slug>/approved-design.md` when a matching design workspace exists.
+
 ## External documentation rule
 - If planning depends on third-party framework, library, or SDK behavior, use Context7 to consult current official documentation before making assumptions.
 - Prefer repository code as the source of truth for local behavior and architecture.
@@ -43,6 +45,7 @@ If repository code conflicts with `architecture.md`, do not guess. Call out the 
 - repo_map.md
 - agents.md
 - repository code
+- `docs/design/<feature_slug>/approved-design.md` when the matching design workspace exists
 
 ## Backlog item selection
 Manual selection is allowed and takes precedence:
@@ -73,6 +76,21 @@ Snake case requirement:
 - Never create a plan file with spaces, hyphens, camelCase, PascalCase, uppercase letters, or punctuation in the slug.
 - If the backlog item title contains hyphens, slashes, punctuation, or mixed casing, normalize them before writing the file.
 
+## Design approval gate
+
+After resolving `feature_slug`, inspect `docs/design/<feature_slug>/`.
+
+- If no matching design workspace exists, continue with standalone planning behavior.
+- If a matching design workspace exists, require `approved-design.md` and require `checkpoint.md` to record status `approved`.
+- If `workflow-state.md` exists, also require its checkpoint status to be `approved` and its workflow status to be `approved`, `backlog_pending`, `plan_pending`, or `planned`.
+- If any required approval evidence is missing, stop and report:
+
+```text
+Planning blocked. Complete /turtle-design-checkpoint for this feature first.
+```
+
+Use `approved-design.md` as the source of truth for approved user experience, hierarchy, responsive behavior, components, assets, and accepted tradeoffs. Use `architecture.md` and repository code as the source of truth for technical implementation. Record conflicts or unresolved questions in the plan instead of silently overriding either source.
+
 ## Before planning
 - read agents.md, architecture.md, repo_map.md, docs/backlog.md
 - determine `selected_backlog_item` and `feature_slug` using manual inputs or auto-selection
@@ -80,6 +98,7 @@ Snake case requirement:
 - inspect repository structure and conventions
 - compare repo structure against `architecture.md`
 - map backlog item to existing modules and patterns
+- load the matching approved design when a design workspace exists and map its requirements to repository modules
 - use `architecture.md` to ground framework, routing, API, data, auth, testing, and deployment assumptions
 - do NOT invent architectural patterns that are not present in `architecture.md` or the repository
 - do NOT modify plan state
@@ -105,17 +124,18 @@ Responsibilities
 
 ## Plan Sections
 1. Architecture grounding from `architecture.md` (concise)
-2. Tech stack detected from `architecture.md` and confirmed against repo
-3. Files impacted (paths)
-4. Data / DB changes (if any)
-5. API endpoints (if any)
-6. Frontend components (if any)
-7. Implementation approach (safest path)
-8. Risks & edge cases
-9. Security concerns
-10. Testing strategy
-11. Assumptions and unresolved questions
-12. Step-by-step plan (checkboxes only)
+2. Approved design grounding from `approved-design.md` when applicable
+3. Tech stack detected from `architecture.md` and confirmed against repo
+4. Files impacted (paths)
+5. Data / DB changes (if any)
+6. API endpoints (if any)
+7. Frontend components (if any)
+8. Implementation approach (safest path)
+9. Risks & edge cases
+10. Security concerns
+11. Testing strategy
+12. Assumptions and unresolved questions
+13. Step-by-step plan (checkboxes only)
 
 ## Step Rules
 - atomic steps only

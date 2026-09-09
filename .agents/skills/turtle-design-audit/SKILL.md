@@ -47,6 +47,7 @@ Include concise sections for:
 - Responsive and accessibility considerations
 - Constraints, assumptions, and missing evidence
 - Prioritized opportunities for `turtle-design-mockup`
+- Proposed design sections in recommended page order, with a short rationale for each
 
 For each significant finding, explain the observed evidence, likely user impact, and recommended design response without prescribing implementation code.
 
@@ -65,4 +66,4 @@ If `audit.md` already exists, read it first and update it incrementally. Preserv
 
 ## Completion
 
-Return the audit path, the highest-impact findings, reusable design elements discovered, and any evidence needed before mockup work can be reliable.
+Return the audit path, the highest-impact findings, reusable design elements discovered, the proposed ordered section list, and any evidence needed before mockup work can be reliable. Treat the section list as a proposal that requires user confirmation when the automated workflow is active.

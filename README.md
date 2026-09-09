@@ -46,17 +46,18 @@ That comprehension gate is the core distinction of Turtle AI.
    - `/turtle-ideate`
    - `/turtle-backlog`
    - `/turtle-analyze`
-5. Pick a feature from `docs/backlog.md`.
-6. Create a plan:
+5. For a user-facing feature with meaningful design decisions, optionally run `/turtle-design-next` repeatedly. It guides audit, section confirmation, mockups, selection, assembly, approval, backlog, and planning one safe transition at a time.
+6. If the automated design phase was skipped, pick a feature from `docs/backlog.md`.
+7. Create a plan when the design controller has not already created one:
    - `/turtle-plan`
-7. Run the implementation loop until complete:
+8. Run the implementation loop until complete:
    - `/turtle-execute`
    - `/turtle-verify`
    - `/turtle-engineer-checkpoint`
    - `/turtle-test`
    - `/turtle-debug` if needed
    - `/turtle-plan-step-update`
-8. Finalize the feature:
+9. Finalize the feature:
    - `/turtle-security`
    - `/turtle-performance`
    - `/turtle-backlog-update`
@@ -75,6 +76,7 @@ Turtle AI includes repo-scoped Codex skills in `.agents/skills/`.
 | --- | --- |
 | Foundation | `turtle-agents`, `turtle-architecture`, `turtle-repo-map` |
 | Discovery | `turtle-ideate`, `turtle-backlog`, `turtle-analyze` |
+| Design (optional) | `turtle-design-next`, `turtle-design-audit`, `turtle-design-mockup`, `turtle-design-checkpoint` |
 | Planning | `turtle-plan` |
 | Implementation | `turtle-execute`, `turtle-verify`, `turtle-engineer-checkpoint`, `turtle-test`, `turtle-debug`, `turtle-plan-step-update` |
 | Hardening | `turtle-security`, `turtle-performance` |
@@ -97,5 +99,6 @@ Turtle AI requires `.agents/skills/`. If that directory is missing, Turtle comma
 The README is the entry point. The detailed workflow reference lives in the system docs:
 
 - [Workflow Reference](docs/system/workflow.md)
+- [Design Workflow](docs/system/design-workflow.md)
 - [State System](docs/system/state.md)
 - [Global Rules](docs/system/rules.md)

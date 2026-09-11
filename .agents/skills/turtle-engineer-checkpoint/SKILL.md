@@ -36,53 +36,53 @@ Confirm that the engineer understands the current change without turning the che
 
 ## Difficulty and question limit
 
-Choose one difficulty before Question 1 and do not increase it during the checkpoint.
+Choose one difficulty before Question 1 and do not increase it during the checkpoint. Difficulty controls question depth, not question count. Every checkpoint asks a maximum of three questions.
 
-### LIGHT — maximum 3 questions
+### LIGHT
 
-Use when the change is small and localized, usually involving one or two files, with no meaningful state, persistence, API, auth, or side effects and no significant VERIFY concerns.
+Use when the change is small and localized, usually involving one or two files, with no meaningful state, persistence, API, auth, or side effects and no significant VERIFY concerns. Keep the selected questions focused on observable behavior, primary logic, and basic validation.
 
-Ask the three core questions only.
+### STANDARD
 
-### STANDARD — maximum 4 questions
+Use when behavior or moderate logic changed, multiple files participate, state or conditions are involved, or VERIFY identified a moderate concern. Include relevant conditions, ownership, and regression risk in the selected questions.
 
-Use when behavior or moderate logic changed, multiple files participate, state or conditions are involved, or VERIFY identified a moderate concern.
+### DEEP
 
-Ask the three core questions and the single most relevant supplemental question.
-
-### DEEP — maximum 5 questions
-
-Use when backend behavior, auth, APIs, databases, persistence, side effects, architecture boundaries, or complex logic changed, or VERIFY identified a meaningful risk.
-
-Ask the three core questions and the two most relevant supplemental questions.
+Use when backend behavior, auth, APIs, databases, persistence, side effects, architecture boundaries, or complex logic changed, or VERIFY identified a meaningful risk. Make the selected questions probe the most important data flow, boundary, side effect, or failure mode.
 
 ### Selection rules
 
 - Default to STANDARD when the evidence does not clearly support LIGHT or DEEP.
 - Do not choose DEEP from file count alone.
 - Do not choose LIGHT when auth, persistence, or side effects are involved.
-- Select the complete question set before asking Question 1.
-- If an earlier answer fully demonstrates the understanding sought by a later question, remove that later question, note the coverage under the earlier question, and do not replace it.
-- Never exceed the difficulty's question limit.
+- Before Question 1, randomly select one grounded question from each category in the question pool, then randomize their order.
+- Adapt the chosen prompts to the active step and actual code instead of repeating the example wording mechanically.
+- When recent checkpoint history is available, avoid repeating the immediately previous prompt wording and order.
+- Select all three questions before starting, but reveal only the current question.
+- If an earlier answer fully demonstrates the understanding sought by a later selected question, remove that later question, note the coverage under the earlier question, and do not replace it.
+- Never ask more than three questions in one checkpoint.
 
-## Question set
+## Randomized question pool
 
-Ask exactly one question at a time. Do not reveal later questions early.
+Ask exactly one question at a time. Randomly choose one question from each category and shuffle the three-question order.
 
-### Core questions
+### Behavior and intent
 
-1. **What changed?** Describe the behavior change, not merely the edits.
-2. **Why was this change made?** Explain the problem it solves.
-3. **What is the most important logic introduced or modified, and where is it implemented?** Explain the logic in plain English and identify its primary implementation location.
+- Describe the observable behavior change and the problem it solves.
+- Compare the behavior before and after this step. Why was the difference needed?
+- From the user or system perspective, what outcome changed and why?
 
-### Supplemental questions
+### Implementation and logic
 
-Choose only those that best test the current change:
+- Explain the most important changed logic and identify where it is implemented.
+- Trace the main control or data path introduced by this step in plain English.
+- Which function or component owns the changed behavior, and how does it produce the result?
 
-- What is the biggest material risk introduced by this change?
-- What should be manually verified next, and how?
-- Where could the implementation or AI have made an incorrect assumption?
-- Explain one changed function or component step by step as if teaching a junior engineer.
+### Risk and validation
+
+- What is the biggest material regression risk, and how would you verify it?
+- Which implementation assumption is most likely to be wrong, and what evidence would confirm it?
+- What edge case or failure mode matters most, and how should it be tested manually?
 
 Do not use a standalone file-recall question. Secondary file omissions are not evidence of misunderstanding when the engineer can locate and explain the primary implementation.
 
@@ -214,17 +214,17 @@ Evaluate whether the restatement now demonstrates the correct material mental mo
 
 ## First response
 
-The first response must contain the fixed difficulty, question limit, brief evidence for the classification, and Question 1:
+The first response must contain the fixed difficulty, three-question limit, brief evidence for the classification, and the first randomly selected question:
 
 ```markdown
 ### Checkpoint setup
 Difficulty: LIGHT / STANDARD / DEEP
-Question limit: 3 / 4 / 5
+Question limit: 3
+Selection: Randomized
 Reason: [one concise evidence-based sentence]
 
 ### Question 1
-What changed?
-- Describe the behavior change, not just the code changes.
+[first randomly selected and implementation-grounded question]
 
 Reply in this exact format:
 - Confidence: Low / Medium / High
@@ -305,6 +305,8 @@ FAIL — revisit the implementation before starting a fresh checkpoint session.
 - Do not answer for the engineer before the teach-back stage.
 - Do not provide sample answers during the initial or guided-retry stages.
 - Do not ask more than one question in a response.
+- Do not ask more than three questions in the entire checkpoint.
+- Do not reuse a fixed question order; randomize the prompt selection and order before every checkpoint.
 - Do not evaluate future plan steps.
 - Do not convert non-material omissions into blocking failures.
 - Do not proceed to TEST unless the final verdict is PASS.

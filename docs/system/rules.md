@@ -44,7 +44,7 @@ The engineer must be able to explain:
 - why it works
 - how it fits into the system
 
-If the engineer cannot demonstrate materially correct understanding after the bounded retry and teach-back flow:
+If the engineer cannot demonstrate materially correct understanding after the bounded retry and multiple-choice recovery flow:
 
 - stop the workflow
 - do not proceed to `TEST` or `PLAN STEP UPDATE`

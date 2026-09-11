@@ -1,6 +1,6 @@
 ---
 name: turtle-engineer-checkpoint
-description: Use this after VERIFY passes to confirm the engineer understands the current plan step through a bounded, one-question-at-a-time teach-back checkpoint. Do not use for planning, implementation, debugging, or testing.
+description: Use this after VERIFY passes to confirm the engineer understands the current plan step through a bounded, one-question-at-a-time checkpoint with multiple-choice recovery. Do not use for planning, implementation, debugging, or testing.
 ---
 
 # Engineer Checkpoint
@@ -116,7 +116,7 @@ Label every answer:
 Track each asked question with:
 
 - `Resolution: Resolved | Unresolved`
-- `Path: Direct | Retry | Teach-back`
+- `Path: Direct | Retry | Multiple choice`
 
 Record confidence only for the initial answer:
 
@@ -132,9 +132,9 @@ Each question has at most three engineer answers:
 
 1. initial answer
 2. one guided retry, only when a material gap remains
-3. one teach-back, only when the retry still has a material gap
+3. one multiple-choice recovery, only when the retry still has a material gap
 
-Never add another recovery stage, another restatement, or a same-session checkpoint restart.
+Never add another recovery stage, a fourth attempt, or a same-session checkpoint restart.
 
 ### Initial answer
 
@@ -190,27 +190,40 @@ Material gap:
 ```
 
 - If no material gap remains, set `Resolution: Resolved` and `Path: Retry`, then continue.
-- If a material gap remains, proceed immediately to teach-back. Do not insert a separate recovery reread cycle.
+- If a material gap remains, proceed immediately to multiple-choice recovery. Do not reveal the corrected explanation first and do not insert a separate recovery reread cycle.
 
-### Teach-back
+### Multiple-choice recovery
 
-Provide the concise corrected explanation grounded in the implementation, then ask for one restatement:
+Create exactly three choices grounded in the active step, changed code, and VERIFY results:
+
+- One choice must be fully correct and cover every material element still missing after the retry.
+- Two choices must be plausible distractors based on the engineer's remaining misunderstanding or omission.
+- Randomize whether the correct answer is A, B, or C.
+- Keep the choices mutually exclusive and similar in detail and length.
+- Do not use trick wording, overlapping answers, or `All of the above` / `None of the above`.
+- Do not reveal the correct answer or corrected explanation before the engineer chooses.
+
+Ask:
 
 ```markdown
-### Correct explanation for Question [n]
-- [concise corrected explanation]
+### Multiple-choice recovery for Question [n]
+[repeat or concisely reframe the same question without revealing the answer]
 
-### Teach-back
-Restate this in your own words without copying it verbatim. Focus on the actual behavior, purpose, logic, or risk being tested.
+A. [plausible option]
+B. [plausible option]
+C. [plausible option]
 
-- Answer: <your restatement>
+Choose the one option that fully matches the actual implementation. Confidence is not required again.
+
+- Answer: A / B / C
 ```
 
-Evaluate whether the restatement now demonstrates the correct material mental model.
+Treat an unambiguous selection as valid even if the engineer includes explanation or does not follow the format exactly. If no single option is selected unambiguously, treat the response as incorrect; do not add a fourth attempt.
 
-- If it does, set `Resolution: Resolved` and `Path: Teach-back`, then continue.
-- If it does not, set `Resolution: Unresolved` and `Path: Teach-back`, stop the checkpoint immediately, and return `FAIL` with the exact files or findings to review.
-- Do not continue to later questions after an unresolved teach-back.
+- If the selected option is correct, label the recovery `Correct`, set `Resolution: Resolved` and `Path: Multiple choice`, then continue.
+- If the selected option is incorrect or ambiguous, label the recovery `Incorrect`, set `Resolution: Unresolved` and `Path: Multiple choice`, and stop the checkpoint immediately.
+- On failure, identify the correct option, explain concisely why it is correct and why the selected option is materially wrong, and provide the exact files or findings to review.
+- Do not continue to later questions after an unresolved multiple-choice recovery.
 
 ## First response
 
@@ -237,7 +250,7 @@ After resolving a question, report its resolution and ask exactly one next quest
 
 ```markdown
 Resolution: Resolved
-Path: Direct / Retry / Teach-back
+Path: Direct / Retry / Multiple choice
 
 ### Question [n]
 [selected question]
@@ -263,9 +276,9 @@ Return PASS only when every asked question is resolved. Initial errors remain vi
 
 ### Question outcomes
 Q1: [question]
-- Attempts: Initial [label] / Retry [label, if used] / Teach-back [label, if used]
+- Attempts: Initial [label] / Retry [label, if used] / Multiple choice [label, if used]
 - Resolution: Resolved
-- Path: Direct / Retry / Teach-back
+- Path: Direct / Retry / Multiple choice
 - Initial confidence: Low / Medium / High — Matched / Overconfident / Underconfident
 
 [repeat only for questions asked]
@@ -282,16 +295,19 @@ PASS — every material understanding requirement was resolved.
 
 ### FAIL
 
-Return FAIL immediately when a teach-back remains materially incorrect or incomplete.
+Return FAIL immediately when the multiple-choice recovery is incorrect or ambiguous.
 
 ```markdown
 ### Checkpoint stopped
 Question: [n and text]
 Resolution: Unresolved
-Path: Teach-back
+Path: Multiple choice
 
 ### Material misunderstanding
 - [precise description]
+
+### Correct answer
+- [option letter and concise explanation grounded in the implementation]
 
 ### Review target
 - [specific plan section, VERIFY finding, and/or primary file and logic]
@@ -302,7 +318,7 @@ FAIL — revisit the implementation before starting a fresh checkpoint session.
 
 ## Constraints
 
-- Do not answer for the engineer before the teach-back stage.
+- Do not reveal the correct answer before the multiple-choice selection.
 - Do not provide sample answers during the initial or guided-retry stages.
 - Do not ask more than one question in a response.
 - Do not ask more than three questions in the entire checkpoint.

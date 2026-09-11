@@ -44,7 +44,7 @@ The engineer must be able to explain:
 - why it works
 - how it fits into the system
 
-If the engineer cannot confidently answer:
+If the engineer cannot demonstrate materially correct understanding after the bounded retry and teach-back flow:
 
 - stop the workflow
 - do not proceed to `TEST` or `PLAN STEP UPDATE`
@@ -54,6 +54,9 @@ Rules:
 
 - This step enforces understanding, not correctness.
 - Passing `VERIFY` does not guarantee passing `ENGINEER CHECKPOINT`.
+- Only an explicit `PASS` permits the workflow to proceed to `TEST`; there is no checkpoint-level `PARTIAL` outcome.
+- Initial mistakes do not block progress when the engineer resolves the material misunderstanding during the bounded checkpoint.
+- Confidence is tracked for reflection but does not determine the verdict.
 - The engineer is the source of truth, not the AI.
 
 ## Required Loop

@@ -31,6 +31,9 @@ Confirm that the engineer understands the current change without turning the che
 
 - Review the active plan step, VERIFY results, and relevant changed code.
 - Establish the correct behavior, purpose, important logic, implementation location, and meaningful risks.
+- Inspect the latest EXECUTE diff and identify the materially changed code targets before selecting questions.
+- Exclude formatting-only changes, generated code, and unrelated edits from the code-review target candidates.
+- Verify that every candidate's file path and function, component, selector, event handler, or markup block actually exist.
 - Ground every evaluation in the implementation; do not speculate or invent behavior.
 - Do not modify code or plan state. This skill is read-only.
 
@@ -59,7 +62,9 @@ Use when backend behavior, auth, APIs, databases, persistence, side effects, arc
 - Adapt the chosen prompts to the active step and actual code instead of repeating the example wording mechanically.
 - When recent checkpoint history is available, avoid repeating the immediately previous prompt wording and order.
 - Select all three questions before starting, but reveal only the current question.
-- If an earlier answer fully demonstrates the understanding sought by a later selected question, remove that later question, note the coverage under the earlier question, and do not replace it.
+- Randomly select the code-review target from the materially changed candidates. If there is only one candidate, randomize the code-review style instead.
+- If an earlier answer fully demonstrates the understanding sought by a later behavior or risk question, remove that later question, note the coverage under the earlier question, and do not replace it.
+- Always ask the code-review question. Do not remove it as redundant, even when an earlier answer discusses code.
 - Never ask more than three questions in one checkpoint.
 
 ## Randomized question pool
@@ -72,11 +77,28 @@ Ask exactly one question at a time. Randomly choose one question from each categ
 - Compare the behavior before and after this step. Why was the difference needed?
 - From the user or system perspective, what outcome changed and why?
 
-### Implementation and logic
+### Mandatory code review
 
-- Explain the most important changed logic and identify where it is implemented.
-- Trace the main control or data path introduced by this step in plain English.
-- Which function or component owns the changed behavior, and how does it produce the result?
+This category is required in every checkpoint. Name the real file path and a concrete code anchor in the question. Use a function, component, selector, event handler, configuration key, or HTML/template block. When the behavior spans files, name no more than the two central locations.
+
+Randomly choose one review style and adapt it to the selected code target:
+
+- **Before and after:** In `[path]` at `[code anchor]`, what changed, how did it work before, and what behavior does the new mechanism produce?
+- **Control or data flow:** Open `[path]` at `[code anchor]` and trace the relevant inputs, branches, state, attributes, side effects, or outputs through the changed logic.
+- **Cross-layer contract:** Explain how `[path and code anchor]` works with `[optional second path and code anchor]` to produce the implemented behavior.
+
+Use source-appropriate anchors:
+
+- JavaScript or backend: function, method, handler, branch, state transition, input/output, persistence, API, or side effect.
+- HTML or templates: element block, semantic structure, attributes, data hooks, form behavior, or no-JavaScript fallback.
+- CSS: selector, state class, responsive rule, animation, or accessibility preference.
+- Configuration: key, value, consumer, and resulting runtime behavior.
+
+Scale depth without increasing the question count:
+
+- LIGHT: one localized block and its behavior.
+- STANDARD: the selected block plus its caller, condition, or state interaction.
+- DEEP: the relevant cross-file flow, architectural boundary, persistence, or side effect.
 
 ### Risk and validation
 
@@ -84,7 +106,17 @@ Ask exactly one question at a time. Randomly choose one question from each categ
 - Which implementation assumption is most likely to be wrong, and what evidence would confirm it?
 - What edge case or failure mode matters most, and how should it be tested manually?
 
-Do not use a standalone file-recall question. Secondary file omissions are not evidence of misunderstanding when the engineer can locate and explain the primary implementation.
+Do not use a standalone file-recall question. The named locations are evidence anchors for explaining the mechanism, not a memorization test.
+
+## Code-review answer standard
+
+The mandatory code-review answer must:
+
+- refer to the named file and code anchor
+- explain the changed mechanism in plain English
+- connect that mechanism to the resulting behavior
+
+When two locations are named, explain how they interact. Exact line numbers are not required. A product-level or architectural summary without the concrete source mechanism has a material gap, even when its description of the visible behavior is correct.
 
 ## Material-understanding standard
 
@@ -95,13 +127,14 @@ A **material gap** is a factual error or missing concept that changes the engine
 - the implemented behavior
 - why the change exists
 - the key logic or its primary ownership
+- the named source location and concrete mechanism when the code-review question is asked
 - state, data flow, persistence, API, auth, or side effects when relevant
 - a significant risk or validation requirement when that topic is asked
 
 The following are **non-material omissions** and must not block progress by themselves:
 
 - different wording that preserves the correct meaning
-- missing secondary details or secondary file names
+- missing secondary details or files that the code-review question did not name
 - an answer that is concise but demonstrates the correct mental model
 - minor imprecision that would not change implementation, debugging, or validation decisions
 
@@ -202,6 +235,7 @@ Create exactly three choices grounded in the active step, changed code, and VERI
 - Keep the choices mutually exclusive and similar in detail and length.
 - Do not use trick wording, overlapping answers, or `All of the above` / `None of the above`.
 - Do not reveal the correct answer or corrected explanation before the engineer chooses.
+- For a code-review question, every option must describe concrete mechanics at the named source anchors; do not substitute product-level summaries.
 
 Ask:
 
@@ -323,6 +357,7 @@ FAIL — revisit the implementation before starting a fresh checkpoint session.
 - Do not ask more than one question in a response.
 - Do not ask more than three questions in the entire checkpoint.
 - Do not reuse a fixed question order; randomize the prompt selection and order before every checkpoint.
+- Do not skip or replace the mandatory code-review question with a conceptual product question.
 - Do not evaluate future plan steps.
 - Do not convert non-material omissions into blocking failures.
 - Do not proceed to TEST unless the final verdict is PASS.

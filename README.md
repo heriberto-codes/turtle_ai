@@ -1,3 +1,11 @@
+<p align="center">
+  <img
+    src="assets/Turtleai_logo/png/turtle-ai-logo-with-slogan-1024w.png"
+    alt="Turtle AI — Build with AI. Keep understanding."
+    width="720"
+  />
+</p>
+
 [![wakatime](https://wakatime.com/badge/user/3a78d911-a08a-40c2-bf2c-782c4d20eb23/project/083c1137-37af-417a-8f7d-632880b2dc31.svg)](https://wakatime.com/badge/user/3a78d911-a08a-40c2-bf2c-782c4d20eb23/project/083c1137-37af-417a-8f7d-632880b2dc31)
 
 # Turtle AI

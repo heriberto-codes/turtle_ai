@@ -4,7 +4,7 @@ description: Use this only after a feature has fully completed the Plan-Driven S
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 - docs/backlog.md

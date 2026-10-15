@@ -5,7 +5,7 @@ description: Use this to inspect an existing user interface, frontend implementa
 
 ## Always read
 
-- `agents.md`
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - `architecture.md`
 - `repo_map.md`
 - `docs/system/design-workflow.md`

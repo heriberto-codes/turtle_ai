@@ -14,8 +14,10 @@ Use when creating or refreshing a high-level navigation map of the repository.
 - documentation locations
 
 ## Always read
-- agents.md
-- architecture.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
+- `architecture.md`
+
+Both foundation documents are required. If either is missing, stop and route to `turtle-agents` or `turtle-architecture` before creating the repository map.
 
 ## Output expected
 - `repo_map.md`

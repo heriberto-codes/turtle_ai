@@ -5,7 +5,7 @@ description: Use this after Turtle mockups exist to review one design decision a
 
 ## Always read
 
-- `agents.md`
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - `architecture.md`
 - `repo_map.md`
 - `docs/system/design-workflow.md`

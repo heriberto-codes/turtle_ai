@@ -10,7 +10,7 @@ Modes:
 --------------------------------------------------
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 
@@ -216,12 +216,12 @@ Use only after DEBUG mode A identifies the fix.
 ## Before fixing
 - read DEBUG findings
 - read docs/plans/<feature_slug>_plan.md for current step
-- follow repo patterns from agents.md and architecture.md
+- follow repo patterns from `AGENTS.md` and `architecture.md`
 
 ### Inputs required
 - feature_slug
 - docs/plans/<feature_slug>_plan.md
-- agents.md
+- `AGENTS.md`
 - architecture.md
 - repo_map.md
 - DEBUG findings

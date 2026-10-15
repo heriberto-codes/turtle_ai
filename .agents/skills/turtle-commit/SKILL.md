@@ -4,7 +4,7 @@ description: Use this when generating a final, concise git commit message for a 
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 

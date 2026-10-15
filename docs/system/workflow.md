@@ -18,6 +18,14 @@ Run these once to establish static project context.
 | 2 | `/turtle-architecture` | Capture the system blueprint and architectural patterns to preserve. |
 | 3 | `/turtle-repo-map` | Create a high-level navigation map of important files, protected paths, and critical modules. |
 
+This order is also the bootstrap contract for a new project:
+
+- `/turtle-agents` inspects the repository directly and creates `AGENTS.md`; missing `architecture.md` and `repo_map.md` do not block it.
+- `/turtle-architecture` requires `AGENTS.md` but may run before `repo_map.md` exists.
+- `/turtle-repo-map` runs after both `AGENTS.md` and `architecture.md` exist.
+
+`AGENTS.md` is the canonical repository-instructions filename. Turtle skills temporarily accept lowercase `agents.md` only when the canonical file is absent. `/turtle-agents` owns migration: it renames a legacy-only file while preserving its valid content, and it stops for user reconciliation when both variants exist.
+
 ## Discovery
 
 Use discovery when direction, scope, or repository context is unclear.
@@ -207,13 +215,14 @@ project-root
 |   |   `-- <feature_slug>_plan.md
 |   `-- features/
 |       `-- <feature_slug>.md
-|-- agents.md
+|-- AGENTS.md
 |-- architecture.md
 `-- repo_map.md
 ```
 
 | Path | Purpose |
 | --- | --- |
+| `AGENTS.md` | Concise repository guardrails loaded as Codex instructions. |
 | `.agents/skills/` | Codex skills that execute the Turtle AI workflow. |
 | `docs/analysis/` | Repository understanding and system insights. |
 | `docs/design/` | Optional design evidence, mockups, approval, and controller state. |

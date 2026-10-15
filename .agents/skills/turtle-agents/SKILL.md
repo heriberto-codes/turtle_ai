@@ -1,83 +1,82 @@
 ---
 name: turtle-agents
-description: Use this when creating or updating agents.md to define repository rules, coding conventions, and safety constraints. Typically used at project setup or when conventions are unclear or outdated. Do not use for planning, implementation, debugging, or testing.
+description: Use this when creating, migrating, or updating AGENTS.md to define repository rules, coding conventions, and safety constraints. Typically used at project setup or when conventions are unclear or outdated. Do not use for planning, implementation, debugging, or testing.
 ---
 
 ## When to use
-Use at repo setup time or whenever project rules, conventions, or safety constraints need to be created or refreshed.
 
-## Inputs required
-- project description
-- repository structure
-- team/repo conventions
-- file naming rules
-- security expectations
+Use at repository setup time or whenever project rules, conventions, or safety constraints need to be created or refreshed.
 
-## Always read
-- architecture.md
-- repo_map.md
+## Inspect first
+
+- repository structure, configuration, and existing conventions
+- `architecture.md` when it exists
+- `repo_map.md` when it exists
+- root `AGENTS.md` and legacy root `agents.md`
+
+This skill may run first in a new project. Missing `architecture.md` or `repo_map.md` must not block it. Inspect the repository directly, create a factual baseline, and leave unknowns explicit. Later runs may refine `AGENTS.md` after the other foundation documents exist.
+
+## Instruction-file resolution
+
+Apply these cases deterministically:
+
+1. If only `AGENTS.md` exists, update it incrementally and preserve valid content.
+2. If only legacy `agents.md` exists, preserve its valid content while migrating it to `AGENTS.md`, then remove `agents.md`.
+3. If neither file exists, create `AGENTS.md`.
+4. If both files exist, stop without modifying either file and ask the user to reconcile them. Never merge or delete conflicting instruction files silently.
+
+Determine these cases from exact root directory entry names and, for tracked files, the Git index. Do not use case-insensitive path existence checks, which can make one file appear to have both names. On a case-insensitive filesystem, perform a legacy case-only migration through a unique temporary filename so Git and the filesystem record the uppercase canonical name.
+
+`AGENTS.md` is the canonical filename. Create no new lowercase `agents.md` file. The root `AGENTS.md` in the Turtle AI repository is guidance for maintaining Turtle itself, not a template to copy verbatim into another project.
 
 ## Output expected
-- `agents.md`
-- concise repo rules
-- naming conventions
-- coding standards
-- safety constraints
-- architecture safety notes
+
+- canonical root `AGENTS.md`
+- concise, enforceable repository rules
+- project structure and naming conventions
+- verified build, test, and development commands when available
+- security and architecture safety constraints
+- no remaining legacy `agents.md` after a successful one-file migration
+
+## Content guidance
+
+Keep `AGENTS.md` concise because it is loaded as repository context. Include only rules that should govern most work in the project:
+
+- project purpose and actual structure
+- build, test, lint, and development commands supported by the repository
+- coding and file-naming conventions
+- testing expectations
+- commit and pull-request expectations when established
+- configuration and secrets handling
+- protected boundaries, generated files, and destructive-operation constraints
+
+Put task-specific procedures in skills or dedicated documentation rather than duplicating them in `AGENTS.md`.
 
 ## Rules
-- Prefer updating an existing agents.md over replacing it entirely
-- Keep rules concise and enforceable
-- Align with existing repository structure and patterns
-- Do not introduce new frameworks or tools unless already present
-- Prioritize safety, clarity, and maintainability
-- do NOT invent files, modules, or systems that do not exist
-- base all rules on actual repository structure when available
-- if documentation conflicts with code, treat code as source of truth
 
-### File Naming Conventions
-- Use snake_case for all generated files
-- Use underscores (_) instead of hyphens (-)
-- Examples:
-  - user_profile_page.md
-  - payment_routing_plan.md
-  - auth_service.py
-- Never generate file names using hyphens (-)
+- Base every rule on repository evidence or explicit user direction.
+- Prefer updating valid content over replacing it wholesale.
+- Treat code and configuration as the source of truth when documentation conflicts with them.
+- Do not invent files, modules, commands, frameworks, services, or team conventions.
+- Do not introduce tools or frameworks that the repository does not use.
+- State uncertain details as unknown instead of guessing.
+- Never expose API keys, credentials, tokens, personal data, or `.env` contents.
+- Preserve established system boundaries, data integrity, and access patterns.
+- Prefer simple, readable, maintainable guidance.
 
-## Repository Guidelines
+## File naming
 
-## Project Overview
-Describe the project based on actual repository structure and purpose.
-Do not invent features or systems not present in the codebase.
+- Follow existing language and framework conventions.
+- Use snake_case for Turtle-generated project artifacts unless an external contract requires another name.
+- `AGENTS.md` is an explicit uppercase filename required by the Codex repository-instructions contract.
+- Do not rename existing project files merely to enforce a general naming preference.
 
-## Project Structure & Module Organization
-- Describe folders, major modules, and boundaries
+## Foundation sequence
 
-## Build, Test, and Development Commands
-- List core commands (install, run, test, lint)
+For a new project, use:
 
-## Coding Style & Naming Conventions
-- Follow snake_case for files
-- Follow existing language/framework conventions
+```text
+turtle-agents -> turtle-architecture -> turtle-repo-map
+```
 
-## Testing Guidelines
-- Define where tests live and naming patterns
-- align with existing test framework and conventions
-
-## Commit & Pull Request Guidelines
-- Use concise, descriptive commit messages
-
-## Configuration & Environment
-- Document required environment variables and secrets handling
-
-## Security
-- Never expose API keys.
-- Validate all user input.
-
-## Conventions
-- Prefer simple, readable solutions
-- Avoid unnecessary abstractions
-
-## Architecture Safety
-- Do not bypass established system boundaries
-- Preserve data integrity and access patterns
+`turtle-architecture` may run before `repo_map.md` exists. `turtle-repo-map` runs after both `AGENTS.md` and `architecture.md` are available.

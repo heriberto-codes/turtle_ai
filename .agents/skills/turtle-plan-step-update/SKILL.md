@@ -4,7 +4,7 @@ description: Use this to safely mark the current plan step as complete only afte
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 

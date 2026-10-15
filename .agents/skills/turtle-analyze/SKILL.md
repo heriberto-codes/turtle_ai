@@ -4,7 +4,7 @@ description: Use this when analyzing a repository to build or refresh understand
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 
@@ -66,7 +66,7 @@ Read the repository and summarize:
 - API structure and boundaries
 - important dependencies and integrations
 - testing patterns (location, structure, frameworks)
-- important conventions from agents.md
+- important conventions from `AGENTS.md`
 - potential risk areas (complex, fragile, or unclear parts of the system)
 
 ---

@@ -4,7 +4,7 @@ description: Use this to determine and implement the minimal, correct set of tes
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 
@@ -29,7 +29,7 @@ Use after ENGINEER CHECKPOINT to determine the smallest correct set of tests nee
 - docs/plans/<feature_slug>_plan.md
 - implemented code
 - existing test files and patterns
-- agents.md
+- `AGENTS.md`
 
 ### Output
 - test coverage summary

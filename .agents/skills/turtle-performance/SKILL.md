@@ -4,7 +4,7 @@ description: Use this when reviewing a completed feature for performance risks a
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 

@@ -74,6 +74,8 @@ That comprehension gate is the core distinction of Turtle AI.
 
 The active step is always the first unchecked item in `docs/plans/<feature_slug>_plan.md`.
 
+On a new project, `/turtle-agents` runs first and creates the canonical root `AGENTS.md`. It does not require `architecture.md` or `repo_map.md` to exist yet. After changing repository instructions, begin a new Codex session so the refreshed instruction chain is loaded.
+
 ## Optional Design Workflow
 
 Use Turtle's design workflow when a feature materially changes a page, screen, user journey, visual system, or interaction pattern. Skip it for backend-only work, internal refactors, dependency maintenance, and other changes with no meaningful design decision.
@@ -115,6 +117,18 @@ Turtle AI runs as a repo-scoped Codex skill set located in:
 Once the repository is opened, Codex discovers these skills automatically. Commands such as `/turtle-plan`, `/turtle-execute`, and `/turtle-verify` become available from the Codex skill system.
 
 Turtle AI requires `.agents/skills/`. If that directory is missing, Turtle commands will not be available.
+
+## Repository Instructions
+
+`AGENTS.md` and `.agents/skills/` have separate roles:
+
+- Root `AGENTS.md` contains concise guardrails that apply throughout work in the repository.
+- `.agents/skills/*/SKILL.md` contains the detailed procedure for a specific Turtle phase and is loaded when that skill applies.
+- `docs/system/` explains the shared workflow and state model without duplicating every skill procedure.
+
+`/turtle-agents` creates and maintains uppercase `AGENTS.md`. For compatibility, Turtle skills may read a legacy lowercase `agents.md` only when `AGENTS.md` is absent. `/turtle-agents` migrates a legacy-only file to the canonical name. If both files exist, it stops and requests reconciliation rather than merging them silently.
+
+The `AGENTS.md` in this repository governs maintenance of Turtle AI itself. When `/turtle-agents` runs in another project, it generates project-specific rules from that repository instead of copying this file verbatim.
 
 ## Documentation
 

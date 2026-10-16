@@ -165,7 +165,7 @@ Condition: status is `plan_pending` and backlog status is `ready`.
 - Pass the recorded backlog item and the exact `feature_slug` to the planning contract.
 - Require the plan to use `approved-design.md` for design intent and repository architecture for technical decisions.
 - Record the plan path, set `plan_status` to `created`, and set workflow status to `planned`.
-- Stop before `/turtle-execute`.
+- Stop before `$turtle-execute`.
 
 ### 9. Planned
 
@@ -173,7 +173,7 @@ Condition: status is `planned`.
 
 - Make no file changes.
 - Report the plan path and state that design automation is complete.
-- Tell the user that implementation begins only when they explicitly run `/turtle-execute`.
+- Tell the user that implementation begins only when they explicitly run `$turtle-execute`.
 
 ## Revision routing
 
@@ -188,10 +188,10 @@ After a revised section is explicitly selected, return to `assembly_pending` so 
 - Never modify production application code or production assets.
 - Never import mockup code into the application.
 - Never let design approval authorize implementation.
-- Never run `/turtle-execute` or change plan checkboxes.
+- Never run `$turtle-execute` or change plan checkboxes.
 - Never modify specialist artifacts outside the active specialist contract.
 - Never allow a specialist skill to write `workflow-state.md`.
 
 ## Completion
 
-Report the workspace slug, transition performed, artifact paths created or updated, resulting workflow status, and the single user action or `/turtle-design-next` invocation needed to continue.
+Report the workspace slug, transition performed, artifact paths created or updated, resulting workflow status, and the single user action or `$turtle-design-next` invocation needed to continue.

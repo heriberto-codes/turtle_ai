@@ -4,7 +4,7 @@ Turtle AI has two explicit state systems: an optional Design Workflow State for 
 
 ## Design Workflow State
 
-When `/turtle-design-next` is used, the design source of truth is:
+When `$turtle-design-next` is used, the design source of truth is:
 
 ```text
 docs/design/<feature_slug>/workflow-state.md
@@ -62,15 +62,24 @@ Instead of tracking progress manually, Turtle AI determines the current step, ne
 flowchart TD
 A[Plan file: docs/plans/<feature_slug>_plan.md] --> B[Current Step Detector]
 B --> C[EXECUTE]
-C --> D[VERIFY]
-D --> E[ENGINEER CHECKPOINT]
-E --> F[TEST]
-F --> G{Issues?}
-G -- Yes --> H[DEBUG]
-H --> C
-G -- No --> I[PLAN STEP UPDATE]
+C --> D{VERIFY}
+D -- PASS --> E{ENGINEER CHECKPOINT}
+D -- FAIL --> H[DEBUG when diagnosis is needed]
+E -- PASS --> F[TEST]
+E -- FAIL --> J[STOP and revisit understanding or implementation]
+J -- Technical issue --> H
+J -- Retry checkpoint --> E
+F --> G{Validation passes?}
+G -- No --> H
+H -- Code or plan-alignment fix --> C
+H -- Test fix --> F
+G -- Yes --> K{All required gates passed?}
+K -- No --> D
+K -- Yes --> I[PLAN STEP UPDATE]
 I --> A
 ```
+
+DEBUG is conditional diagnosis, not an unconditional phase. Follow the diagnosed repair route and resolve all failed gates before updating the plan. Code fixes repeat VERIFY, ENGINEER CHECKPOINT, and TEST. Test fixes require fresh applicable test results; they do not remove the requirement for explicit checkpoint PASS evidence.
 
 ## Current Step Detector Pattern
 

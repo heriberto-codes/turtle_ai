@@ -15,7 +15,7 @@ Use after IDEATE to convert ideas into a persistent backlog, after design approv
 - IDEATE output or `docs/design/<feature_slug>/approved-design.md`
 - existing `docs/backlog.md` if present
 
-At least one feature source must exist. When an approved design is the source, require it to state that the design is approved for planning, read it, and use its approved goal and scope without introducing unapproved design work. If its approval is missing or ambiguous, stop and route the feature to `/turtle-design-checkpoint`.
+At least one feature source must exist. When an approved design is the source, require it to state that the design is approved for planning, read it, and use its approved goal and scope without introducing unapproved design work. If its approval is missing or ambiguous, stop and route the feature to `$turtle-design-checkpoint`.
 
 Also read `docs/system/design-workflow.md` when an approved design is the feature source.
 
@@ -66,7 +66,7 @@ Preserve the status of existing items when updating the backlog.
 If an item already exists in docs/backlog.md:
 - keep its existing status
 - do not duplicate it
-- return the exact existing item so a controller can pass it to `/turtle-plan`
+- return the exact existing item so a controller can pass it to `$turtle-plan`
 
 If the item is new:
 - add it as unchecked (- [ ])

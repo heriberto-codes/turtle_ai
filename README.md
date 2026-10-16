@@ -14,87 +14,203 @@
 
 > Build with AI without losing understanding.
 
-Turtle AI is an AI coding workflow where progress is gated by engineer comprehension, not just code generation. It is designed to preserve engineer understanding, codebase context, and long-term ownership while still using AI to move faster.
+Turtle AI is a collection of Codex **skills**—reusable instructions for specific tasks—and Markdown workflow rules that help you build software in small, reviewable steps. You add Turtle to your project's **repository** (the project folder and its Git history), then use its skills in Codex chat to plan, design, implement, and review changes.
 
-Most AI coding tools optimize for speed. Turtle AI optimizes for control.
+You bring the project, development tools, and testing environment. Turtle provides the workflow: AI helps with the work, and you stay responsible for understanding the result.
 
-## Why It Exists
+## Why Understanding Is a Gate
 
-The common failure mode of AI-assisted development is that the engineer gradually loses real understanding of their own codebase.
+It is easy to accept AI-generated code that works without knowing why it works. Turtle makes understanding a required **checkpoint**: a short conversation that checks whether you can explain the change before moving on.
 
-Turtle AI prevents that by keeping changes small, reviewable, and tied to a plan. The engineer remains the source of truth, while AI acts as a constrained implementation partner.
+For a contact form, that might mean explaining where validation happens, why an invalid email is rejected, and how the form connects to the rest of your app. If something is unclear, the checkpoint helps you work through it. You do not need to get every answer right on the first try.
 
-## Core Loop
+The goal is to keep changes small enough to review, test, and understand so you can maintain your own project later.
 
-Every implementation step moves through the same controlled loop:
+## Before You Start
 
-```text
-EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> DEBUG -> PLAN STEP UPDATE
-```
+- Use a Codex environment that supports repository skills and `AGENTS.md` instructions.
+- Have a project folder under Git version control. A new project can start with an empty repository; an existing project can keep its current files and tools.
+- Have the tools needed to run and test your project, such as its language runtime or framework. Turtle itself has no package dependencies or application server to start.
 
-At the center of the loop is `ENGINEER CHECKPOINT`.
+Follow [installation](#install-turtle-in-your-project), [foundation setup](#set-up-your-project-foundation), and then [choose a workflow](#choose-your-workflow). The [skill catalog](#skill-catalog) is a reference once you know the path you need.
 
-Before work can move forward, the engineer must be able to explain:
+## Install Turtle in Your Project
 
-- what was implemented
-- why it works
-- how it fits into the system
+1. Get a copy of this repository's current `main` branch. On [GitHub](https://github.com/heriberto-codes/turtle_ai), select **Code → Download ZIP** and extract it. Or run this in a terminal from a folder where you keep source repositories:
 
-That comprehension gate is the core distinction of Turtle AI.
+   ```bash
+   git clone https://github.com/heriberto-codes/turtle_ai.git
+   ```
 
-## Quick Start
+2. Find `.agents/skills/` in the downloaded Turtle folder. Folders starting with a dot may be hidden: press **Command + Shift + .** in macOS Finder, or enable **View → Show → Hidden items** in Windows File Explorer.
+3. In your own project folder, create `.agents/skills/` if needed. Copy all **22 `turtle-*` folders**, including their contents, into it. Keep any unrelated skills already there.
+4. Create `docs/system/` in your project if needed. Copy these four files from Turtle's `docs/system/`: `workflow.md`, `design-workflow.md`, `state.md`, and `rules.md`. The design skills read these shared documents directly.
+5. Preserve Turtle's license notice: create `docs/licenses/` and copy Turtle's root `LICENSE` into it as `turtle-ai-LICENSE.txt`. Keep your project's own license file as it is.
+6. Open **your project folder** in Codex and start a fresh chat so it can discover the copied skills.
 
-1. Open this repo in Codex.
-2. Ensure `.agents/skills/` exists.
-3. Run the foundation skills once:
-   - `/turtle-agents`
-   - `/turtle-architecture`
-   - `/turtle-repo-map`
-4. Optionally run discovery:
-   - `/turtle-ideate`
-   - `/turtle-backlog`
-   - `/turtle-analyze`
-5. For a user-facing feature with meaningful design decisions, optionally run `/turtle-design-next` repeatedly. It guides audit, section confirmation, mockups, selection, assembly, approval, backlog, and planning one safe transition at a time.
-6. If the automated design phase was skipped, pick a feature from `docs/backlog.md`.
-7. Create a plan when the design controller has not already created one:
-   - `/turtle-plan`
-8. Run the implementation loop until complete:
-   - `/turtle-execute`
-   - `/turtle-verify`
-   - `/turtle-engineer-checkpoint`
-   - `/turtle-test`
-   - `/turtle-debug` if needed
-   - `/turtle-plan-step-update`
-9. Finalize the feature:
-   - `/turtle-security`
-   - `/turtle-performance`
-   - `/turtle-backlog-update`
-   - `/turtle-document`
-   - `/turtle-commit`
+If a destination skill folder or system document already has the same name, compare it with the incoming copy before replacing anything. Preserve local customizations and resolve differences explicitly. For later Turtle updates, repeat this comparison using skills and system documents from the same source revision.
 
-The active step is always the first unchecked item in `docs/plans/<feature_slug>_plan.md`.
-
-On a new project, `/turtle-agents` runs first and creates the canonical root `AGENTS.md`. It does not require `architecture.md` or `repo_map.md` to exist yet. After changing repository instructions, begin a new Codex session so the refreshed instruction chain is loaded.
-
-## Optional Design Workflow
-
-Use Turtle's design workflow when a feature materially changes a page, screen, user journey, visual system, or interaction pattern. Skip it for backend-only work, internal refactors, dependency maintenance, and other changes with no meaningful design decision.
-
-Run `/turtle-design-next` repeatedly to move through one safe transition at a time:
+Your copied files should look like this; the other 20 skill folders are omitted from the picture:
 
 ```text
-DESIGN AUDIT -> SECTION MOCKUPS -> PAGE ASSEMBLY -> DESIGN CHECKPOINT -> BACKLOG -> PLANNING
+your-project/
+|-- .agents/skills/
+|   |-- turtle-agents/SKILL.md
+|   |-- turtle-architecture/SKILL.md
+|   `-- ...
+`-- docs/
+    |-- system/
+    |   |-- workflow.md
+    |   |-- design-workflow.md
+    |   |-- state.md
+    |   `-- rules.md
+    `-- licenses/turtle-ai-LICENSE.txt
 ```
 
-The controller pauses for the user's section confirmation, mockup selections, and final design approval. It stores the design artifacts in `docs/design/<feature_slug>/` and stops after planning; neither the controller nor its specialist design skills modify production code.
+Paste this into Codex chat to check the installation without changing files:
 
-For manual control, run `/turtle-design-audit`, `/turtle-design-mockup`, and `/turtle-design-checkpoint` directly. See the [Design Workflow](docs/system/design-workflow.md) for artifact ownership, workflow state, and recovery rules.
+```text
+Check my Turtle AI installation without modifying files. Confirm that all
+22 turtle-* skill folders have a readable SKILL.md with a matching name,
+and report whether those skills are available in this Codex session.
+Check for workflow.md, design-workflow.md, state.md, and rules.md under
+docs/system/, plus docs/licenses/turtle-ai-LICENSE.txt. Report missing
+files or name conflicts. Do not run the skills or generate foundation files yet.
+```
 
-## What's Included
+### How to Invoke a Skill
 
-![What's Inside Turtle AI](./assets/turtleAI.png)
+Enter skill requests in **Codex chat**, one at a time. For example:
 
-Turtle AI includes repo-scoped Codex skills in `.agents/skills/`.
+```text
+$turtle-agents
+```
+
+These are chat requests, not terminal commands. Codex also documents `/skills` as a way to select a skill; see [OpenAI's invocation guidance](https://developers.openai.com/blog/eval-skills). You can add context after the skill name, including the feature you want to work on.
+
+## Set Up Your Project Foundation
+
+Run these skills in order, waiting for each to finish:
+
+| Order | Enter in Codex chat | Creates or refreshes |
+| --- | --- | --- |
+| 1 | `$turtle-agents` | `AGENTS.md`: repository rules and safety constraints. |
+| 2 | `$turtle-architecture` | `architecture.md`: the current system blueprint. |
+| 3 | `$turtle-repo-map` | `repo_map.md`: a navigation guide to important files and boundaries. |
+
+After creating or changing `AGENTS.md`, begin a fresh Codex chat in the project before continuing so the repository instructions are loaded. For a Turtle-managed project, ask `$turtle-agents` to include the plan-step order, comprehension gate, and state ownership rules from `docs/system/rules.md` in its concise guardrails.
+
+The foundation skills preserve valid existing content and update it incrementally. `$turtle-agents` can run before the other two documents exist. It creates uppercase `AGENTS.md`; if only legacy lowercase `agents.md` exists, it migrates its valid content to the canonical filename. If both exist, it stops for you to reconcile them. Other Turtle skills use lowercase only as a temporary fallback when uppercase is absent.
+
+The foundation documents in **this Turtle repository describe Turtle itself**. Generate your project's versions from its own files instead of copying Turtle's versions. In an empty project, record unknowns honestly; these skills do not choose or scaffold an application stack. Refresh the documents after initial scaffolding and whenever rules, architecture, or repository structure materially change.
+
+## Choose Your Workflow
+
+A **backlog** is the list of features you might build, stored in `docs/backlog.md`. A **plan** breaks one selected feature into small implementation steps. Turtle saves these and other **artifacts**—files produced by the workflow—inside your project.
+
+If you need to understand existing code first, use `$turtle-analyze`. If you need grounded feature ideas, use `$turtle-ideate`. Analysis is useful when entering an unfamiliar repository or module; it is not required before every small change.
+
+### Path A: Design a User-Facing Feature
+
+Use this path when a feature changes a page, screen, user journey, or interaction and you want to explore design choices before implementation.
+
+Start with a goal, for example:
+
+```text
+$turtle-design-next Design an accessible contact form for my portfolio.
+Use feature_slug: contact_form.
+```
+
+A **feature slug** is a short identifier used in filenames: `contact_form` uses lowercase words separated by underscores. In examples such as `docs/design/<feature_slug>/`, replace `<feature_slug>` with that identifier.
+
+Keep invoking `$turtle-design-next`, supplying the requested feedback or approval, to follow this path:
+
+```text
+AUDIT -> SECTION CONFIRMATION -> SECTION MOCKUPS AND SELECTIONS
+      -> PAGE ASSEMBLY -> DESIGN CHECKPOINT -> BACKLOG -> PLAN
+```
+
+Each invocation performs one safe transition and stops. You confirm the sections, choose or revise mockups, and explicitly approve the complete design. A pause is expected: Turtle is waiting for your decision or the next invocation.
+
+Artifacts live in `docs/design/contact_form/`, including isolated mockups and `workflow-state.md`, the file that records the current design stage. For a new interface, supply requirements or references; the audit records missing visual evidence instead of inventing an existing UI.
+
+After approval, continue invoking the controller until it creates or reuses the backlog item and creates the plan. You do not need to run backlog and planning again. The controller stops before production implementation; design approval alone never authorizes application-code changes.
+
+For manual control, the specialist skills are `$turtle-design-audit`, `$turtle-design-mockup`, and `$turtle-design-checkpoint`. See the [Design Workflow](docs/system/design-workflow.md) for their boundaries and recovery rules.
+
+### Path B: Plan Work Without the Design Phase
+
+Use this path for backend work, internal refactors, maintenance, or other work that needs no design exploration.
+
+1. If the feature is not already in the backlog, use `$turtle-ideate` to develop a grounded idea, then `$turtle-backlog` to save it. An existing suitable backlog item can be used directly.
+2. Run `$turtle-plan` with the selected backlog item. If you omit a selection, it chooses the first unchecked backlog item.
+3. Review the resulting plan before starting implementation.
+
+The plan is saved as `docs/plans/<feature_slug>_plan.md`. For example, a feature using `contact_form` has the path `docs/plans/contact_form_plan.md`.
+
+Both paths now continue through the same implementation loop. If a matching design workspace exists, planning requires its explicit approval even when planning is invoked directly.
+
+## Build One Plan Step at a Time
+
+A **plan step** is one small checkbox item in the feature's plan. The first unchecked `[ ]` item is the active step. Run each skill below separately for the same feature, and continue only when its required result is satisfied:
+
+| Order | Enter in Codex chat | What happens |
+| --- | --- | --- |
+| 1 | `$turtle-execute` | Implements only the active step. |
+| 2 | `$turtle-verify` | Reviews correctness, scope, and alignment with the plan; requires PASS. |
+| 3 | `$turtle-engineer-checkpoint` | Checks your understanding through a short conversation; requires PASS. |
+| 4 | `$turtle-test` | Reviews needed coverage, then implements identified tests in a follow-up invocation when needed. Run the relevant project checks and inspect their results. |
+| 5 | `$turtle-plan-step-update` | Checks completion evidence, then marks only that step `[x]` and identifies the next one. |
+
+```text
+EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> PLAN STEP UPDATE
+```
+
+For example, enter `$turtle-execute feature_slug: contact_form` to identify the feature. Keep using that slug for its later phases, especially when more than one feature has a plan.
+
+`$turtle-test` starts with **Mode A**, a review of the tests needed for this step. If it identifies tests to add or update, invoke it again with that review output and request **Mode B** to implement those tests. If no changes are needed, Mode B is unnecessary; record the applicable validation results before updating the step.
+
+The checkbox stays unchecked throughout implementation and validation. Only `$turtle-plan-step-update` marks it complete after the required gates pass. Repeat the loop for the next unchecked step until the plan has none left.
+
+### When Something Fails
+
+Stop advancing the step. If the cause is unclear, use `$turtle-debug` in **Mode A** with the full failure output to diagnose it. Follow its recommended repair route:
+
+| Finding | Next action |
+| --- | --- |
+| Incorrect code or a mismatch with the plan | Apply the scoped fix through the recommended EXECUTE debug/verify-fix mode. |
+| Incorrect or missing tests | Return to TEST review and the identified test implementation work. |
+| A misunderstanding at the checkpoint | Work through the checkpoint's explanation and recovery questions; investigate code if the misunderstanding exposes an implementation problem. |
+
+DEBUG is conditional recovery, not a required stop after every successful test. Code fixes return through VERIFY, ENGINEER CHECKPOINT, and TEST; test fixes require fresh applicable validation results. Resolve failed gates and retain explicit checkpoint PASS evidence before running PLAN STEP UPDATE. Never jump directly from a debug diagnosis or fix to marking the step complete.
+
+See the [Workflow Reference](docs/system/workflow.md) for test/debug modes and the [State System](docs/system/state.md) for completion rules.
+
+## Finalize the Feature
+
+After all plan steps are complete:
+
+1. Run `$turtle-security` to review security risks and `$turtle-performance` for relevant performance risks. Address findings through the appropriate workflow before finalizing.
+2. Run `$turtle-backlog-update` to mark the matching backlog item complete.
+3. Run `$turtle-document` to record the completed feature in `docs/features/<feature_slug>.md`.
+4. Run `$turtle-commit` to prepare a concise commit message from the actual changes.
+
+`$turtle-commit` prepares the message. It does not automatically commit, push, open a pull request, or publish a release. Those are separate Git/GitHub actions you request or perform after reviewing the changes.
+
+## If You Get Stuck
+
+| Situation | What to do |
+| --- | --- |
+| Turtle skills are missing | Confirm you opened your project, copied each skill into `.agents/skills/<skill-name>/SKILL.md`, and started a fresh Codex session. Repeat the installation check above. |
+| A foundation file is missing | Run the missing foundation skill in setup order. Do not copy Turtle's own blueprint into your project. |
+| Turtle pauses for approval | Reply with the requested confirmation, selection, or revision. For design, include it with the next `$turtle-design-next` request. |
+| A review, checkpoint, or test fails | Keep the step unchecked and follow [failure recovery](#when-something-fails). |
+| You return in a new chat | Name the feature slug and ask Codex to read the plan and report the active step and missing gate evidence without changing files. Resume the needed phase; an unchecked item alone does not prove earlier gates passed. |
+| Design work is already in progress | Run `$turtle-design-next` with its slug to resume from recorded design state. If several workspaces exist, name the one you want. |
+
+## Skill Catalog
+
+Turtle includes 22 project-local skills in `.agents/skills/`. Their names describe focused responsibilities; you do not need to memorize the full catalog to begin.
 
 | Category | Skills |
 | --- | --- |
@@ -106,35 +222,27 @@ Turtle AI includes repo-scoped Codex skills in `.agents/skills/`.
 | Hardening | `turtle-security`, `turtle-performance` |
 | Finalization | `turtle-backlog-update`, `turtle-document`, `turtle-commit` |
 
-## Codex Skills Support
+## Foundation and Workflow Files
 
-Turtle AI runs as a repo-scoped Codex skill set located in:
+Turtle's foundation and workflow files have distinct responsibilities:
 
-```text
-.agents/skills/
-```
+| Location | Role |
+| --- | --- |
+| Root `AGENTS.md` | Concise repository guardrails loaded as Codex instructions. |
+| Root `architecture.md` | Current system blueprint, boundaries, and ownership. |
+| Root `repo_map.md` | Navigation guide to important files and protected paths. |
+| `.agents/skills/*/SKILL.md` | Detailed procedure for one skill, loaded when that skill applies. |
+| `docs/system/` | Shared workflow and state rules used across skills. |
 
-Once the repository is opened, Codex discovers these skills automatically. Commands such as `/turtle-plan`, `/turtle-execute`, and `/turtle-verify` become available from the Codex skill system.
+Skill procedures define each phase's operational behavior. Repository files remain authoritative if architecture or navigation documentation becomes stale. Keep the foundation current as your project evolves.
 
-Turtle AI requires `.agents/skills/`. If that directory is missing, Turtle commands will not be available.
+## Current Limitations
 
-## Repository Instructions
-
-`AGENTS.md` and `.agents/skills/` have separate roles:
-
-- Root `AGENTS.md` contains concise guardrails that apply throughout work in the repository.
-- Root `architecture.md` describes the current system structure, boundaries, workflow layers, and state ownership.
-- Root `repo_map.md` provides a concise navigation guide to skills, shared contracts, assets, and protected paths.
-- `.agents/skills/*/SKILL.md` contains the detailed procedure for a specific Turtle phase and is loaded when that skill applies.
-- `docs/system/` explains the shared workflow and state model without duplicating every skill procedure.
-
-`/turtle-agents` creates and maintains uppercase `AGENTS.md`. For compatibility, Turtle skills may read a legacy lowercase `agents.md` only when `AGENTS.md` is absent. `/turtle-agents` migrates a legacy-only file to the canonical name. If both files exist, it stops and requests reconciliation rather than merging them silently.
-
-The `AGENTS.md` in this repository governs maintenance of Turtle AI itself. When `/turtle-agents` runs in another project, it generates project-specific rules from that repository instead of copying this file verbatim.
+Turtle is an instruction-based workflow carried out by Codex, with human review and file-based state. It does not mechanically enforce every gate or guarantee bug-free or secure code. Some gate evidence lives in the conversation, so a new chat may need to re-establish it. This source repository currently has no automated contract-test suite or CI workflow, and mockup previews depend on the tools available in your environment. See [architectural risks](architecture.md#known-risks) for the current maintenance concerns.
 
 ## Documentation
 
-The README is the entry point. The detailed workflow reference lives in the system docs:
+The README is the starting guide. These documents explain the system and its detailed workflow rules:
 
 - [Architecture](architecture.md)
 - [Repository Map](repo_map.md)
@@ -142,3 +250,7 @@ The README is the entry point. The detailed workflow reference lives in the syst
 - [Design Workflow](docs/system/design-workflow.md)
 - [State System](docs/system/state.md)
 - [Global Rules](docs/system/rules.md)
+
+## License
+
+Turtle AI is licensed under the [MIT License](LICENSE). When copying or redistributing Turtle material, retain its copyright and license notice. The installation steps preserve a copy under `docs/licenses/` alongside your project's existing license.

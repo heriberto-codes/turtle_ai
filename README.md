@@ -123,6 +123,8 @@ Turtle AI requires `.agents/skills/`. If that directory is missing, Turtle comma
 `AGENTS.md` and `.agents/skills/` have separate roles:
 
 - Root `AGENTS.md` contains concise guardrails that apply throughout work in the repository.
+- Root `architecture.md` describes the current system structure, boundaries, workflow layers, and state ownership.
+- Root `repo_map.md` provides a concise navigation guide to skills, shared contracts, assets, and protected paths.
 - `.agents/skills/*/SKILL.md` contains the detailed procedure for a specific Turtle phase and is loaded when that skill applies.
 - `docs/system/` explains the shared workflow and state model without duplicating every skill procedure.
 
@@ -134,6 +136,8 @@ The `AGENTS.md` in this repository governs maintenance of Turtle AI itself. When
 
 The README is the entry point. The detailed workflow reference lives in the system docs:
 
+- [Architecture](architecture.md)
+- [Repository Map](repo_map.md)
 - [Workflow Reference](docs/system/workflow.md)
 - [Design Workflow](docs/system/design-workflow.md)
 - [State System](docs/system/state.md)

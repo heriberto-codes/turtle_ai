@@ -4,7 +4,7 @@ description: Use this when creating or updating a feature record under docs/feat
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 

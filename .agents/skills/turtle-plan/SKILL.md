@@ -4,7 +4,7 @@ description: Use this to generate a concise, repo-aligned implementation plan fo
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 - docs/backlog.md
@@ -43,7 +43,7 @@ If repository code conflicts with `architecture.md`, do not guess. Call out the 
 - docs/backlog.md
 - architecture.md
 - repo_map.md
-- agents.md
+- `AGENTS.md`
 - repository code
 - `docs/design/<feature_slug>/approved-design.md` when the matching design workspace exists
 
@@ -92,7 +92,7 @@ Planning blocked. Complete /turtle-design-checkpoint for this feature first.
 Use `approved-design.md` as the source of truth for approved user experience, hierarchy, responsive behavior, components, assets, and accepted tradeoffs. Use `architecture.md` and repository code as the source of truth for technical implementation. Record conflicts or unresolved questions in the plan instead of silently overriding either source.
 
 ## Before planning
-- read agents.md, architecture.md, repo_map.md, docs/backlog.md
+- read `AGENTS.md`, `architecture.md`, `repo_map.md`, and `docs/backlog.md`
 - determine `selected_backlog_item` and `feature_slug` using manual inputs or auto-selection
 - extract the current system architecture from `architecture.md`
 - inspect repository structure and conventions
@@ -114,7 +114,7 @@ You are a Staff Software Engineer planning a feature.
 
 Before planning:
 - Inspect repository structure
-- Review architecture.md, repo_map.md, agents.md
+- Review `architecture.md`, `repo_map.md`, and `AGENTS.md`
 - Use these as the source of truth
 
 Responsibilities

@@ -4,7 +4,7 @@ description: Use this to review the latest implementation for the current plan s
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 

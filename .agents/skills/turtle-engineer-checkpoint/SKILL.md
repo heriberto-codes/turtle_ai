@@ -9,7 +9,7 @@ Confirm that the engineer understands the current change without turning the che
 
 ## Always read
 
-- `agents.md`
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - `architecture.md`
 - `repo_map.md`
 

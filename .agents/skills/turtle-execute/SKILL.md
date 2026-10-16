@@ -4,7 +4,7 @@ description: Use this to implement exactly the first unchecked step in the activ
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 - docs/backlog.md
@@ -192,7 +192,7 @@ Use only when VERIFY returns FAIL and the current plan step needs follow-up fixe
 ### Inputs
 - feature_slug
 - docs/plans/<feature_slug>_plan.md
-- agents.md
+- `AGENTS.md`
 - architecture.md
 - repo_map.md
 - latest VERIFY findings
@@ -235,7 +235,7 @@ Current step detection (REQUIRED):
 
 ## Before fixing
 - read docs/plans/<feature_slug>_plan.md and detect current step (first unchecked)
-- read agents.md, architecture.md, and repo_map.md
+- read `AGENTS.md`, `architecture.md`, and `repo_map.md`
 - review latest VERIFY findings and prior changes
 - do not modify plan state; this step remains unchecked
 
@@ -253,7 +253,7 @@ Constraints
 - Do NOT refactor unrelated code
 - Do NOT implement later plan steps
 - Do NOT combine multiple plan steps into one execution
-- Follow agents.md rules and protected patterns
+- Follow `AGENTS.md` rules and protected patterns
 - Prefer minimal, safe, reversible changes
 - Maintain existing architecture and repo patterns
 - do NOT invent fixes; base changes on VERIFY findings and code evidence

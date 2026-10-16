@@ -14,8 +14,10 @@ Use when creating or refreshing the system blueprint for the repository.
 - known integrations and constraints
 
 ## Always read
-- agents.md
-- repo_map.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
+- `repo_map.md` when present
+
+`AGENTS.md` is required. A missing `repo_map.md` does not block initial architecture creation; inspect the repository directly and record uncertain navigation details for `turtle-repo-map` to resolve later.
 
 ## Output expected
 - `architecture.md`

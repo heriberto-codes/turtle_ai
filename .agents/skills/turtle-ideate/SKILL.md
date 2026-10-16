@@ -4,7 +4,7 @@ description: Use this when generating grounded feature ideas and improvements ba
 ---
 
 ## Always read
-- agents.md
+- `AGENTS.md` (or legacy `agents.md` only when `AGENTS.md` is absent)
 - architecture.md
 - repo_map.md
 

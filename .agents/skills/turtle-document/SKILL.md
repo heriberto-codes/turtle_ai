@@ -1,6 +1,6 @@
 ---
 name: turtle-document
-description: Use this when creating or updating docs/features/<feature_slug>.md to document a completed feature, including summary, decisions, architecture impact, tests, and follow-ups. Typically used after implementation, verification, and backlog updates are complete. Do not use for planning, implementation, debugging, or testing.
+description: Use this when creating or updating a feature record under docs/features to document a completed feature, including summary, decisions, architecture impact, tests, and follow-ups. Typically used after implementation, verification, and backlog updates are complete. Do not use for planning, implementation, debugging, or testing.
 ---
 
 ## Always read

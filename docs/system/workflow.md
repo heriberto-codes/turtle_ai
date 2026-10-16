@@ -5,7 +5,7 @@ This document contains the full Turtle AI workflow. The README gives the short v
 ## Workflow Overview
 
 ```text
-FOUNDATION -> DISCOVERY -> PLANNING -> IMPLEMENTATION LOOP -> HARDENING -> FINALIZATION
+FOUNDATION -> DISCOVERY -> OPTIONAL DESIGN -> PLANNING -> IMPLEMENTATION LOOP -> HARDENING -> FINALIZATION
 ```
 
 ## Foundation
@@ -28,11 +28,41 @@ Use discovery when direction, scope, or repository context is unclear.
 | 5 | `/turtle-backlog` | Persist and prioritize features in `docs/backlog.md`. |
 | 6 | `/turtle-analyze` | Build a working mental model of the repository. |
 
+## Optional Design
+
+For user-facing work, complete the optional design phase before planning. For work without meaningful design decisions, proceed directly from discovery.
+
+Use `/turtle-design-next` as the state-aware controller. Run it repeatedly; each invocation performs exactly one safe transition and then stops.
+
+```text
+AUDIT -> SECTION CONFIRMATION -> SECTION MOCKUPS AND SELECTIONS -> ASSEMBLY -> CHECKPOINT -> BACKLOG -> PLAN
+```
+
+The controller pauses for the user to:
+
+- confirm the audit's proposed ordered section list
+- select, combine, or revise each section's mockup directions
+- explicitly approve the complete assembled design
+
+It stores controller state in `docs/design/<feature_slug>/workflow-state.md`. It may finish by creating the matching backlog item and implementation plan, but it never runs `/turtle-execute` or changes production code.
+
+The specialist commands remain available for manual use:
+
+| Skill | Purpose |
+| --- | --- |
+| `/turtle-design-audit` | Inspect the current interface and propose design opportunities and page sections. |
+| `/turtle-design-mockup` | Create or revise isolated responsive mockup directions. |
+| `/turtle-design-checkpoint` | Review the assembled design and capture explicit approval for planning. |
+
+See `docs/system/design-workflow.md` for artifact ownership, state values, and transition rules.
+
 ## Planning
 
 | Order | Skill | Purpose |
 | --- | --- | --- |
 | 7 | `/turtle-plan` | Convert a selected backlog item into `docs/plans/<feature_slug>_plan.md`. |
+
+When a matching design workspace exists, planning requires its approved design. `/turtle-design-next` can invoke the same planning contract after approval and backlog creation, then stops before implementation.
 
 ## Implementation Loop
 
@@ -124,6 +154,14 @@ project-root
 |       |   `-- SKILL.md
 |       |-- turtle-analyze/
 |       |   `-- SKILL.md
+|       |-- turtle-design-next/
+|       |   `-- SKILL.md
+|       |-- turtle-design-audit/
+|       |   `-- SKILL.md
+|       |-- turtle-design-mockup/
+|       |   `-- SKILL.md
+|       |-- turtle-design-checkpoint/
+|       |   `-- SKILL.md
 |       |-- turtle-plan/
 |       |   `-- SKILL.md
 |       |-- turtle-execute/
@@ -151,7 +189,16 @@ project-root
 |-- docs/
 |   |-- analysis/
 |   |   `-- repo_analysis.md
+|   |-- design/
+|   |   `-- <feature_slug>/
+|   |       |-- workflow-state.md
+|   |       |-- audit.md
+|   |       |-- design-spec.md
+|   |       |-- checkpoint.md
+|   |       |-- approved-design.md
+|   |       `-- mockups/
 |   |-- system/
+|   |   |-- design-workflow.md
 |   |   |-- workflow.md
 |   |   |-- state.md
 |   |   `-- rules.md
@@ -169,6 +216,7 @@ project-root
 | --- | --- |
 | `.agents/skills/` | Codex skills that execute the Turtle AI workflow. |
 | `docs/analysis/` | Repository understanding and system insights. |
+| `docs/design/` | Optional design evidence, mockups, approval, and controller state. |
 | `docs/system/` | Shared workflow rules and system references. |
 | `docs/backlog.md` | Feature backlog and prioritization. |
 | `docs/plans/` | Active feature execution state. |

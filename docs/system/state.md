@@ -1,8 +1,43 @@
 # Turtle AI State System
 
-The Plan-Driven State System is the control layer of Turtle AI.
+Turtle AI has two explicit state systems: an optional Design Workflow State for pre-planning design decisions and the Plan-Driven State System for implementation.
 
-All workflow state is derived from one source of truth:
+## Design Workflow State
+
+When `/turtle-design-next` is used, the design source of truth is:
+
+```text
+docs/design/<feature_slug>/workflow-state.md
+```
+
+The controller owns this file. Design specialists may read it but cannot edit it. Each controller invocation performs exactly one transition and preserves the confirmed section order, section status, selected direction, assembly status, checkpoint status, backlog reference, and plan path.
+
+```mermaid
+flowchart TD
+A[AUDIT] --> B[SECTION CONFIRMATION]
+B --> C[SECTION MOCKUP]
+C --> D{USER SELECTION}
+D -- Revise --> C
+D -- Selected, more sections --> C
+D -- All selected --> E[PAGE ASSEMBLY]
+E --> F[DESIGN CHECKPOINT]
+F -- Changes requested --> C
+F -- Explicit approval --> G[BACKLOG]
+G --> H[PLAN]
+H --> I[STOP BEFORE EXECUTE]
+```
+
+The controller pauses rather than inferring section confirmation, direction selection, revision acceptance, final approval, or which workspace to use when multiple active workspaces exist.
+
+Approved design state can authorize backlog creation and planning only. It never authorizes production implementation.
+
+See `docs/system/design-workflow.md` for the full schema and controlled values.
+
+## Plan-Driven State System
+
+The Plan-Driven State System is the implementation control layer of Turtle AI.
+
+All implementation-loop state is derived from one source of truth:
 
 ```text
 docs/plans/<feature_slug>_plan.md

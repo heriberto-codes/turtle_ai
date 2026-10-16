@@ -15,7 +15,7 @@ Use ONLY after the current plan step has successfully passed:
 
 - EXECUTE
 - VERIFY (PASS)
-- ENGINEER CHECKPOINT (completed)
+- ENGINEER CHECKPOINT (PASS)
 - TEST (completed)
 - DEBUG (if needed)
 
@@ -28,7 +28,7 @@ Do NOT run this step unless ALL of the following have completed successfully:
 
 - EXECUTE
 - VERIFY returned PASS
-- ENGINEER CHECKPOINT completed
+- ENGINEER CHECKPOINT returned PASS
 - TEST completed
 - DEBUG completed (if required)
 
@@ -37,7 +37,7 @@ If ANY of these are incomplete or failed:
 - STOP immediately
 - Do NOT update the plan
 - Return control to the appropriate step:
-  → EXECUTE / VERIFY / TEST / DEBUG
+  → EXECUTE / VERIFY / ENGINEER CHECKPOINT / TEST / DEBUG
 
 ---
 
@@ -87,6 +87,7 @@ Mark the current plan step as complete.
      - no partial implementation
      - no missing behavior
      - VERIFY has no unresolved issues
+     - ENGINEER CHECKPOINT returned PASS
      - TEST has no failing results
    - If any condition fails:
      → STOP
@@ -137,7 +138,7 @@ Mark the current plan step as complete.
 - If multiple unchecked steps exist, update ONLY the FIRST unchecked step
 - If step validation fails → DO NOT update
 - If mismatch detected → DO NOT update
-- do NOT invent completion; base decision on VERIFY, TEST, and checkpoint results
+- do NOT invent completion; require an explicit checkpoint PASS and base the remaining decision on VERIFY and TEST results
 
 ---
 

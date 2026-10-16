@@ -1,619 +1,367 @@
 ---
 name: turtle-engineer-checkpoint
-description: Use this to verify the engineer’s understanding of the current plan step after VERIFY passes, via a one-question-at-a-time checkpoint interview with scoring, confidence tracking, and recovery. Do not use for planning, implementation, debugging, or testing.
+description: Use this after VERIFY passes to confirm the engineer understands the current plan step through a bounded, one-question-at-a-time checkpoint with multiple-choice recovery. Do not use for planning, implementation, debugging, or testing.
 ---
 
-## When to use
-Use after VERIFY passes to confirm the engineer still understands the current change before moving forward.
+# Engineer Checkpoint
 
----
+Confirm that the engineer understands the current change without turning the checkpoint into an open-ended interview. Evaluate material understanding, not memorization or exhaustive recall.
 
 ## Always read
-- agents.md
-- architecture.md
-- repo_map.md
 
----
+- `agents.md`
+- `architecture.md`
+- `repo_map.md`
 
-## Current step detection (REQUIRED)
-- Read `docs/plans/<feature_slug>_plan.md`
-- Identify the **FIRST unchecked step** `(- [ ])`
-- This is the step being evaluated
-- Do NOT rely on manual step input
+## Current step detection
 
----
+- Read `docs/plans/<feature_slug>_plan.md`.
+- Identify the first unchecked step (`- [ ]`). This is the only step being evaluated.
+- Do not rely on manually supplied step numbers.
 
 ## Inputs
-- feature_slug
-- docs/plans/<feature_slug>_plan.md
-- implemented changes from the last EXECUTE
+
+- `feature_slug`
+- the active plan step
+- implementation changes from the latest EXECUTE
 - VERIFY results
 - files touched
-
----
-
-## Output
-- one checkpoint question at a time
-- evaluation of one answer at a time
-- per-question accuracy label
-- dual scoring (`Initial` + `Final`)
-- confidence tracking
-- one retry opportunity
-- checkpoint recovery if retry fails
-- checkpoint rebuild if recovery fails
-- next question only after the current question is resolved
-- final verdict after all questions are completed
-
----
 
 ## Before interviewing
-- read docs/plans/<feature_slug>_plan.md and detect current step (first unchecked)
-- review VERIFY results and files touched
-- ground all questions in actual behavior and code
-- do not modify code; this step is read-only
 
----
+- Review the active plan step, VERIFY results, and relevant changed code.
+- Establish the correct behavior, purpose, important logic, implementation location, and meaningful risks.
+- Inspect the latest EXECUTE diff and identify the materially changed code targets before selecting questions.
+- Exclude formatting-only changes, generated code, and unrelated edits from the code-review target candidates.
+- Verify that every candidate's file path and function, component, selector, event handler, or markup block actually exist.
+- Ground every evaluation in the implementation; do not speculate or invent behavior.
+- Do not modify code or plan state. This skill is read-only.
 
-## Checkpoint difficulty signal (NEW)
+## Difficulty and question limit
 
-Before asking Question 1, classify the checkpoint difficulty based on:
-- current active plan step
-- files touched
-- VERIFY results
-- implementation complexity
-
-Choose exactly ONE:
+Choose one difficulty before Question 1 and do not increase it during the checkpoint. Difficulty controls question depth, not question count. Every checkpoint asks a maximum of three questions.
 
 ### LIGHT
-Use when:
-- change is small and localized
-- mostly UI/copy/presentation changes
-- 1–2 files touched
-- no meaningful state, data, API, auth, or side effects
-- VERIFY found no significant concerns
 
-Checkpoint behavior:
-- ask Core Questions only (Q1–Q4)
-- skip Risk & Validation unless confusion appears
-- skip Deep Understanding unless answers are weak or confidence is mismatched
-
----
+Use when the change is small and localized, usually involving one or two files, with no meaningful state, persistence, API, auth, or side effects and no significant VERIFY concerns. Keep the selected questions focused on observable behavior, primary logic, and basic validation.
 
 ### STANDARD
-Use when:
-- change affects behavior or logic
-- multiple files or moderate complexity
-- some state, data flow, or conditions exist
-- VERIFY found moderate concerns
 
-Checkpoint behavior:
-- ask Core Questions (Q1–Q4)
-- ask 1–2 Risk & Validation questions as relevant
-- ask Deep Understanding only if answers are shaky, vague, or overconfident
-
----
+Use when behavior or moderate logic changed, multiple files participate, state or conditions are involved, or VERIFY identified a moderate concern. Include relevant conditions, ownership, and regression risk in the selected questions.
 
 ### DEEP
-Use when:
-- backend, auth, API, database, or side effects changed
-- cross-file or architecture-relevant changes
-- VERIFY flagged meaningful risks
-- logic is complex or easy to misunderstand
 
-Checkpoint behavior:
-- ask Core Questions (Q1–Q4)
-- ask all relevant Risk & Validation questions (Q5–Q7)
-- strongly consider Deep Understanding Check (Q8)
-- apply stricter scrutiny to vague answers
+Use when backend behavior, auth, APIs, databases, persistence, side effects, architecture boundaries, or complex logic changed, or VERIFY identified a meaningful risk. Make the selected questions probe the most important data flow, boundary, side effect, or failure mode.
 
----
+### Selection rules
 
-### Difficulty selection rules
-- Default to STANDARD if unsure
-- Do NOT choose DEEP based only on file count
-- Do NOT choose LIGHT if auth, persistence, or side effects are involved
-- Reassess upward if the engineer struggles early
+- Default to STANDARD when the evidence does not clearly support LIGHT or DEEP.
+- Do not choose DEEP from file count alone.
+- Do not choose LIGHT when auth, persistence, or side effects are involved.
+- Before Question 1, randomly select one grounded question from each category in the question pool, then randomize their order.
+- Adapt the chosen prompts to the active step and actual code instead of repeating the example wording mechanically.
+- When recent checkpoint history is available, avoid repeating the immediately previous prompt wording and order.
+- Select all three questions before starting, but reveal only the current question.
+- Randomly select the code-review target from the materially changed candidates. If there is only one candidate, randomize the code-review style instead.
+- If an earlier answer fully demonstrates the understanding sought by a later behavior or risk question, remove that later question, note the coverage under the earlier question, and do not replace it.
+- Always ask the code-review question. Do not remove it as redundant, even when an earlier answer discusses code.
+- Never ask more than three questions in one checkpoint.
 
----
+## Randomized question pool
 
-## Role
-You are a mock technical interviewer validating understanding of the current plan step via a controlled, one-question-at-a-time interview grounded in actual code and behavior.
+Ask exactly one question at a time. Randomly choose one question from each category and shuffle the three-question order.
 
----
+### Behavior and intent
 
-## Interaction mode (STRICT)
-- Ask exactly **ONE** question at a time
-- Require a single combined response containing both confidence and answer
-- Evaluate only that answer
-- If the answer is **Partially correct** or **Incorrect** → allow **ONE retry**
-- If retry still weak → enter **CHECKPOINT RECOVERY**
-- If recovery still weak → enter **CHECKPOINT REBUILD**
-- Do NOT ask multiple questions in one response
-- Do NOT reveal future questions early
-- Only proceed when the current question is resolved
-- After the final question → provide an overall verdict
+- Describe the observable behavior change and the problem it solves.
+- Compare the behavior before and after this step. Why was the difference needed?
+- From the user or system perspective, what outcome changed and why?
 
-### Critical rules
-- Never ask more than one checkpoint question in a single response
-- Never skip evaluation
-- Never overwrite the **Initial score**
-- Always track **both Initial and Final scores**
-- Always track the **resolution path**
+### Mandatory code review
 
----
+This category is required in every checkpoint. Name the real file path and a concrete code anchor in the question. Use a function, component, selector, event handler, configuration key, or HTML/template block. When the behavior spans files, name no more than the two central locations.
 
-## First response (MUST be exact)
+Randomly choose one review style and adapt it to the selected code target:
+
+- **Before and after:** In `[path]` at `[code anchor]`, what changed, how did it work before, and what behavior does the new mechanism produce?
+- **Control or data flow:** Open `[path]` at `[code anchor]` and trace the relevant inputs, branches, state, attributes, side effects, or outputs through the changed logic.
+- **Cross-layer contract:** Explain how `[path and code anchor]` works with `[optional second path and code anchor]` to produce the implemented behavior.
+
+Use source-appropriate anchors:
+
+- JavaScript or backend: function, method, handler, branch, state transition, input/output, persistence, API, or side effect.
+- HTML or templates: element block, semantic structure, attributes, data hooks, form behavior, or no-JavaScript fallback.
+- CSS: selector, state class, responsive rule, animation, or accessibility preference.
+- Configuration: key, value, consumer, and resulting runtime behavior.
+
+Scale depth without increasing the question count:
+
+- LIGHT: one localized block and its behavior.
+- STANDARD: the selected block plus its caller, condition, or state interaction.
+- DEEP: the relevant cross-file flow, architectural boundary, persistence, or side effect.
+
+### Risk and validation
+
+- What is the biggest material regression risk, and how would you verify it?
+- Which implementation assumption is most likely to be wrong, and what evidence would confirm it?
+- What edge case or failure mode matters most, and how should it be tested manually?
+
+Do not use a standalone file-recall question. The named locations are evidence anchors for explaining the mechanism, not a memorization test.
+
+## Code-review answer standard
+
+The mandatory code-review answer must:
+
+- refer to the named file and code anchor
+- explain the changed mechanism in plain English
+- connect that mechanism to the resulting behavior
+
+When two locations are named, explain how they interact. Exact line numbers are not required. A product-level or architectural summary without the concrete source mechanism has a material gap, even when its description of the visible behavior is correct.
+
+## Material-understanding standard
+
+Evaluate answers using actual code and behavior.
+
+A **material gap** is a factual error or missing concept that changes the engineer's mental model of:
+
+- the implemented behavior
+- why the change exists
+- the key logic or its primary ownership
+- the named source location and concrete mechanism when the code-review question is asked
+- state, data flow, persistence, API, auth, or side effects when relevant
+- a significant risk or validation requirement when that topic is asked
+
+The following are **non-material omissions** and must not block progress by themselves:
+
+- different wording that preserves the correct meaning
+- missing secondary details or files that the code-review question did not name
+- an answer that is concise but demonstrates the correct mental model
+- minor imprecision that would not change implementation, debugging, or validation decisions
+
+## Labels, resolution, and confidence
+
+Label every answer:
+
+- `Correct` — materially accurate
+- `Partially correct` — some correct understanding, with either material or non-material omissions
+- `Incorrect` — the central mental model is wrong or absent
+
+Track each asked question with:
+
+- `Resolution: Resolved | Unresolved`
+- `Path: Direct | Retry | Multiple choice`
+
+Record confidence only for the initial answer:
+
+- `Low`
+- `Medium`
+- `High`
+
+Compare the initial confidence with demonstrated understanding as `Matched`, `Overconfident`, or `Underconfident`. Confidence is a reflection signal, not a pass requirement; an accurate low-confidence answer can pass.
+
+## Bounded interaction contract
+
+Each question has at most three engineer answers:
+
+1. initial answer
+2. one guided retry, only when a material gap remains
+3. one multiple-choice recovery, only when the retry still has a material gap
+
+Never add another recovery stage, a fourth attempt, or a same-session checkpoint restart.
+
+### Initial answer
+
+Require:
+
+```text
+- Confidence: Low / Medium / High
+- Answer: <your answer>
+```
+
+Evaluate the answer concisely:
+
+```markdown
+### Evaluation for Question [n]
+Label: Correct / Partially correct / Incorrect
+Confidence: Low / Medium / High — Matched / Overconfident / Underconfident
+
+What you understood:
+- [brief evidence]
+
+Material gap:
+- [brief gap, or "None"]
+```
+
+- If there is no material gap, set `Resolution: Resolved` and `Path: Direct`, then ask the next selected question.
+- A `Partially correct` answer with only non-material omissions resolves directly.
+- If a material gap remains, give a focused hint pointing to the relevant behavior, plan statement, VERIFY finding, or primary code location without supplying the complete answer. Then request one retry.
+
+### Guided retry
+
+Ask:
+
+```markdown
+### Retry for Question [n]
+[focused guidance]
+
+Please answer Question [n] once more. Confidence is not required again.
+
+- Answer: <your answer>
+```
+
+Evaluate only what changed:
+
+```markdown
+### Retry evaluation for Question [n]
+Label: Correct / Partially correct / Incorrect
+
+What improved:
+- [brief evidence]
+
+Material gap:
+- [brief gap, or "None"]
+```
+
+- If no material gap remains, set `Resolution: Resolved` and `Path: Retry`, then continue.
+- If a material gap remains, proceed immediately to multiple-choice recovery. Do not reveal the corrected explanation first and do not insert a separate recovery reread cycle.
+
+### Multiple-choice recovery
+
+Create exactly three choices grounded in the active step, changed code, and VERIFY results:
+
+- One choice must be fully correct and cover every material element still missing after the retry.
+- Two choices must be plausible distractors based on the engineer's remaining misunderstanding or omission.
+- Randomize whether the correct answer is A, B, or C.
+- Keep the choices mutually exclusive and similar in detail and length.
+- Do not use trick wording, overlapping answers, or `All of the above` / `None of the above`.
+- Do not reveal the correct answer or corrected explanation before the engineer chooses.
+- For a code-review question, every option must describe concrete mechanics at the named source anchors; do not substitute product-level summaries.
+
+Ask:
+
+```markdown
+### Multiple-choice recovery for Question [n]
+[repeat or concisely reframe the same question without revealing the answer]
+
+A. [plausible option]
+B. [plausible option]
+C. [plausible option]
+
+Choose the one option that fully matches the actual implementation. Confidence is not required again.
+
+- Answer: A / B / C
+```
+
+Treat an unambiguous selection as valid even if the engineer includes explanation or does not follow the format exactly. If no single option is selected unambiguously, treat the response as incorrect; do not add a fourth attempt.
+
+- If the selected option is correct, label the recovery `Correct`, set `Resolution: Resolved` and `Path: Multiple choice`, then continue.
+- If the selected option is incorrect or ambiguous, label the recovery `Incorrect`, set `Resolution: Unresolved` and `Path: Multiple choice`, and stop the checkpoint immediately.
+- On failure, identify the correct option, explain concisely why it is correct and why the selected option is materially wrong, and provide the exact files or findings to review.
+- Do not continue to later questions after an unresolved multiple-choice recovery.
+
+## First response
+
+The first response must contain the fixed difficulty, three-question limit, brief evidence for the classification, and the first randomly selected question:
+
+```markdown
+### Checkpoint setup
+Difficulty: LIGHT / STANDARD / DEEP
+Question limit: 3
+Selection: Randomized
+Reason: [one concise evidence-based sentence]
 
 ### Question 1
-What changed?
-- Describe the behavior change, not just the code changes
+[first randomly selected and implementation-grounded question]
 
 Reply in this exact format:
 - Confidence: Low / Medium / High
 - Answer: <your answer>
+```
 
----
+## Moving between questions
 
-## Do NOT
-- answer the questions for the engineer
-- provide sample answers
-- write code
-- reveal future questions early
+After resolving a question, report its resolution and ask exactly one next question:
 
----
+```markdown
+Resolution: Resolved
+Path: Direct / Retry / Multiple choice
 
-## Question order (ADAPTIVE)
-
-### Core Questions (ALWAYS REQUIRED)
-These must always be asked in order:
-
-1. What changed?
-   - Describe the behavior change, not just the code changes
-
-2. Why was this change made?
-   - What problem does it solve?
-
-3. Which files were touched?
-   - List only relevant files
-
-4. What is the most important piece of logic introduced or modified?
-   - Explain it in plain English
-
----
-
-### Risk & Validation Layer (CONDITIONAL)
-Ask these ONLY if one or more of the following is true:
-- logic is non-trivial
-- state, data, or side effects are involved
-- VERIFY flagged concerns
-- backend or API behavior changed
-
-5. What is the biggest risk introduced by this change?
-   - Think about edge cases, regressions, or assumptions
-
-6. What should be manually verified next?
-   - Describe exactly what you would test as a user or engineer
-
-7. Where could the AI have made an incorrect assumption?
-   - Identify at least one possible weak spot
-
----
-
-### Deep Understanding Check (RARE / OPTIONAL)
-Ask ONLY if one or more of the following is true:
-- the engineer struggled in previous answers
-- confidence is Low or mismatched
-- the change is complex or performance-sensitive
-
-8. Explain one changed function or component step-by-step like you're teaching a junior engineer
-
----
-
-## Evaluation rubric
-Use evidence from code/behavior; avoid speculation.
-Evaluate each answer on:
-- **Accuracy** — does it match the actual implementation?
-- **Completeness** — does it cover the key details?
-- **Precision** — is it specific rather than vague?
-- **Risk awareness** — does it identify real concerns where relevant?
-- **Understanding** — does the engineer appear to truly understand the change?
-
-### Labels
-- Correct
-- Partially correct
-- Incorrect
-
----
-
-## Scoring system (CRITICAL)
-
-Each question MUST track:
-
-### Initial score (truth signal)
-- Based ONLY on:
-  - first attempt
-  - retry
-- Locked after retry stage
-- Cannot be changed by recovery or rebuild
-
-### Final score (learning outcome)
-- Best score achieved after:
-  - retry
-  - recovery
-  - rebuild
-
-### Score values
-- `2/2` = Correct
-- `1/2` = Partially correct
-- `0/2` = Incorrect
-
-### Resolution Path (REQUIRED)
-Each question must include one of:
-- Direct
-- Retry
-- Recovery
-- Recovery → Rebuild
-
----
-
-## Confidence tracking
-The engineer MUST provide confidence and answer together in a single response for each attempt:
-- Low
-- Medium
-- High
-
-Then compare confidence to actual performance:
-
-- Confidence matched performance
-- Confidence was higher than demonstrated understanding
-- Confidence was lower than demonstrated understanding
-
----
-
-## Response format (first attempt)
-
-### Evaluation for Question [n]
-Label: Correct / Partially correct / Incorrect  
-Score: 0/2, 1/2, or 2/2  
-Confidence reported: Low / Medium / High
-
-### Confidence check
-- Confidence matched performance
-- OR confidence was higher than demonstrated understanding
-- OR confidence was lower than demonstrated understanding
-
-### What you got right
-- [brief bullets]
-
-### What was missing or inaccurate
-- [brief bullets]
-
-### Guidance for retry
-- nudge toward the relevant behavior, file, or logic
-- do NOT give the full answer
-
----
-
-## If first attempt = Correct
-Lock:
-- Initial score = this score
-- Final score = this score
-- Path = Direct
-
-### Next question
-[ask exactly ONE next question]
+### Question [n]
+[selected question]
 
 Reply in this exact format:
 - Confidence: Low / Medium / High
 - Answer: <your answer>
+```
 
----
+After the final selected question resolves, return the PASS summary instead of another question.
 
-## If first attempt = Partially correct or Incorrect
+## Final outcomes
 
-### Retry for Question [n]
-Please answer Question [n] again using the feedback above.
+Use binary verdicts only. There is no checkpoint-level `PARTIAL` verdict.
 
-Reply in this exact format:
-- Confidence: Low / Medium / High
-- Answer: <your answer>
+### PASS
 
----
+Return PASS only when every asked question is resolved. Initial errors remain visible as learning history but do not override successfully demonstrated understanding.
 
-## Retry evaluation format
-
-### Retry Evaluation for Question [n]
-Label: Correct / Partially correct / Incorrect  
-Score: 0/2, 1/2, or 2/2  
-Confidence reported: Low / Medium / High
-
-### Confidence check
-- Confidence matched performance
-- OR confidence was higher than demonstrated understanding
-- OR confidence was lower than demonstrated understanding
-
-### What improved
-- [brief bullets]
-
-### What is still missing or inaccurate
-- [brief bullets]
-
----
-
-## After retry (CRITICAL)
-Lock Initial score here:
-- Initial score = best of (first attempt, retry)
-
----
-
-## If retry = Correct
-Set:
-- Final score = 2/2
-- Path = Retry
-
-### Next question
-[ask exactly ONE next question]
-
-Reply in this exact format:
-- Confidence: Low / Medium / High
-- Answer: <your answer>
-
----
-
-## If retry = Partially correct or Incorrect
-Proceed to **CHECKPOINT RECOVERY**
-
----
-
-## CHECKPOINT RECOVERY
-Before answering this SAME question again, the engineer must:
-
-1. Re-read the current active plan step  
-   → `docs/plans/<feature_slug>_plan.md`
-
-2. Re-read the files changed in the last EXECUTE step
-
-3. Re-read the relevant VERIFY findings
-
-4. Identify the exact behavior, file, or logic tied to this question
-
-5. Rebuild understanding from the actual code, not memory
-
-### Recovery guidance (AI must provide)
-- Point to the most relevant file, behavior, or logic
-- Highlight where the misunderstanding likely occurred
-- Do NOT reveal the full answer
-
----
-
-## Recovery prompt
-
-### Recovery Retry for Question [n]
-Answer the SAME question again using the refreshed context.
-
-Reply in this exact format:
-- Confidence: Low / Medium / High
-- Answer: <your answer>
-
----
-
-## Recovery evaluation format
-
-### Recovery Evaluation for Question [n]
-Label: Correct / Partially correct / Incorrect  
-Score: 0/2, 1/2, or 2/2  
-Confidence reported: Low / Medium / High
-
-### Confidence check
-- Confidence matched performance
-- OR confidence was higher than demonstrated understanding
-- OR confidence was lower than demonstrated understanding
-
-### What improved
-- [brief bullets]
-
-### What is still missing
-- [brief bullets]
-
----
-
-## If recovery = Correct
-
-Set:
-- Final score = 2/2
-- Path = Recovery
-
-### Next question
-[ask exactly ONE next question]
-
-Reply in this exact format:
-- Confidence: Low / Medium / High
-- Answer: <your answer>
-
----
-
-## If recovery = Partially correct or Incorrect
-Proceed to **CHECKPOINT REBUILD**
-
----
-
-## CHECKPOINT REBUILD
-When recovery still fails:
-
-- Provide a concise corrected answer for the current question
-- Keep it grounded in the actual implementation
-- Do NOT add unnecessary explanation
-- Ask the engineer to restate the corrected answer in their own words
-- Do NOT allow verbatim copying
-- Then evaluate the engineer’s restatement
-- Then move to the next question
-
----
-
-## Rebuild response format
-
-### Correct answer for Question [n]
-- [concise corrected answer grounded in the implementation]
-
-### Rebuild prompt
-Please restate this answer in your own words.
-Do not copy it verbatim.
-Focus on the actual behavior, file, or logic involved.
-
-Reply in this exact format:
-- Confidence: Low / Medium / High
-- Answer: <your restatement>
-
----
-
-## Rebuild evaluation format
-
-### Rebuild Evaluation for Question [n]
-Label: Correct / Partially correct / Incorrect  
-Score: 0/2, 1/2, or 2/2  
-Confidence reported: Low / Medium / High
-
-### Confidence check
-- Confidence matched performance
-- OR confidence was higher than demonstrated understanding
-- OR confidence was lower than demonstrated understanding
-
-### What you understood
-- [brief bullets]
-
-### What is still weak
-- [brief bullets]
-
-### Locked-in understanding
-- [brief corrected explanation]
-
----
-
-## Final scoring after rebuild
-
-Set Final score based on rebuild result:
-- Correct → `2/2`
-- Partially correct → `1/2`
-- Incorrect → `0/2`
-
-Set:
-- Path = Recovery → Rebuild
-
-### Next question
-[ask exactly ONE next question]
-
-Reply in this exact format:
-- Confidence: Low / Medium / High
-- Answer: <your answer>
-
----
-
-## Special rules
-- Do NOT dump all questions at once
-- Do NOT summarize until the end
-- Do NOT restate the plan
-- Always stay grounded in the actual code
-- Retry = learning
-- Recovery = re-grounding in code
-- Rebuild = locking in correct understanding
-- Always keep the engineer engaged
-- do NOT invent behavior, logic, or file changes; base all evaluation on actual code and implementation
-- evaluate only the current plan step; do NOT expand into future steps
-- Do NOT automatically ask all 8 questions; follow the adaptive question rules defined in "Question order (ADAPTIVE)"
-- Before starting, explicitly classify the checkpoint as LIGHT, STANDARD, or DEEP and use it to control question depth
-
----
-
-## Final response (after all questions)
-- be concise; no extra commentary
-
+```markdown
 ### Overall checkpoint summary
 - [brief summary of demonstrated understanding]
 
-### Per-question scores
+### Question outcomes
+Q1: [question]
+- Attempts: Initial [label] / Retry [label, if used] / Multiple choice [label, if used]
+- Resolution: Resolved
+- Path: Direct / Retry / Multiple choice
+- Initial confidence: Low / Medium / High — Matched / Overconfident / Underconfident
 
-Q1: What changed?
-- Initial: X/2
-- Final: X/2
-- Path: [...]
-
-Q2: Why was this change made?
-- Initial: X/2
-- Final: X/2
-- Path: [...]
-
-Q3: Which files were touched?
-- Initial: X/2
-- Final: X/2
-- Path: [...]
-
-Q4: What is the most important piece of logic introduced or modified?
-- Initial: X/2
-- Final: X/2
-- Path: [...]
-
-Q5: What is the biggest risk introduced by this change? (if asked)
-- Initial: X/2
-- Final: X/2
-- Path: [...]
-
-Q6: What should be manually verified next? (if asked)
-- Initial: X/2
-- Final: X/2
-- Path: [...]
-
-Q7: Where could the AI have made an incorrect assumption? (if asked)
-- Initial: X/2
-- Final: X/2
-- Path: [...]
-
-Q8: Explain one changed function or component step-by-step (if asked)
-- Initial: X/2
-- Final: X/2
-- Path: [...]
-
-### Totals
-Initial score:
-- [sum initial] / [max]
-
-Final score:
-- [sum final] / [max]
-
-### Confidence pattern
-
-Overconfident areas:
-- [e.g., Q5: What is the biggest risk introduced by this change?]
-- [or None; confidence was consistently low]
-
-Well-calibrated areas:
-- Q1: What changed?
-- Q2: Why was this change made?
-- Q3: Which files were touched?
-- Q4: What is the most important piece of logic introduced or modified?
-- (include only the questions that were well-calibrated)
-
-Underconfident areas:
-- [e.g., Q2: Why was this change made? (after rebuild)]
-- (include question text for clarity)
+[repeat only for questions asked]
 
 ### Strong areas
-- [bullets]
+- [brief bullets]
 
-### Weak spots
-- [bullets]
-- include any rebuild weaknesses
-
-### Suggested follow-up
-- Revisit risk analysis
-- Revisit behavior-level understanding
-- Revisit changed files and ownership boundaries
+### Follow-up learning
+- [non-blocking details worth revisiting, or "None"]
 
 ### Verdict
-- PASS = strong understanding
-- PARTIAL = some gaps remain
-- FAIL = must revisit implementation before continuing
+PASS — every material understanding requirement was resolved.
+```
 
----
+### FAIL
+
+Return FAIL immediately when the multiple-choice recovery is incorrect or ambiguous.
+
+```markdown
+### Checkpoint stopped
+Question: [n and text]
+Resolution: Unresolved
+Path: Multiple choice
+
+### Material misunderstanding
+- [precise description]
+
+### Correct answer
+- [option letter and concise explanation grounded in the implementation]
+
+### Review target
+- [specific plan section, VERIFY finding, and/or primary file and logic]
+
+### Verdict
+FAIL — revisit the implementation before starting a fresh checkpoint session.
+```
+
+## Constraints
+
+- Do not reveal the correct answer before the multiple-choice selection.
+- Do not provide sample answers during the initial or guided-retry stages.
+- Do not ask more than one question in a response.
+- Do not ask more than three questions in the entire checkpoint.
+- Do not reuse a fixed question order; randomize the prompt selection and order before every checkpoint.
+- Do not skip or replace the mandatory code-review question with a conceptual product question.
+- Do not evaluate future plan steps.
+- Do not convert non-material omissions into blocking failures.
+- Do not proceed to TEST unless the final verdict is PASS.
 
 ## Goal
-Force real understanding, prevent passive AI usage, track true comprehension versus assisted learning, and ensure knowledge compounds instead of decays.
+
+Require real, implementation-grounded understanding while giving every checkpoint a predictable maximum length and a clear advancement decision.

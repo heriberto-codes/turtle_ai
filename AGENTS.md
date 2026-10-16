@@ -7,6 +7,7 @@ Turtle AI keeps AI-assisted development small, reviewable, and understood. Prese
 ## Instruction hierarchy
 
 - This file contains concise, always-active repository guardrails.
+- `architecture.md` is the current system blueprint, and `repo_map.md` is the current navigation reference. Keep both aligned with tracked repository behavior.
 - `.agents/skills/*/SKILL.md` is the source of truth for each skill's procedure.
 - `docs/system/` explains shared workflow and state rules.
 - Code and tracked artifacts define current implementation. Do not invent missing systems or claim planned behavior exists.

@@ -10,7 +10,7 @@
 
 # Turtle AI
 
-**Version:** v1.0.0
+**Version:** v1.1.0
 
 > Build with AI without losing understanding.
 

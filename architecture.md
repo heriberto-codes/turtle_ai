@@ -53,6 +53,7 @@ There is no long-running Turtle process. Each invocation loads the applicable in
 |-- AGENTS.md             # Always-active maintenance guardrails
 |-- architecture.md       # This system blueprint
 |-- repo_map.md           # High-level navigation map
+|-- LICENSE               # MIT license and copyright notice
 `-- README.md              # Public entry point
 ```
 

@@ -24,7 +24,7 @@ If a foundation file is absent, inspect the repository directly and record the m
 If the audit is missing, stop and report:
 
 ```text
-Mockup blocked. Run /turtle-design-audit for this feature first.
+Mockup blocked. Run $turtle-design-audit for this feature first.
 ```
 
 ## Task
@@ -108,6 +108,6 @@ When routed to full-page assembly, combine the selected section directions into 
 
 Return links to the editable mockup and design specification, identify the available directions, and summarize visual verification performed.
 
-When workflow state exists, report the controller-designated section or assembly result and recommend `/turtle-design-next` for the next transition. Only identify the final design checkpoint as ready when all confirmed sections are selected and `assembly_status` is `complete`.
+When workflow state exists, report the controller-designated section or assembly result and recommend `$turtle-design-next` for the next transition. Only identify the final design checkpoint as ready when all confirmed sections are selected and `assembly_status` is `complete`.
 
-Without workflow state, preserve standalone behavior and recommend `/turtle-design-checkpoint` next.
+Without workflow state, preserve standalone behavior and recommend `$turtle-design-checkpoint` next.

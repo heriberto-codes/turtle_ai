@@ -36,6 +36,52 @@ Follow [installation](#install-turtle-in-your-project), [foundation setup](#set-
 
 ## Install Turtle in Your Project
 
+Choose either option below; both add the same project-local Turtle files. Installation only copies the workflow material. Generating your project's foundation documents is a separate step afterward.
+
+### Option A: Ask Codex to Install Turtle
+
+Open **your destination project folder** in Codex—not the Turtle repository—and paste this into Codex chat:
+
+```text
+Add Turtle AI to the project currently open in Codex:
+https://github.com/heriberto-codes/turtle_ai
+
+Confirm the destination project path before writing files.
+If the destination is ambiguous, ask me to identify it.
+
+Download or clone the current main branch into a temporary
+location outside my project. Use one source revision throughout
+and report its commit ID.
+
+Copy only:
+- All 22 turtle-* skill directories, including their contents,
+  into this project's .agents/skills/.
+- workflow.md, design-workflow.md, state.md, and rules.md from
+  Turtle's docs/system/ into this project's docs/system/.
+- Turtle's LICENSE into docs/licenses/turtle-ai-LICENSE.txt.
+
+Inspect destination files before copying. Preserve unrelated
+skills, project documentation, and my project's existing license.
+Leave identical files unchanged. If existing files differ, report
+the conflicts and ask before replacing or merging anything.
+
+Do not copy Turtle's AGENTS.md, architecture.md, or repo_map.md;
+those describe Turtle itself, not my project.
+Do not modify application code, run downloaded scripts, generate
+foundation documents, install skills globally, commit, or push.
+
+Verify the installed files and report changes, missing files,
+and unresolved conflicts. Do not claim installation is complete
+if required files are missing or conflicts remain.
+
+Then explain how to start a fresh Codex session, check skill
+availability, and begin the existing foundation setup.
+```
+
+This is **Codex-assisted copying**, not a built-in Turtle installer. Codex may ask you to approve network access or file permissions. If downloading is unavailable, use the manual option below. Review its installation report and resolve any conflicts before continuing to [Check Your Installation](#check-your-installation).
+
+### Option B: Install Manually
+
 1. Get a copy of this repository's current `main` branch. On [GitHub](https://github.com/heriberto-codes/turtle_ai), select **Code → Download ZIP** and extract it. Or run this in a terminal from a folder where you keep source repositories:
 
    ```bash
@@ -46,9 +92,13 @@ Follow [installation](#install-turtle-in-your-project), [foundation setup](#set-
 3. In your own project folder, create `.agents/skills/` if needed. Copy all **22 `turtle-*` folders**, including their contents, into it. Keep any unrelated skills already there.
 4. Create `docs/system/` in your project if needed. Copy these four files from Turtle's `docs/system/`: `workflow.md`, `design-workflow.md`, `state.md`, and `rules.md`. The design skills read these shared documents directly.
 5. Preserve Turtle's license notice: create `docs/licenses/` and copy Turtle's root `LICENSE` into it as `turtle-ai-LICENSE.txt`. Keep your project's own license file as it is.
-6. Open **your project folder** in Codex and start a fresh chat so it can discover the copied skills.
+6. Open **your project folder** in Codex and continue to [Check Your Installation](#check-your-installation).
 
 If a destination skill folder or system document already has the same name, compare it with the incoming copy before replacing anything. Preserve local customizations and resolve differences explicitly. For later Turtle updates, repeat this comparison using skills and system documents from the same source revision.
+
+### Check Your Installation
+
+After either installation option, start a fresh Codex chat in **your project** so it can discover the copied skills.
 
 Your copied files should look like this; the other 20 skill folders are omitted from the picture:
 
@@ -77,6 +127,8 @@ Check for workflow.md, design-workflow.md, state.md, and rules.md under
 docs/system/, plus docs/licenses/turtle-ai-LICENSE.txt. Report missing
 files or name conflicts. Do not run the skills or generate foundation files yet.
 ```
+
+Resolve any missing files or conflicts before following [Set Up Your Project Foundation](#set-up-your-project-foundation). Installation does not create or refresh your project's `AGENTS.md`, `architecture.md`, or `repo_map.md`.
 
 ### How to Invoke a Skill
 

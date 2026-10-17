@@ -208,6 +208,15 @@ After all plan steps are complete:
 | You return in a new chat | Name the feature slug and ask Codex to read the plan and report the active step and missing gate evidence without changing files. Resume the needed phase; an unchecked item alone does not prove earlier gates passed. |
 | Design work is already in progress | Run `$turtle-design-next` with its slug to resume from recorded design state. If several workspaces exist, name the one you want. |
 
+## What's Included
+
+![Turtle AI overview: 22 skills, an optional design workflow, 5 implementation steps with debugging when needed, and 2 state systems.](assets/turtleAI.png)
+
+- **22 skills** for focused development tasks.
+- **Optional design workflow** to explore mockups and approve a direction before coding.
+- **5-step implementation loop:** execute → verify → engineer checkpoint (understand the change) → test → plan step update. Debugging is conditional recovery, not an extra required step.
+- **2 state systems:** design workflow progress and implementation-plan progress.
+
 ## Skill Catalog
 
 Turtle includes 22 project-local skills in `.agents/skills/`. Their names describe focused responsibilities; you do not need to memorize the full catalog to begin.

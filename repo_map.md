@@ -90,7 +90,7 @@ Every tracked skill lives at `.agents/skills/<skill-name>/SKILL.md`.
 
 | Path | Responsibility |
 | --- | --- |
-| `assets/turtleAI.png` | Historical overview graphic; its old counts are no longer displayed in the README. |
+| `assets/turtleAI.png` | README pixel-art overview of the 22 skills, optional design workflow, implementation loop, and two state systems. |
 | `assets/Turtleai_logo/png/` | PNG logo variants, including the README header image. |
 | `assets/Turtleai_logo/jpg/` | JPEG logo variants. |
 | `assets/Turtleai_logo/svg/` | Vector logo variants. |

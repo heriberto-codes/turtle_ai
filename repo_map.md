@@ -9,6 +9,7 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | Path | Responsibility |
 | --- | --- |
 | `README.md` | Public entry point, version display, quick start, workflow summary, and documentation links. |
+| `LICENSE` | MIT license and copyright notice to retain when copying Turtle material. |
 | `AGENTS.md` | Always-active repository maintenance rules and workflow guardrails. |
 | `architecture.md` | Current system blueprint, boundaries, flows, ownership, risks, and extension points. |
 | `repo_map.md` | This high-level navigation reference. |
@@ -89,7 +90,7 @@ Every tracked skill lives at `.agents/skills/<skill-name>/SKILL.md`.
 
 | Path | Responsibility |
 | --- | --- |
-| `assets/turtleAI.png` | README overview graphic. |
+| `assets/turtleAI.png` | README pixel-art overview of the 22 skills, optional design workflow, implementation loop, and two state systems. |
 | `assets/Turtleai_logo/png/` | PNG logo variants, including the README header image. |
 | `assets/Turtleai_logo/jpg/` | JPEG logo variants. |
 | `assets/Turtleai_logo/svg/` | Vector logo variants. |

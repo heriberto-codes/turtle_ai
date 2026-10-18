@@ -8,7 +8,7 @@ These rules protect the workflow from partial execution, unclear ownership, and 
 | --- | --- |
 | Active step remains unchecked | The current step stays `[ ]` during the loop. |
 | Completion gating | A step is marked `[x]` only after the full loop passes. |
-| Loop order enforcement | `EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> DEBUG -> PLAN STEP UPDATE` |
+| Loop order enforcement | `EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> PLAN STEP UPDATE`; use DEBUG for recovery when needed. |
 | Single write authority | Only `turtle-plan-step-update` can change `[ ]` to `[x]`. |
 | Scope of work | `EXECUTE`, `VERIFY`, `ENGINEER CHECKPOINT`, and `TEST` operate on the first unchecked step. |
 
@@ -16,7 +16,7 @@ Rules:
 
 - Never mark a step complete during `EXECUTE`, `VERIFY`, `ENGINEER CHECKPOINT`, `TEST`, or `DEBUG`.
 - Always complete the full loop before updating plan state.
-- Do not skip any stage in the loop.
+- Do not skip any required stage in the loop; DEBUG is conditional recovery.
 
 ## Debug Routing
 
@@ -33,6 +33,8 @@ Rules:
 - Do not guess. Identify the root cause first.
 - Do not change multiple layers at once.
 - Fix only what is actually broken.
+- Code or plan-alignment fixes return through EXECUTE, VERIFY, ENGINEER CHECKPOINT, and TEST. Test fixes return to TEST and require fresh applicable validation results.
+- Do not proceed from diagnosis or a fix directly to PLAN STEP UPDATE. Resolve failed gates first and retain explicit checkpoint PASS evidence.
 
 ## Engineer Checkpoint
 
@@ -64,7 +66,9 @@ Rules:
 Always follow this sequence:
 
 ```text
-EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> DEBUG if needed -> PLAN STEP UPDATE
+EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> PLAN STEP UPDATE
 ```
+
+`DEBUG` branches from failures when diagnosis is needed and routes back to the appropriate repair phase. It is not required on a successful pass through the loop.
 
 `PLAN STEP UPDATE` is required. A step is not complete until it runs.

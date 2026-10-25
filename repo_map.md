@@ -14,6 +14,7 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | `architecture.md` | Current system blueprint, boundaries, flows, ownership, risks, and extension points. |
 | `repo_map.md` | This high-level navigation reference. |
 | `.agents/skills/` | The 22 repo-scoped Codex skill contracts that implement Turtle's workflow. |
+| `docs/guides/` | Public reader guides linked from the README, separate from installed system contracts. |
 | `docs/system/` | Shared workflow, state, design, and global rule contracts. |
 | `assets/` | README illustrations and Turtle AI logo files. |
 | `.gitignore` | Ignores macOS `.DS_Store` metadata. |
@@ -23,6 +24,7 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | Goal | Start here |
 | --- | --- |
 | Understand Turtle AI | `README.md` |
+| Plan work without design exploration | `docs/guides/planning_workflow.md` |
 | Apply repository-wide maintenance rules | `AGENTS.md` |
 | Understand system structure and state ownership | `architecture.md` |
 | Run or modify one workflow phase | `.agents/skills/<skill>/SKILL.md` |
@@ -77,6 +79,14 @@ Every tracked skill lives at `.agents/skills/<skill-name>/SKILL.md`.
 - `.agents/skills/turtle-document/SKILL.md`
 - `.agents/skills/turtle-commit/SKILL.md`
 
+## Public Workflow Guides
+
+| Path | Responsibility |
+| --- | --- |
+| `docs/guides/planning_workflow.md` | Path B guidance for backlog selection, planning, plan files, design approval requirements, and the shared implementation handoff. |
+
+Public guides support readers of the README; they are separate from the four shared system documents required during installation.
+
 ## Shared System Documentation
 
 | Path | Responsibility |
@@ -99,7 +109,7 @@ Every tracked skill lives at `.agents/skills/<skill-name>/SKILL.md`.
 
 ## Repository-Owned vs. Generated Artifacts
 
-The source repository owns the skill contracts, shared documentation, foundation documents, README, and assets listed above.
+The source repository owns the skill contracts, shared documentation, public workflow guides, foundation documents, README, and assets listed above.
 
 The following paths are workflow outputs created when a repository uses Turtle. They are documented contracts but are not permanent source modules in this repository:
 

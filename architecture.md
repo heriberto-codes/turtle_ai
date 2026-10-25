@@ -41,7 +41,7 @@ There is no long-running Turtle process. Each invocation loads the applicable in
 | Shared system contracts | `docs/system/` | Cross-skill workflow, state, design, and global rule definitions. |
 | Foundation context | `architecture.md`, `repo_map.md` | Current system blueprint and repository navigation used by every Turtle phase. |
 | Workflow artifacts | Generated in adopting repositories | Backlog, design evidence, plans, analysis, and completed feature records that carry state between invocations. |
-| Public documentation | `README.md`, `assets/` | Product introduction, quick start, workflow summary, branding, and visual documentation. |
+| Public documentation | `README.md`, `docs/guides/`, `assets/` | Product introduction, quick start, workflow summary, reader guides, branding, and visual documentation. |
 
 ## Repository Structure
 
@@ -49,6 +49,7 @@ There is no long-running Turtle process. Each invocation loads the applicable in
 .
 |-- .agents/skills/       # 22 repo-scoped Codex skill contracts
 |-- assets/               # README and brand imagery
+|-- docs/guides/          # Public workflow guides
 |-- docs/system/          # Shared workflow and state contracts
 |-- AGENTS.md             # Always-active maintenance guardrails
 |-- architecture.md       # This system blueprint
@@ -58,6 +59,8 @@ There is no long-running Turtle process. Each invocation loads the applicable in
 ```
 
 Turtle-generated feature artifacts such as `docs/backlog.md`, `docs/plans/`, `docs/design/`, `docs/analysis/`, and `docs/features/` are part of the downstream workflow contract. They are not required to exist in this source repository unless Turtle is actively using them for its own feature work.
+
+`docs/guides/` contains public reader guidance, including the standalone planning workflow guide. These guides are separate from the four shared system documents copied during installation; they do not add installation requirements or change skill contracts.
 
 ## System Boundaries
 

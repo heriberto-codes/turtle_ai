@@ -194,13 +194,9 @@ For manual control, the specialist skills are `$turtle-design-audit`, `$turtle-d
 
 Use this path for backend work, internal refactors, maintenance, or other work that needs no design exploration.
 
-1. If the feature is not already in the backlog, use `$turtle-ideate` to develop a grounded idea, then `$turtle-backlog` to save it. An existing suitable backlog item can be used directly.
-2. Run `$turtle-plan` with the selected backlog item. If you omit a selection, it chooses the first unchecked backlog item.
-3. Review the resulting plan before starting implementation.
+[Read the Planning Workflow Guide](docs/guides/planning_workflow.md).
 
-The plan is saved as `docs/plans/<feature_slug>_plan.md`. For example, a feature using `contact_form` has the path `docs/plans/contact_form_plan.md`.
-
-Both paths now continue through the same implementation loop. If a matching design workspace exists, planning requires its explicit approval even when planning is invoked directly.
+Both paths now continue through the same implementation loop.
 
 ## Build One Plan Step at a Time
 
@@ -309,6 +305,7 @@ The README is the starting guide. These documents explain the system and its det
 - [Repository Map](repo_map.md)
 - [Workflow Reference](docs/system/workflow.md)
 - [Design Workflow](docs/system/design-workflow.md)
+- [Planning Workflow Guide](docs/guides/planning_workflow.md)
 - [State System](docs/system/state.md)
 - [Global Rules](docs/system/rules.md)
 

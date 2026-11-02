@@ -158,6 +158,8 @@ The foundation documents in **this Turtle repository describe Turtle itself**. G
 
 ## Choose Your Workflow
 
+Choose whether your feature needs design exploration first. Both paths lead to the same engineering workflow for implementation, review, and testing.
+
 ### Path A: Design Workflow
 
 Use this path when a feature changes a page, screen, user journey, or interaction and you want to explore design choices before implementation.
@@ -166,7 +168,7 @@ Use this path when a feature changes a page, screen, user journey, or interactio
 
 ### Path B: Engineering Workflow
 
-Use this path for backend work, internal refactors, maintenance, or other work that needs no design exploration.
+Use this path for backend work, internal refactors, maintenance, or UI changes where the intended design is already clear.
 
 [Engineering Workflow](docs/guides/planning_workflow.md).
 

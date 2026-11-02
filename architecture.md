@@ -60,7 +60,7 @@ There is no long-running Turtle process. Each invocation loads the applicable in
 
 Turtle-generated feature artifacts such as `docs/backlog.md`, `docs/plans/`, `docs/design/`, `docs/analysis/`, and `docs/features/` are part of the downstream workflow contract. They are not required to exist in this source repository unless Turtle is actively using them for its own feature work.
 
-`docs/guides/` contains public reader guidance, including the standalone planning workflow guide. These guides are separate from the four shared system documents copied during installation; they do not add installation requirements or change skill contracts.
+`docs/guides/` contains public reader guidance, including the Engineering Workflow guide covering planning, implementation, failure recovery, resumption, and feature finalization. These guides are separate from the four shared system documents copied during installation; they do not add installation requirements or change skill contracts.
 
 ## System Boundaries
 

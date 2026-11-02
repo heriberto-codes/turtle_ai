@@ -42,7 +42,7 @@ After approval, continue invoking the controller until it creates or reuses the 
 
 For manual control, the specialist skills are `$turtle-design-audit`, `$turtle-design-mockup`, and `$turtle-design-checkpoint`. See [Stage Contracts](#stage-contracts) for their boundaries and [Automated Mode](#automated-mode) and [Workflow State Contract](#workflow-state-contract) for controller behavior and workspace recovery rules.
 
-Once the plan is ready, continue to [Build One Plan Step at a Time](../../README.md#build-one-plan-step-at-a-time).
+Once the plan is ready, continue to [Build One Plan Step at a Time](../guides/planning_workflow.md#build-one-plan-step-at-a-time) in the Engineering Workflow guide. Both paths use the same implementation loop; do not repeat backlog creation or planning.
 
 ## Design Workspace
 

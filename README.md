@@ -178,50 +178,15 @@ Both paths now continue through the same implementation loop.
 
 ## Build One Plan Step at a Time
 
-A **plan step** is one small checkbox item in the feature's plan. The first unchecked `[ ]` item is the active step. Run each skill below separately for the same feature, and continue only when its required result is satisfied:
-
-| Order | Enter in Codex chat | What happens |
-| --- | --- | --- |
-| 1 | `$turtle-execute` | Implements only the active step. |
-| 2 | `$turtle-verify` | Reviews correctness, scope, and alignment with the plan; requires PASS. |
-| 3 | `$turtle-engineer-checkpoint` | Checks your understanding through a short conversation; requires PASS. |
-| 4 | `$turtle-test` | Reviews needed coverage, then implements identified tests in a follow-up invocation when needed. Run the relevant project checks and inspect their results. |
-| 5 | `$turtle-plan-step-update` | Checks completion evidence, then marks only that step `[x]` and identifies the next one. |
-
-```text
-EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> PLAN STEP UPDATE
-```
-
-For example, enter `$turtle-execute feature_slug: contact_form` to identify the feature. Keep using that slug for its later phases, especially when more than one feature has a plan.
-
-`$turtle-test` starts with **Mode A**, a review of the tests needed for this step. If it identifies tests to add or update, invoke it again with that review output and request **Mode B** to implement those tests. If no changes are needed, Mode B is unnecessary; record the applicable validation results before updating the step.
-
-The checkbox stays unchecked throughout implementation and validation. Only `$turtle-plan-step-update` marks it complete after the required gates pass. Repeat the loop for the next unchecked step until the plan has none left.
+Implement, review, understand, and validate one plan step before marking it complete. Follow the [implementation loop in the Engineering Workflow](docs/guides/planning_workflow.md#build-one-plan-step-at-a-time).
 
 ### When Something Fails
 
-Stop advancing the step. If the cause is unclear, use `$turtle-debug` in **Mode A** with the full failure output to diagnose it. Follow its recommended repair route:
-
-| Finding | Next action |
-| --- | --- |
-| Incorrect code or a mismatch with the plan | Apply the scoped fix through the recommended EXECUTE debug/verify-fix mode. |
-| Incorrect or missing tests | Return to TEST review and the identified test implementation work. |
-| A misunderstanding at the checkpoint | Work through the checkpoint's explanation and recovery questions; investigate code if the misunderstanding exposes an implementation problem. |
-
-DEBUG is conditional recovery, not a required stop after every successful test. Code fixes return through VERIFY, ENGINEER CHECKPOINT, and TEST; test fixes require fresh applicable validation results. Resolve failed gates and retain explicit checkpoint PASS evidence before running PLAN STEP UPDATE. Never jump directly from a debug diagnosis or fix to marking the step complete.
-
-See the [Workflow Reference](docs/system/workflow.md) for test/debug modes and the [State System](docs/system/state.md) for completion rules.
+Keep the step unchecked and follow the [failure recovery instructions](docs/guides/planning_workflow.md#when-something-fails) before advancing.
 
 ## Finalize the Feature
 
-After all plan steps are complete:
-
-1. Run `$turtle-security` to review security risks and `$turtle-performance` for relevant performance risks. Address findings through the appropriate workflow before finalizing.
-2. Run `$turtle-backlog-update` to mark the matching backlog item complete.
-3. Run `$turtle-document` to record the completed feature in `docs/features/<feature_slug>.md`.
-4. Run `$turtle-commit` to prepare a concise commit message from the actual changes.
-
-`$turtle-commit` prepares the message. It does not automatically commit, push, open a pull request, or publish a release. Those are separate Git/GitHub actions you request or perform after reviewing the changes.
+After all plan steps are complete, review risks, update the backlog, document the feature, and prepare a commit message. Follow [Finalize the Feature](docs/guides/planning_workflow.md#finalize-the-feature).
 
 ## If You Get Stuck
 
@@ -230,8 +195,8 @@ After all plan steps are complete:
 | Turtle skills are missing | Confirm you opened your project, copied each skill into `.agents/skills/<skill-name>/SKILL.md`, and started a fresh Codex session. Repeat the installation check above. |
 | A foundation file is missing | Run the missing foundation skill in setup order. Do not copy Turtle's own blueprint into your project. |
 | Turtle pauses for approval | Reply with the requested confirmation, selection, or revision. For design, include it with the next `$turtle-design-next` request. |
-| A review, checkpoint, or test fails | Keep the step unchecked and follow [failure recovery](#when-something-fails). |
-| You return in a new chat | Name the feature slug and ask Codex to read the plan and report the active step and missing gate evidence without changing files. Resume the needed phase; an unchecked item alone does not prove earlier gates passed. |
+| A review, checkpoint, or test fails | Keep the step unchecked and follow [failure recovery](docs/guides/planning_workflow.md#when-something-fails). |
+| You return in a new chat | Follow [Resume Existing Work](docs/guides/planning_workflow.md#resume-existing-work) to identify the active step and missing gate evidence before continuing. |
 | Design work is already in progress | Run `$turtle-design-next` with its slug to resume from recorded design state. If several workspaces exist, name the one you want. |
 
 ## What's Included

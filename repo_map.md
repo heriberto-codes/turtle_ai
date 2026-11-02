@@ -24,7 +24,7 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | Goal | Start here |
 | --- | --- |
 | Understand Turtle AI | `README.md` |
-| Plan work without design exploration | `docs/guides/planning_workflow.md` |
+| Plan, implement, and finalize a feature | `docs/guides/planning_workflow.md` |
 | Apply repository-wide maintenance rules | `AGENTS.md` |
 | Understand system structure and state ownership | `architecture.md` |
 | Run or modify one workflow phase | `.agents/skills/<skill>/SKILL.md` |
@@ -83,7 +83,7 @@ Every tracked skill lives at `.agents/skills/<skill-name>/SKILL.md`.
 
 | Path | Responsibility |
 | --- | --- |
-| `docs/guides/planning_workflow.md` | Path B guidance for backlog selection, planning, plan files, design approval requirements, and the shared implementation handoff. |
+| `docs/guides/planning_workflow.md` | Engineering Workflow guide covering backlog selection, planning, design approval requirements, and the implementation, recovery, resumption, and finalization shared by both paths. |
 
 Public guides support readers of the README; they are separate from the four shared system documents required during installation.
 

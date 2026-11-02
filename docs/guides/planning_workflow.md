@@ -10,13 +10,15 @@ The implementation, recovery, and finalization instructions below apply to both 
 
 Complete [installation](../../README.md#install-turtle-in-your-project) and [foundation setup](../../README.md#set-up-your-project-foundation) in your own project before using this guide. Enter skill requests in Codex chat, one at a time.
 
+If you need to understand existing code first, use `$turtle-analyze`. If you need grounded feature ideas, use `$turtle-ideate`. Analysis is useful when entering an unfamiliar repository or module; it is not required before every small change.
+
 If you are starting work without design exploration, begin with [Choose a Backlog Item and Create a Plan](#choose-a-backlog-item-and-create-a-plan).
 
 If the [Design Workflow](../system/design-workflow.md) has already created your plan, do not repeat backlog creation or planning. Review that plan, then continue to [Build One Plan Step at a Time](#build-one-plan-step-at-a-time). You can use the same entry point for any existing plan; if implementation has already started, first [resume from its recorded state](#resume-existing-work).
 
 ## Choose a Backlog Item and Create a Plan
 
-A **backlog** is the list of features you might build, stored in `docs/backlog.md`. A **plan** breaks one selected feature into small implementation steps.
+A **backlog** is the list of features you might build, stored in `docs/backlog.md`. A **plan** breaks one selected feature into small implementation steps. Turtle saves these and other **artifacts**—files produced by the workflow—inside your project.
 
 1. If the feature is not already in the backlog, use `$turtle-ideate` to develop a grounded idea, then `$turtle-backlog` to save it. An existing suitable backlog item can be used directly.
 2. Run `$turtle-plan` with the selected backlog item. If you omit a selection, it chooses the first unchecked backlog item.

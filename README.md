@@ -158,10 +158,6 @@ The foundation documents in **this Turtle repository describe Turtle itself**. G
 
 ## Choose Your Workflow
 
-A **backlog** is the list of features you might build, stored in `docs/backlog.md`. A **plan** breaks one selected feature into small implementation steps. Turtle saves these and other **artifacts**—files produced by the workflow—inside your project.
-
-If you need to understand existing code first, use `$turtle-analyze`. If you need grounded feature ideas, use `$turtle-ideate`. Analysis is useful when entering an unfamiliar repository or module; it is not required before every small change.
-
 ### Path A: Design Workflow
 
 Use this path when a feature changes a page, screen, user journey, or interaction and you want to explore design choices before implementation.

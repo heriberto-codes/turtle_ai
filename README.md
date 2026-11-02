@@ -162,7 +162,7 @@ A **backlog** is the list of features you might build, stored in `docs/backlog.m
 
 If you need to understand existing code first, use `$turtle-analyze`. If you need grounded feature ideas, use `$turtle-ideate`. Analysis is useful when entering an unfamiliar repository or module; it is not required before every small change.
 
-### Path A: Design a User-Facing Feature
+### Path A: Design Workflow
 
 Use this path when a feature changes a page, screen, user journey, or interaction and you want to explore design choices before implementation.
 
@@ -190,7 +190,7 @@ After approval, continue invoking the controller until it creates or reuses the 
 
 For manual control, the specialist skills are `$turtle-design-audit`, `$turtle-design-mockup`, and `$turtle-design-checkpoint`. See the [Design Workflow](docs/system/design-workflow.md) for their boundaries and recovery rules.
 
-### Path B: Plan Work Without the Design Phase
+### Path B: Engineering Workflow
 
 Use this path for backend work, internal refactors, maintenance, or other work that needs no design exploration.
 

@@ -166,35 +166,13 @@ If you need to understand existing code first, use `$turtle-analyze`. If you nee
 
 Use this path when a feature changes a page, screen, user journey, or interaction and you want to explore design choices before implementation.
 
-Start with a goal, for example:
-
-```text
-$turtle-design-next Design an accessible contact form for my portfolio.
-Use feature_slug: contact_form.
-```
-
-A **feature slug** is a short identifier used in filenames: `contact_form` uses lowercase words separated by underscores. In examples such as `docs/design/<feature_slug>/`, replace `<feature_slug>` with that identifier.
-
-Keep invoking `$turtle-design-next`, supplying the requested feedback or approval, to follow this path:
-
-```text
-AUDIT -> SECTION CONFIRMATION -> SECTION MOCKUPS AND SELECTIONS
-      -> PAGE ASSEMBLY -> DESIGN CHECKPOINT -> BACKLOG -> PLAN
-```
-
-Each invocation performs one safe transition and stops. You confirm the sections, choose or revise mockups, and explicitly approve the complete design. A pause is expected: Turtle is waiting for your decision or the next invocation.
-
-Artifacts live in `docs/design/contact_form/`, including isolated mockups and `workflow-state.md`, the file that records the current design stage. For a new interface, supply requirements or references; the audit records missing visual evidence instead of inventing an existing UI.
-
-After approval, continue invoking the controller until it creates or reuses the backlog item and creates the plan. You do not need to run backlog and planning again. The controller stops before production implementation; design approval alone never authorizes application-code changes.
-
-For manual control, the specialist skills are `$turtle-design-audit`, `$turtle-design-mockup`, and `$turtle-design-checkpoint`. See the [Design Workflow](docs/system/design-workflow.md) for their boundaries and recovery rules.
+[Design Workflow](docs/system/design-workflow.md).
 
 ### Path B: Engineering Workflow
 
 Use this path for backend work, internal refactors, maintenance, or other work that needs no design exploration.
 
-[Read the Planning Workflow Guide](docs/guides/planning_workflow.md).
+[Engineering Workflow](docs/guides/planning_workflow.md).
 
 Both paths now continue through the same implementation loop.
 
@@ -305,7 +283,7 @@ The README is the starting guide. These documents explain the system and its det
 - [Repository Map](repo_map.md)
 - [Workflow Reference](docs/system/workflow.md)
 - [Design Workflow](docs/system/design-workflow.md)
-- [Planning Workflow Guide](docs/guides/planning_workflow.md)
+- [Engineering Workflow](docs/guides/planning_workflow.md)
 - [State System](docs/system/state.md)
 - [Global Rules](docs/system/rules.md)
 

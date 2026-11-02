@@ -93,6 +93,17 @@ After all plan steps are complete:
 
 `$turtle-commit` prepares the message. It does not automatically stage, commit, push, open a pull request, or publish a release. Those are separate Git/GitHub actions you request or perform after reviewing the changes.
 
+## If You Get Stuck
+
+| Situation | What to do |
+| --- | --- |
+| Turtle skills are missing | Confirm you opened your project, copied each skill into `.agents/skills/<skill-name>/SKILL.md`, and started a fresh Codex session. Repeat the [installation check](../../README.md#check-your-installation). |
+| A foundation file is missing | Run the missing foundation skill in [setup order](../../README.md#set-up-your-project-foundation). Do not copy Turtle's own blueprint into your project. |
+| Turtle pauses for approval | Reply with the requested confirmation, selection, or revision. For design, include it with the next `$turtle-design-next` request; see the [Design Workflow](../system/design-workflow.md#automated-mode). |
+| A review, checkpoint, or test fails | Keep the step unchecked and follow [failure recovery](#when-something-fails). |
+| You return in a new chat | Follow [Resume Existing Work](#resume-existing-work) to identify the active step and missing gate evidence before continuing. |
+| Design work is already in progress | Run `$turtle-design-next` with its slug to resume from recorded design state. If several workspaces exist, name the one you want. See the [Design Workflow](../system/design-workflow.md#automated-mode). |
+
 ## References
 
 - [Workflow Reference](../system/workflow.md): the full phase sequence and test/debug modes.

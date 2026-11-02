@@ -174,31 +174,6 @@ Use this path for backend work, internal refactors, maintenance, or other work t
 
 [Engineering Workflow](docs/guides/planning_workflow.md).
 
-Both paths now continue through the same implementation loop.
-
-## Build One Plan Step at a Time
-
-Implement, review, understand, and validate one plan step before marking it complete. Follow the [implementation loop in the Engineering Workflow](docs/guides/planning_workflow.md#build-one-plan-step-at-a-time).
-
-### When Something Fails
-
-Keep the step unchecked and follow the [failure recovery instructions](docs/guides/planning_workflow.md#when-something-fails) before advancing.
-
-## Finalize the Feature
-
-After all plan steps are complete, review risks, update the backlog, document the feature, and prepare a commit message. Follow [Finalize the Feature](docs/guides/planning_workflow.md#finalize-the-feature).
-
-## If You Get Stuck
-
-| Situation | What to do |
-| --- | --- |
-| Turtle skills are missing | Confirm you opened your project, copied each skill into `.agents/skills/<skill-name>/SKILL.md`, and started a fresh Codex session. Repeat the installation check above. |
-| A foundation file is missing | Run the missing foundation skill in setup order. Do not copy Turtle's own blueprint into your project. |
-| Turtle pauses for approval | Reply with the requested confirmation, selection, or revision. For design, include it with the next `$turtle-design-next` request. |
-| A review, checkpoint, or test fails | Keep the step unchecked and follow [failure recovery](docs/guides/planning_workflow.md#when-something-fails). |
-| You return in a new chat | Follow [Resume Existing Work](docs/guides/planning_workflow.md#resume-existing-work) to identify the active step and missing gate evidence before continuing. |
-| Design work is already in progress | Run `$turtle-design-next` with its slug to resume from recorded design state. If several workspaces exist, name the one you want. |
-
 ## What's Included
 
 ![Turtle AI overview: 22 skills, an optional design workflow, 5 implementation steps with debugging when needed, and 2 state systems.](assets/turtleAI.png)

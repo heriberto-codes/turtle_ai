@@ -146,9 +146,17 @@ Use `$turtle-debug` when a workflow or runtime/manual validation failure needs d
 | --- | --- | --- |
 | 1 | `$turtle-backlog-update` | Mark the feature complete in `docs/backlog.md`. |
 | 2 | `$turtle-document` | Capture completed feature decisions and outcomes in `docs/features/`. |
-| 3 | `$turtle-commit` | Prepare the final commit message. |
+| 3 | `$turtle-add` | Inspect and stage the reviewed changes for this work. |
+| 4 | `$turtle-commit` | Review staged content, prepare the message, create one commit, and verify it. |
+| 5 | `$turtle-push` | Inspect the destination and outgoing commits, push the current branch, and verify the result. |
 
-`$turtle-commit` prepares text; it does not automatically stage, commit, push, open a pull request, or publish a release. Git and GitHub actions require a separate user request.
+Git finalization follows `$turtle-add` -> `$turtle-commit` -> `$turtle-push`, invoked separately after existing completion gates. Each skill owns one operation, reports its intent and result, and stops without invoking the next. An invocation authorizes its named action when scope is clear; ambiguous scope requires clarification, and platform permission requirements still apply. These skills cannot pass validation gates or mark plan/backlog state complete.
+
+- ADD stages explicit relevant paths, including additions and deletions, while preserving unrelated staging and working-folder changes. Mixed-purpose or uncertain partial-staging intent requires clarification before changing the index.
+- COMMIT creates one ordinary commit from the reviewed index and never stages or pushes. Empty or unrelated staging blocks commit creation. Unstaged content is not included. A normal invocation now creates the commit, replacing the former message-only default; an explicit message-only/preview request remains read-only.
+- PUSH publishes existing commits only, with a clean working folder and attached branch. It resolves the configured upstream or, without one, an unambiguous origin/current-branch destination; inspects fresh evidence and all outgoing commits; and verifies the resulting remote tip. If either local or destination branch is main/master, authorization must explicitly name that branch. A matching named-branch request supplies that authorization without another prompt; a bare invocation does not.
+
+Rejected operations stop without automatic history repair or retries. Never force-push, push tags or all branches, amend commits, bypass hooks, automatically pull/rebase, or resolve conflicts in these skills. They do not open PRs or publish releases. See each skill's contract for inspection, verification, and failure handling.
 
 ## Recommended Project Structure
 
@@ -200,7 +208,11 @@ project-root
 |       |   `-- SKILL.md
 |       |-- turtle-document/
 |       |   `-- SKILL.md
-|       `-- turtle-commit/
+|       |-- turtle-add/
+|       |   `-- SKILL.md
+|       |-- turtle-commit/
+|       |   `-- SKILL.md
+|       `-- turtle-push/
 |           `-- SKILL.md
 |-- docs/
 |   |-- analysis/

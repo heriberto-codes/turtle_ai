@@ -91,9 +91,15 @@ After all plan steps are complete:
 1. Run `$turtle-security` to review security risks and `$turtle-performance` for relevant performance risks. Address findings through the appropriate workflow before finalizing.
 2. Run `$turtle-backlog-update` to mark the matching backlog item complete.
 3. Run `$turtle-document` to record the completed feature in `docs/features/<feature_slug>.md`.
-4. Run `$turtle-commit` to prepare a concise commit message from the actual changes.
+4. Run `$turtle-add` to inspect and stage only the reviewed files for this work.
+5. Run `$turtle-commit` to review the staged changes, prepare the message, create one commit, and verify it.
+6. Run `$turtle-push` to inspect the destination and all outgoing commits, push the current branch, and verify the remote result.
 
-`$turtle-commit` prepares the message. It does not automatically stage, commit, push, open a pull request, or publish a release. Those are separate Git/GitHub actions you request or perform after reviewing the changes.
+Invoke the three Git skills separately: `$turtle-add` → `$turtle-commit` → `$turtle-push`. Each invocation authorizes its own action when scope is clear; the skill reports the intended operation, performs it, reports the result, and stops. It asks when scope or the destination is ambiguous. Platform permission prompts still apply. None of these skills completes workflow gates or marks plan/backlog items complete.
+
+`$turtle-add` preserves unrelated staging and working-folder edits, asking before staging mixed-purpose changes. `$turtle-commit` stops for empty or unrelated staging and leaves unstaged edits untouched. **Changed behavior:** a normal `$turtle-commit` now creates the commit; it previously prepared text only. Request `$turtle-commit message only` to draft a message without changing Git state.
+
+`$turtle-push` requires a clean working folder and an attached branch. It uses the configured upstream, or `origin` with the current branch name when no upstream exists and the destination is clear. If either the local branch or destination is `main` or `master`, explicitly name that branch in your authorization; a clear request such as `$turtle-push to main` supplies it without another confirmation. The skill stops on a rejected push or conflicting history rather than repairing it. It never force-pushes, pushes tags or all branches, opens a PR, or publishes a release.
 
 ## If You Get Stuck
 

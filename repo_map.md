@@ -13,7 +13,7 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | `AGENTS.md` | Always-active repository maintenance rules and workflow guardrails. |
 | `architecture.md` | Current system blueprint, boundaries, flows, ownership, risks, and extension points. |
 | `repo_map.md` | This high-level navigation reference. |
-| `.agents/skills/` | The 22 repo-scoped Codex skill contracts that implement Turtle's workflow. |
+| `.agents/skills/` | The 24 repo-scoped Codex skill contracts that implement Turtle's workflow. |
 | `docs/guides/` | Public reader guides linked from the README, separate from installed system contracts. |
 | `docs/system/` | Shared workflow, state, design, and global rule contracts. |
 | `assets/` | README illustrations and Turtle AI logo files. |
@@ -25,6 +25,7 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | --- | --- |
 | Understand Turtle AI | `README.md` |
 | Plan, implement, and finalize a feature | `docs/guides/planning_workflow.md` |
+| Stage reviewed changes, create a commit, or publish existing commits | `.agents/skills/turtle-add/SKILL.md`, `.agents/skills/turtle-commit/SKILL.md`, `.agents/skills/turtle-push/SKILL.md` |
 | Apply repository-wide maintenance rules | `AGENTS.md` |
 | Understand system structure and state ownership | `architecture.md` |
 | Run or modify one workflow phase | `.agents/skills/<skill>/SKILL.md` |
@@ -77,7 +78,11 @@ Every tracked skill lives at `.agents/skills/<skill-name>/SKILL.md`.
 
 - `.agents/skills/turtle-backlog-update/SKILL.md`
 - `.agents/skills/turtle-document/SKILL.md`
+- `.agents/skills/turtle-add/SKILL.md`
 - `.agents/skills/turtle-commit/SKILL.md`
+- `.agents/skills/turtle-push/SKILL.md`
+
+Invoke ADD -> COMMIT -> PUSH separately after existing workflow gates. Each owns only its named operation; `turtle-commit` creates a commit by default and supports explicit message-only drafting. See the skill contracts for scope checks, main/master authorization, and verified outcomes. These Git skills do not own plan/backlog completion state.
 
 ## Public Workflow Guides
 
@@ -100,7 +105,7 @@ Public guides support readers of the README; they are separate from the four sha
 
 | Path | Responsibility |
 | --- | --- |
-| `assets/turtleAI.png` | README pixel-art overview of the 22 skills, optional design workflow, implementation loop, and two state systems. |
+| `assets/turtleAI.png` | README pixel-art overview of the 24 skills, optional design workflow, implementation loop, and two state systems. |
 | `assets/Turtleai_logo/png/` | PNG logo variants, including the README header image. |
 | `assets/Turtleai_logo/jpg/` | JPEG logo variants. |
 | `assets/Turtleai_logo/svg/` | Vector logo variants. |

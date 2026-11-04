@@ -58,4 +58,4 @@ State missing-context assumptions separately and briefly. Do not include executi
 ## Adjacent requests
 
 - Staging belongs to `$turtle-add`; pushing existing commits belongs to `$turtle-push`. Route those actions to their owners without embedding or automatically running their procedures.
-- If explicitly requested, draft a concise PR summary with Summary, Tests, and Notes for reviewer grounded in actual changes and validation evidence. Do not open a PR, publish a release, or push additional commits.
+- PR text and creation belong to `$turtle-pull-request`; route PR-summary requests to `$turtle-pull-request preview` without drafting the PR here or automatically invoking that skill. Do not open a PR, publish a release, or push additional commits.

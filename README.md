@@ -54,7 +54,7 @@ location outside my project. Use one source revision throughout
 and report its commit ID.
 
 Copy only:
-- All 24 turtle-* skill directories, including their contents,
+- All 25 turtle-* skill directories, including their contents,
   into this project's .agents/skills/.
 - workflow.md, design-workflow.md, state.md, and rules.md from
   Turtle's docs/system/ into this project's docs/system/.
@@ -89,7 +89,7 @@ This is **Codex-assisted copying**, not a built-in Turtle installer. Codex may a
    ```
 
 2. Find `.agents/skills/` in the downloaded Turtle folder. Folders starting with a dot may be hidden: press **Command + Shift + .** in macOS Finder, or enable **View → Show → Hidden items** in Windows File Explorer.
-3. In your own project folder, create `.agents/skills/` if needed. Copy all **24 `turtle-*` folders**, including their contents, into it. Keep any unrelated skills already there.
+3. In your own project folder, create `.agents/skills/` if needed. Copy all **25 `turtle-*` folders**, including their contents, into it. Keep any unrelated skills already there.
 4. Create `docs/system/` in your project if needed. Copy these four files from Turtle's `docs/system/`: `workflow.md`, `design-workflow.md`, `state.md`, and `rules.md`. The design skills read these shared documents directly.
 5. Preserve Turtle's license notice: create `docs/licenses/` and copy Turtle's root `LICENSE` into it as `turtle-ai-LICENSE.txt`. Keep your project's own license file as it is.
 6. Open **your project folder** in Codex and continue to [Check Your Installation](#check-your-installation).
@@ -100,7 +100,7 @@ If a destination skill folder or system document already has the same name, comp
 
 After either installation option, start a fresh Codex chat in **your project** so it can discover the copied skills.
 
-Your copied files should look like this; the other 22 skill folders are omitted from the picture:
+Your copied files should look like this; the other 23 skill folders are omitted from the picture:
 
 ```text
 your-project/
@@ -121,7 +121,7 @@ Paste this into Codex chat to check the installation without changing files:
 
 ```text
 Check my Turtle AI installation without modifying files. Confirm that all
-24 turtle-* skill folders have a readable SKILL.md with a matching name,
+25 turtle-* skill folders have a readable SKILL.md with a matching name,
 and report whether those skills are available in this Codex session.
 Check for workflow.md, design-workflow.md, state.md, and rules.md under
 docs/system/, plus docs/licenses/turtle-ai-LICENSE.txt. Report missing
@@ -174,16 +174,16 @@ Use this path for backend work, internal refactors, maintenance, or UI changes w
 
 ## What's Included
 
-![Turtle AI overview: 24 skills, an optional design workflow, 5 implementation steps with debugging when needed, and 2 state systems.](assets/turtleAI.png)
+![Turtle AI overview: 25 skills, an optional design workflow, 5 implementation steps with debugging when needed, and 2 state systems.](assets/turtleAI.png)
 
-- **24 skills** for focused development tasks.
+- **25 skills** for focused development tasks.
 - **Optional design workflow** to explore mockups and approve a direction before coding.
 - **5-step implementation loop:** execute → verify → engineer checkpoint (understand the change) → test → plan step update. Debugging is conditional recovery, not an extra required step.
 - **2 state systems:** design workflow progress and implementation-plan progress.
 
 ## Skill Catalog
 
-Turtle includes 24 project-local skills in `.agents/skills/`. Their names describe focused responsibilities; you do not need to memorize the full catalog to begin.
+Turtle includes 25 project-local skills in `.agents/skills/`. Their names describe focused responsibilities; you do not need to memorize the full catalog to begin.
 
 | Category | Skills |
 | --- | --- |
@@ -193,9 +193,19 @@ Turtle includes 24 project-local skills in `.agents/skills/`. Their names descri
 | Planning | `turtle-plan` |
 | Implementation | `turtle-execute`, `turtle-verify`, `turtle-engineer-checkpoint`, `turtle-test`, `turtle-debug`, `turtle-plan-step-update` |
 | Hardening | `turtle-security`, `turtle-performance` |
-| Finalization | `turtle-backlog-update`, `turtle-document`, `turtle-add`, `turtle-commit`, `turtle-push` |
+| Finalization | `turtle-backlog-update`, `turtle-document`, `turtle-add`, `turtle-commit`, `turtle-push`, `turtle-pull-request` (optional) |
 
-After feature finalization, invoke `$turtle-add` to stage reviewed files, `$turtle-commit` to create a commit, and `$turtle-push` to publish it, one at a time. Each invocation authorizes only its named action when scope is clear; pushes involving `main` or `master` require authorization naming that branch. **Changed behavior:** `$turtle-commit` previously prepared only a message; it now creates the commit by default. Request `$turtle-commit message only` for a draft without committing. See [Finalize the Feature](docs/guides/planning_workflow.md#finalize-the-feature) for the full sequence and checks.
+After feature finalization, invoke `$turtle-add` to stage reviewed files, `$turtle-commit` to create a commit, and `$turtle-push` to publish it, one at a time. Each invocation authorizes only its named action when scope is clear; `$turtle-push` authorizes pushing the current branch, including `main` or `master`, after its usual checks without another branch confirmation. **Changed behavior:** `$turtle-commit` previously prepared only a message; it now creates the commit by default. Request `$turtle-commit message only` for a draft without committing. See [Finalize the Feature](docs/guides/planning_workflow.md#finalize-the-feature) for the full sequence and checks.
+
+For GitHub PR review, begin implementation on an appropriate feature branch, then optionally invoke `$turtle-pull-request` separately after push. Direct-push workflows remain supported. PR creation requires the existing completed gates and a clean branch whose published head matches the reviewed local commit. It returns an existing matching open PR unchanged and does not imply approval, passing CI, or merge.
+
+| Enter in Codex chat | Result |
+| --- | --- |
+| `$turtle-pull-request` | Create a PR ready for review. |
+| `$turtle-pull-request draft` | Create a draft after the same completion gates. |
+| `$turtle-pull-request preview` | Prepare PR text and destination without creating or updating a PR. |
+
+PR text drafting now belongs to `$turtle-pull-request preview`; commit-message drafting remains with `$turtle-commit message only`. PR preview may describe committed unpublished work with outstanding gates labeled, excluding uncommitted changes. Optional PR inspection/creation requires sufficient connected GitHub tools or authenticated GitHub CLI/API access. The [PR skill](.agents/skills/turtle-pull-request/SKILL.md) defines target resolution, templates, creation checks, and verification.
 
 ## Foundation and Workflow Files
 

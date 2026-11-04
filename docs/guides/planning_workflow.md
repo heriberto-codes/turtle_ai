@@ -38,6 +38,8 @@ If a matching design workspace exists, planning requires its explicit approval e
 
 ## Build One Plan Step at a Time
 
+If your repository uses pull request review, begin implementation on an appropriate feature branch following its branch conventions. Choose the branch before the first `$turtle-execute`; Turtle's finalization skills do not create or switch branches. Direct-push workflows remain supported.
+
 A **plan step** is one small checkbox item in the feature's plan. The first unchecked `[ ]` item is the active step. Run each skill below separately for the same feature, and continue only when its required result is satisfied:
 
 | Order | Enter in Codex chat | What happens |
@@ -94,12 +96,27 @@ After all plan steps are complete:
 4. Run `$turtle-add` to inspect and stage only the reviewed files for this work.
 5. Run `$turtle-commit` to review the staged changes, prepare the message, create one commit, and verify it.
 6. Run `$turtle-push` to inspect the destination and all outgoing commits, push the current branch, and verify the remote result.
+7. If your repository uses GitHub PR review, optionally run `$turtle-pull-request` to create a PR ready for review or return an existing matching open PR unchanged.
 
-Invoke the three Git skills separately: `$turtle-add` → `$turtle-commit` → `$turtle-push`. Each invocation authorizes its own action when scope is clear; the skill reports the intended operation, performs it, reports the result, and stops. It asks when scope or the destination is ambiguous. Platform permission prompts still apply. None of these skills completes workflow gates or marks plan/backlog items complete.
+Invoke the finalization skills separately: `$turtle-add` → `$turtle-commit` → `$turtle-push` → optional `$turtle-pull-request`. Each invocation authorizes its own action when scope is clear; the skill reports the intended operation, performs it, reports the result, and stops. It asks when scope or the destination is ambiguous. Platform permission prompts still apply. None of these skills completes workflow gates or marks plan/backlog items complete.
 
 `$turtle-add` preserves unrelated staging and working-folder edits, asking before staging mixed-purpose changes. `$turtle-commit` stops for empty or unrelated staging and leaves unstaged edits untouched. **Changed behavior:** a normal `$turtle-commit` now creates the commit; it previously prepared text only. Request `$turtle-commit message only` to draft a message without changing Git state.
 
-`$turtle-push` requires a clean working folder and an attached branch. It uses the configured upstream, or `origin` with the current branch name when no upstream exists and the destination is clear. If either the local branch or destination is `main` or `master`, explicitly name that branch in your authorization; a clear request such as `$turtle-push to main` supplies it without another confirmation. The skill stops on a rejected push or conflicting history rather than repairing it. It never force-pushes, pushes tags or all branches, opens a PR, or publishes a release.
+`$turtle-push` requires a clean working folder and an attached branch. It uses the configured upstream, or `origin` with the current branch name when no upstream exists and the destination is clear. Invoke `$turtle-push` once to authorize pushing the current branch after its usual checks, including when the local branch or destination is `main` or `master`; no extra branch confirmation is required. A differently named configured upstream remains the destination. Ambiguous or conflicting destinations still require clarification, preview-only requests remain read-only, and platform permissions still apply. The skill stops on a rejected push or conflicting history rather than repairing it. It never force-pushes, pushes tags or all branches, opens a PR, or publishes a release.
+
+### Optional GitHub Pull Request
+
+`$turtle-pull-request` requires the same completed gates, a clean attached branch, and fresh evidence that the published head matches the reviewed local commit. It resolves the head and base separately, including forks and differently named upstream branches, and reviews the whole proposed change. It follows your PR template when present and describes only observed validation. An existing exact matching open PR is returned without changing its text or draft status.
+
+| Enter in Codex chat | Result |
+| --- | --- |
+| `$turtle-pull-request` | Create a PR ready for review. |
+| `$turtle-pull-request draft` | Create a draft after the same completion gates. |
+| `$turtle-pull-request preview` | Prepare PR text and destination without creating or updating a PR. |
+
+PR drafting now belongs to this skill; use preview instead of asking `$turtle-commit` for a PR summary. Preview can describe committed changes before push, labeling unpublished work and outstanding gates and excluding uncommitted changes. It does not establish readiness.
+
+Use sufficient connected GitHub tools or authenticated GitHub CLI/API access. The skill does not install tools, push commits, create branches or forks, change existing PRs, merge, or enable auto-merge. If work is already published to the base branch or there is no proposed diff, it stops without repairing history. Creation failures stop; an uncertain result permits a read-only lookup, never an automatic second creation attempt. The skill verifies the resulting PR and reports its link and status. Review, CI, approval, and merging follow your repository's process; PR creation does not imply any of them passed.
 
 ## If You Get Stuck
 

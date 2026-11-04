@@ -16,7 +16,8 @@ Added `turtle-add` and `turtle-push`, and changed `turtle-commit` to create and 
 - ADD uses explicit relevant paths, includes deletions, preserves unrelated staging and edits, and asks before changing mixed-purpose or uncertain partial staging.
 - COMMIT reviews the index, shows an accurate message, creates one ordinary commit with normal hooks/signing, and verifies its ancestry and contents. It never stages or pushes. Explicit `message only` or preview requests retain read-only drafting.
 - PUSH requires a clean working folder and attached branch. It resolves the upstream or an unambiguous origin/current-branch destination, obtains fresh evidence from the effective destination, lists all outgoing commits, and verifies the remote tip after an ordinary single-branch push.
-- Either a local or destination `main`/`master` branch requires authorization naming that branch. Ambiguous destinations and rejected operations stop without automatic recovery, force-pushing, tag pushing, amending, hook bypass, pulling, or rebasing.
+- A bare `$turtle-push` authorizes pushing the current branch to its resolved destination after the usual checks, including a local or destination `main`/`master` branch, without additional branch confirmation. A differently named configured upstream remains the destination. Preview-only requests remain read-only and platform permissions still apply. Ambiguous destinations and rejected operations stop without automatic recovery, force-pushing, tag pushing, amending, hook bypass, pulling, or rebasing.
+- Maintenance update (2026-11-02): the user replaced the original named-branch confirmation rule with invocation authorization for all branches. This supersedes that rule in the completed implementation plan; its original checklist and validation history remain intact.
 
 ## Test Impact
 
@@ -25,7 +26,8 @@ Added `turtle-add` and `turtle-push`, and changed `turtle-commit` to create and 
 - Disposable local Git repositories exercised explicit-path additions/edits/deletions, unusual filenames, pre-staged and partially staged work, already-staged no-ops, and preservation after staging failure.
 - Commit checks covered initial and staged-only commits, preserved unstaged edits, empty staging, read-only inspections, rejecting hooks, and detection of unexpected successful-hook changes. A staging-test expectation was corrected through DEBUG before the test passed; no skill change was needed.
 - Push checks used a local bare remote: first push/upstream setup, differently named upstreams, multiple outgoing commits, synchronized comparisons, new refs with already-present commits, stale refs, remote-ahead/diverged history, rejected pushes, and disabled automatic tag following. Dirty/detached and conflicting-endpoint facts were also inspected.
-- Ambiguity, unrelated-scope rejection, message-only selection, and main/master authorization policies were reviewed through instruction walkthroughs. The temporary Git checks validate command mechanics, not autonomous agent compliance with every instruction.
+- Ambiguity, unrelated-scope rejection, message-only selection, and the original main/master authorization policies were reviewed through instruction walkthroughs. The temporary Git checks validate command mechanics, not autonomous agent compliance with every instruction.
+- Maintenance validation (2026-11-02): the updated push skill passed the skill-creator validator and formatting checks. Instruction walkthroughs covered bare invocations on main, master, and feature branches; differently named upstreams; preview-only requests; and conflicting destinations. No push was executed for this authorization-only update.
 - The overview PNG passed structural/CRC checks, retained its 1254 x 1254 dimensions, and was visually compared with the original for count, text, icons, layout, and quality.
 - Final read-only security and performance reviews found no actionable issues. No test push was made to GitHub.
 

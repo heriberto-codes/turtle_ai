@@ -13,7 +13,7 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | `AGENTS.md` | Always-active repository maintenance rules and workflow guardrails. |
 | `architecture.md` | Current system blueprint, boundaries, flows, ownership, risks, and extension points. |
 | `repo_map.md` | This high-level navigation reference. |
-| `.agents/skills/` | The 24 repo-scoped Codex skill contracts that implement Turtle's workflow. |
+| `.agents/skills/` | The 25 repo-scoped Codex skill contracts that implement Turtle's workflow. |
 | `docs/guides/` | Public reader guides linked from the README, separate from installed system contracts. |
 | `docs/system/` | Shared workflow, state, design, and global rule contracts. |
 | `assets/` | README illustrations and Turtle AI logo files. |
@@ -26,6 +26,7 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | Understand Turtle AI | `README.md` |
 | Plan, implement, and finalize a feature | `docs/guides/planning_workflow.md` |
 | Stage reviewed changes, create a commit, or publish existing commits | `.agents/skills/turtle-add/SKILL.md`, `.agents/skills/turtle-commit/SKILL.md`, `.agents/skills/turtle-push/SKILL.md` |
+| Prepare PR text or optionally open a GitHub PR after push | `.agents/skills/turtle-pull-request/SKILL.md` |
 | Apply repository-wide maintenance rules | `AGENTS.md` |
 | Understand system structure and state ownership | `architecture.md` |
 | Run or modify one workflow phase | `.agents/skills/<skill>/SKILL.md` |
@@ -81,14 +82,15 @@ Every tracked skill lives at `.agents/skills/<skill-name>/SKILL.md`.
 - `.agents/skills/turtle-add/SKILL.md`
 - `.agents/skills/turtle-commit/SKILL.md`
 - `.agents/skills/turtle-push/SKILL.md`
+- `.agents/skills/turtle-pull-request/SKILL.md`
 
-Invoke ADD -> COMMIT -> PUSH separately after existing workflow gates. Each owns only its named operation; `turtle-commit` creates a commit by default and supports explicit message-only drafting. See the skill contracts for scope checks, main/master authorization, and verified outcomes. These Git skills do not own plan/backlog completion state.
+Invoke ADD -> COMMIT -> PUSH -> optional PULL REQUEST separately after existing workflow gates. Each owns only its named operation; `turtle-commit` creates a commit by default and supports explicit message-only drafting. A bare `turtle-push` authorizes the current branch, including main/master, after the usual checks without another branch confirmation. Direct-push workflows remain supported. PR drafting belongs to `turtle-pull-request preview`; PR creation defaults to ready for review, supports an explicit draft after the same gates, and reuses an exact matching open PR unchanged. PUSH may recommend it after verified push/synchronization without invoking it. GitHub owns PR state; these skills never change plan/backlog completion markers. See the skill contracts for scope, targets, tooling requirements, and verified outcomes.
 
 ## Public Workflow Guides
 
 | Path | Responsibility |
 | --- | --- |
-| `docs/guides/planning_workflow.md` | Engineering Workflow guide covering backlog selection, planning, design approval requirements, and the implementation, recovery, resumption, and finalization shared by both paths. |
+| `docs/guides/planning_workflow.md` | Engineering Workflow guide covering backlog selection, planning, design approval requirements, feature-branch guidance, and the implementation, recovery, resumption, and finalization shared by both paths, including optional GitHub PR creation. |
 
 Public guides support readers of the README; they are separate from the four shared system documents required during installation.
 
@@ -97,7 +99,7 @@ Public guides support readers of the README; they are separate from the four sha
 | Path | Responsibility |
 | --- | --- |
 | `docs/system/workflow.md` | End-to-end phase order, bootstrap rules, skill roles, and recommended downstream project structure. |
-| `docs/system/state.md` | Design-controller and plan-driven state sources, detection rules, flow, and reconciliation. |
+| `docs/system/state.md` | Design-controller and plan-driven state sources, detection rules, flow, reconciliation, and external Git/PR state ownership. |
 | `docs/system/rules.md` | Cross-skill invariants for step state, debug routing, comprehension, and loop ordering. |
 | `docs/system/design-workflow.md` | Design workspace schema, artifact ownership, controlled values, approvals, and planning handoff. |
 
@@ -105,7 +107,7 @@ Public guides support readers of the README; they are separate from the four sha
 
 | Path | Responsibility |
 | --- | --- |
-| `assets/turtleAI.png` | README pixel-art overview of the 24 skills, optional design workflow, implementation loop, and two state systems. |
+| `assets/turtleAI.png` | README pixel-art overview of the skill catalog, optional design workflow, implementation loop, and two state systems. |
 | `assets/Turtleai_logo/png/` | PNG logo variants, including the README header image. |
 | `assets/Turtleai_logo/jpg/` | JPEG logo variants. |
 | `assets/Turtleai_logo/svg/` | Vector logo variants. |

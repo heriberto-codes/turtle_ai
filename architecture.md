@@ -37,7 +37,7 @@ There is no long-running Turtle process. Each invocation loads the applicable in
 | Layer | Location | Responsibility |
 | --- | --- | --- |
 | Repository guardrails | `AGENTS.md` | Concise, always-active rules, instruction hierarchy, safety boundaries, and workflow invariants. |
-| Skill contracts | `.agents/skills/*/SKILL.md` | Procedures, inputs, outputs, ownership boundaries, stop conditions, and routing for the 24 Turtle skills. |
+| Skill contracts | `.agents/skills/*/SKILL.md` | Procedures, inputs, outputs, ownership boundaries, stop conditions, and routing for the 25 Turtle skills. |
 | Shared system contracts | `docs/system/` | Cross-skill workflow, state, design, and global rule definitions. |
 | Foundation context | `architecture.md`, `repo_map.md` | Current system blueprint and repository navigation used by every Turtle phase. |
 | Workflow artifacts | Generated in adopting repositories | Backlog, design evidence, plans, analysis, and completed feature records that carry state between invocations. |
@@ -47,7 +47,7 @@ There is no long-running Turtle process. Each invocation loads the applicable in
 
 ```text
 .
-|-- .agents/skills/       # 24 repo-scoped Codex skill contracts
+|-- .agents/skills/       # 25 repo-scoped Codex skill contracts
 |-- assets/               # README and brand imagery
 |-- docs/guides/          # Public workflow guides
 |-- docs/system/          # Shared workflow and state contracts
@@ -69,13 +69,14 @@ Turtle-generated feature artifacts such as `docs/backlog.md`, `docs/plans/`, `do
 - Repository-scoped skill definitions and their routing rules.
 - Shared workflow, state, design, and safety documentation.
 - File naming, artifact ownership, and transition contracts.
-- Bounded staging, commit creation, and single-branch push procedures carried out through Codex and Git.
+- Bounded staging, commit creation, single-branch push, and optional GitHub PR creation procedures carried out through Codex and repository tooling.
 - Public usage documentation and brand assets.
 
 ### Outside Turtle AI
 
 - Codex skill discovery, instruction loading, reasoning, and tool execution.
 - Git storage, authentication, remote branch protections, and the host repository's branching, review, and release policies.
+- GitHub PR storage, API/CLI availability, authentication, permissions, CI, approval, and merging.
 - Application code, frameworks, databases, APIs, tests, and deployment systems in repositories that adopt Turtle.
 - Optional rendering or visual-inspection tools used when producing design mockups.
 
@@ -91,7 +92,7 @@ Turtle does not provide an application runtime, API, database, authentication or
 | Planning | `turtle-plan` | Convert one backlog item and any approved design into an atomic implementation plan. |
 | Implementation | `turtle-execute`, `turtle-verify`, `turtle-engineer-checkpoint`, `turtle-test`, `turtle-debug`, `turtle-plan-step-update` | Implement one plan step through correctness, comprehension, testing, recovery, and controlled state transition. |
 | Hardening | `turtle-security`, `turtle-performance` | Review completed behavior for security and performance risks. |
-| Finalization | `turtle-backlog-update`, `turtle-document`, `turtle-add`, `turtle-commit`, `turtle-push` | Close backlog state, record the completed feature, then stage reviewed changes, create a commit, and push existing commits through separate invocations. |
+| Finalization | `turtle-backlog-update`, `turtle-document`, `turtle-add`, `turtle-commit`, `turtle-push`, `turtle-pull-request` | Close backlog state, record the completed feature, then stage reviewed changes, create a commit, push existing commits, and optionally open a GitHub PR through separate invocations. |
 
 ## Request and Control Flow
 
@@ -131,11 +132,15 @@ Turtle uses repository files as durable coordination boundaries.
 - The active step remains unchecked through execute, verify, engineer checkpoint, test, and any debug cycle.
 - No unchecked items means implementation is complete and may proceed to hardening and finalization.
 
-### Git finalization
+### Git and PR finalization
 
 Git remains the source of truth for staging, commits, and remote branch refs; no Turtle state file is added. `turtle-add` owns scoped index updates, `turtle-commit` owns one ordinary commit from the reviewed index, and `turtle-push` owns publishing existing commits to one resolved branch. They cannot change plan/backlog completion state or bypass unfinished gates.
 
-Each invocation authorizes only its named action when scope is clear. Pushes involving a local or destination main/master branch require authorization naming that branch. Ambiguous scope or configuration and rejected operations stop without automatic repair. A normal `turtle-commit` now creates a commit; an explicit message-only request preserves read-only drafting.
+`turtle-pull-request` owns PR text preparation and optional creation after push; it defaults to ready for review, supports explicit draft creation after the same gates, and returns exact matching open PRs unchanged. Preview is read-only and may describe committed unpublished work with outstanding gates labeled. Creation requires a clean attached branch and a published head matching reviewed local HEAD, with head and base resolved independently. GitHub owns PR state; no third Turtle state system is introduced. PR creation neither changes completion markers nor implies approval, passing CI, or merge. PR review workflows begin implementation on an appropriate feature branch; these finalization skills never create or switch branches.
+
+The PR skill prefers sufficient connected GitHub tools, with authenticated CLI/API fallback and explicit targets preventing implicit pushes or forks. It never pushes, modifies existing PRs, merges, or enables auto-merge. COMMIT routes PR drafting to PR preview; PUSH may recommend PR creation after a verified push/synchronized result without invoking it. Direct-push workflows remain supported.
+
+Each invocation authorizes only its named action when scope is clear. A bare `turtle-push` authorizes pushing the current branch to its resolved destination after the usual checks, including a local or destination main/master branch, without additional branch confirmation. Preview-only requests remain read-only, and platform permissions still apply. Ambiguous scope or configuration and rejected operations stop without automatic repair. A normal `turtle-commit` now creates a commit; an explicit message-only request preserves read-only drafting.
 
 ### Supporting artifacts
 
@@ -174,6 +179,7 @@ Turtle has no compilation, package installation, application startup, environmen
 - A Git repository that stores skill definitions, system documentation, and generated workflow artifacts.
 - Markdown-compatible tooling for reading and reviewing the contracts.
 - Host-repository tools required by the software being planned, implemented, tested, or reviewed.
+- Sufficient connected GitHub tools or authenticated GitHub CLI/API access only when optional PR inspection/creation is used; other workflows do not require GitHub.
 
 ## Known Risks
 

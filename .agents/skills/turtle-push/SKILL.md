@@ -1,11 +1,11 @@
 ---
 name: turtle-push
-description: Inspect the current branch, destination, and outgoing commits, then push existing commits for completed Turtle work. Use after turtle-commit. Require a clean working folder and explicit named-branch authorization for main or master. Do not stage, commit, force-push, or create pull requests.
+description: Inspect the current branch, destination, and outgoing commits, then push existing commits for completed Turtle work. Use after turtle-commit. Invocation authorizes pushing the current branch, including main or master, after the usual checks. Require a clean working folder. Do not stage, commit, force-push, or create pull requests.
 ---
 
 # Push Reviewed Commits
 
-Own only publishing existing commits on the current branch. Invoking this skill authorizes an ordinary single-branch push when the scope and destination are clear, subject to the main/master rule below. Honor preview-only requests and platform permission requirements. Report the intended action, perform it once, verify the result, and stop; never automatically invoke another skill.
+Own only publishing existing commits on the current branch. Invoking this skill authorizes an ordinary single-branch push when the scope and destination are clear, including when the local or destination branch is `main` or `master`. Honor preview-only requests and platform permission requirements. Report the intended action, perform it once, verify the result, and stop; never automatically invoke another skill.
 
 ## Always read
 
@@ -34,8 +34,8 @@ Use the request, conversation, and available feature artifacts to ground the int
 - For an existing destination branch, compare its fresh tip with the recorded local HEAD. If equal, report already synchronized without pushing. If the remote is ahead or diverged, stop and report the mismatch; do not repair history. Otherwise list every commit that this push would add to that destination.
 - For a new destination branch, list commits reachable from the recorded local HEAD but absent from all branch refs in that remote. If the remote has no branches, list all reachable commits. Explain that publishing a new branch is still an action even if its commits are already present on another remote branch.
 - Show the local branch, sanitized remote identity, destination branch, and all outgoing commit IDs and subjects. Do not abbreviate the list in a way that hides older outgoing commits or assume the push contains only the latest commit.
-- If either the local branch or remote destination is `main` or `master`, require explicit authorization naming that branch for this operation. A bare `$turtle-push` does not supply it. A clear request such as `$turtle-push to main` already supplies it when it unambiguously matches the current branch/destination; do not ask again. If a branch name could mean switching branches or changing the destination, clarify first.
-- Other clear single-branch invocations need no second approval. For preview-only requests, stop after reporting this review without publishing or changing upstream configuration.
+- A bare `$turtle-push` authorizes publishing the current branch to the resolved destination after these checks, including when either branch is `main` or `master`. Do not require the user to repeat the invocation or name the branch for additional confirmation. This also applies when the configured upstream has a different branch name. If a requested branch name could mean switching branches or conflicts with the resolved destination, clarify first; never switch branches here.
+- For preview-only requests, stop after reporting this review without publishing or changing upstream configuration.
 
 ## Push once and verify
 
@@ -45,4 +45,4 @@ Use the request, conversation, and available feature artifacts to ground the int
 - On rejection or failure, stop and report the actual local/remote state. Do not retry automatically, create another commit, amend, pull, rebase, resolve conflicts, or change authentication configuration.
 - After success, query the resolved remote destination and confirm its tip equals the reviewed local commit. Check local status and, for a first push, the resulting upstream. If verification is unavailable or reveals a mismatch, report that limit rather than claiming a verified push or retrying it.
 
-Return a concise outcome: pushed, already synchronized, preview only, or stopped with reason. Include the branch, sanitized destination, published commit range, verification result, and any remaining user action. Never modify file contents or plan/backlog completion state, open a PR, or automatically chain another skill.
+Return a concise outcome: pushed, already synchronized, preview only, or stopped with reason. Include the branch, sanitized destination, published commit range, verification result, and any remaining user action. After a verified push or verified already-synchronized result, recommend optional `$turtle-pull-request` when the repository uses GitHub PR review and the published work belongs on a PR head branch. Direct-push workflows remain valid; preview, failure, and unverified results do not establish PR readiness. Never modify file contents or plan/backlog completion state, open a PR, or automatically chain another skill.

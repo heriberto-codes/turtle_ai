@@ -149,14 +149,22 @@ Use `$turtle-debug` when a workflow or runtime/manual validation failure needs d
 | 3 | `$turtle-add` | Inspect and stage the reviewed changes for this work. |
 | 4 | `$turtle-commit` | Review staged content, prepare the message, create one commit, and verify it. |
 | 5 | `$turtle-push` | Inspect the destination and outgoing commits, push the current branch, and verify the result. |
+| 6 (optional) | `$turtle-pull-request` | Create a GitHub PR ready for review, create an explicitly requested draft, or return an existing matching open PR unchanged. |
 
-Git finalization follows `$turtle-add` -> `$turtle-commit` -> `$turtle-push`, invoked separately after existing completion gates. Each skill owns one operation, reports its intent and result, and stops without invoking the next. An invocation authorizes its named action when scope is clear; ambiguous scope requires clarification, and platform permission requirements still apply. These skills cannot pass validation gates or mark plan/backlog state complete.
+Git finalization follows `$turtle-add` -> `$turtle-commit` -> `$turtle-push` -> optional `$turtle-pull-request`, invoked separately after existing completion gates. Direct-push workflows remain supported. Each skill owns one operation, reports its intent and result, and stops without invoking the next. An invocation authorizes its named action when scope is clear; ambiguous scope requires clarification, and platform permission requirements still apply. These skills cannot pass validation gates or mark plan/backlog state complete.
 
 - ADD stages explicit relevant paths, including additions and deletions, while preserving unrelated staging and working-folder changes. Mixed-purpose or uncertain partial-staging intent requires clarification before changing the index.
 - COMMIT creates one ordinary commit from the reviewed index and never stages or pushes. Empty or unrelated staging blocks commit creation. Unstaged content is not included. A normal invocation now creates the commit, replacing the former message-only default; an explicit message-only/preview request remains read-only.
-- PUSH publishes existing commits only, with a clean working folder and attached branch. It resolves the configured upstream or, without one, an unambiguous origin/current-branch destination; inspects fresh evidence and all outgoing commits; and verifies the resulting remote tip. If either local or destination branch is main/master, authorization must explicitly name that branch. A matching named-branch request supplies that authorization without another prompt; a bare invocation does not.
+- PR text belongs to PULL REQUEST preview, not COMMIT. Commit-message-only requests remain with COMMIT.
+- PUSH publishes existing commits only, with a clean working folder and attached branch. It resolves the configured upstream or, without one, an unambiguous origin/current-branch destination; inspects fresh evidence and all outgoing commits; and verifies the resulting remote tip. A bare `$turtle-push` authorizes the current branch and resolved destination, including main/master on either end, without additional branch confirmation. A differently named configured upstream remains the destination. Ambiguous or conflicting destinations still require clarification; preview-only requests remain read-only and platform permissions still apply.
 
-Rejected operations stop without automatic history repair or retries. Never force-push, push tags or all branches, amend commits, bypass hooks, automatically pull/rebase, or resolve conflicts in these skills. They do not open PRs or publish releases. See each skill's contract for inspection, verification, and failure handling.
+- PULL REQUEST creates one ready-for-review PR by default, or a draft on explicit request, after the same completion gates. It requires a clean attached branch and fresh proof that the published head matches reviewed local HEAD. It resolves the head and base repositories/branches independently, including existing forks, and reviews the complete proposed diff and commit range. An exact matching open PR is returned unchanged. `$turtle-pull-request preview` drafts committed changes without remote writes, may include labeled unpublished work or outstanding gates, and excludes uncommitted changes. Preview does not establish readiness.
+
+For PR workflows, begin implementation on an appropriate feature branch under the repository's branch conventions. These finalization skills do not create or switch branches or repair work already published to the base branch. PUSH may recommend the optional PR skill after a verified push or synchronized result; it never invokes it.
+
+PR creation requires sufficient connected GitHub tools or authenticated GitHub CLI/API access. Prefer a sufficient connector; otherwise use explicit CLI/API targets that cannot implicitly push or fork. Preview must not call `gh pr create --dry-run`, which may push. GitHub owns PR state; no new Turtle state file is added, and creation does not imply approval, passing CI, or merge. See the [PR skill](../../.agents/skills/turtle-pull-request/SKILL.md) for templates, duplicate lookup, failure reconciliation, and readback verification.
+
+Rejected operations stop without automatic history repair or retries. Never force-push, push tags or all branches, amend commits, bypass hooks, automatically pull/rebase, or resolve conflicts in these skills. ADD, COMMIT, and PUSH never open PRs; only PULL REQUEST owns creation. None merges PRs, enables auto-merge, or publishes releases. See each skill's contract for inspection, verification, and failure handling.
 
 ## Recommended Project Structure
 
@@ -212,7 +220,9 @@ project-root
 |       |   `-- SKILL.md
 |       |-- turtle-commit/
 |       |   `-- SKILL.md
-|       `-- turtle-push/
+|       |-- turtle-push/
+|       |   `-- SKILL.md
+|       `-- turtle-pull-request/
 |           `-- SKILL.md
 |-- docs/
 |   |-- analysis/

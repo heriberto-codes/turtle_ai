@@ -111,3 +111,9 @@ Rules:
 - Never skip `PLAN STEP UPDATE`.
 
 This prevents workflow deadlocks and keeps the plan file as the single source of truth when code and plan state are temporarily out of sync.
+
+## Git and Pull Request State
+
+Finalization adds no third Turtle state system. Git owns staging, commits, and published branch refs; GitHub owns PR identity, head/base, open/closed status, and draft state. `$turtle-pull-request` inspects current evidence and may create one PR after the existing gates, or return an exact matching open PR unchanged. It never writes a PR-state file or changes plan, backlog, design, or feature-record state.
+
+Plan/backlog completion describes completed and understood implementation; it does not mean the change has been pushed, reviewed, approved, or merged. PR creation is optional and does not change those completion markers. Draft creation requires the same gates as ready-for-review creation. Preview may describe committed unpublished work and outstanding gates, but performs no remote writes and cannot establish completion or PR readiness.

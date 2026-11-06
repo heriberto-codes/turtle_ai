@@ -56,7 +56,7 @@ The controller pauses for the user to:
 - select, combine, or revise each section's mockup directions
 - explicitly approve the complete assembled design
 
-It stores controller state in `docs/design/<feature_slug>/workflow-state.md`. It may finish by creating the matching backlog item and implementation plan, but it never runs `$turtle-execute` or changes production code.
+It stores controller state in `docs/design/<feature_slug>/workflow-state.md`. It may finish by creating the matching backlog item and implementation plan, but it never runs `$turtle-engineer-execute` or changes production code.
 
 The specialist commands remain available for manual use:
 
@@ -86,12 +86,12 @@ EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> PLAN STEP UPDATE
 
 | Step | Skill | Gate Type | Purpose |
 | --- | --- | --- | --- |
-| 1 | `$turtle-execute` | Build | Implement only the first unchecked plan step. |
-| 2 | `$turtle-verify` | Quality | Review correctness, scope, and plan alignment. |
+| 1 | `$turtle-engineer-execute` | Build | Implement only the first unchecked plan step. |
+| 2 | `$turtle-engineer-verify` | Quality | Review correctness, scope, and plan alignment. |
 | 3 | `$turtle-engineer-checkpoint` | Comprehension | Confirm the engineer can explain the change. |
-| 4 | `$turtle-test` | Validation | Review required tests, then implement the smallest correct test set. |
-| As needed | `$turtle-debug` | Recovery | Diagnose failures, then apply the minimal correct fix when needed. |
-| 5 | `$turtle-plan-step-update` | State Control | Mark the step complete only after all checks pass. |
+| 4 | `$turtle-engineer-test` | Validation | Review required tests, then implement the smallest correct test set. |
+| As needed | `$turtle-engineer-debug` | Recovery | Diagnose failures, then apply the minimal correct fix when needed. |
+| 5 | `$turtle-engineer-plan-step-update` | State Control | Mark the step complete only after all checks pass. |
 
 This loop runs repeatedly until all plan steps are complete.
 
@@ -99,7 +99,7 @@ DEBUG is a recovery path only when needed. Failed reviews, checkpoints, or tests
 
 ## Test Modes
 
-`$turtle-test` has two modes.
+`$turtle-engineer-test` has two modes.
 
 ### Mode A: Review
 
@@ -113,11 +113,11 @@ DEBUG is a recovery path only when needed. Failed reviews, checkpoints, or tests
 - Keep test scope limited to the active plan step.
 - Follow existing test patterns and conventions.
 
-Mode A runs before Mode B. If Mode A identifies tests to add or update, run `$turtle-test` again and it will continue in the correct mode.
+Mode A runs before Mode B. If Mode A identifies tests to add or update, run `$turtle-engineer-test` again and it will continue in the correct mode.
 
 ## Debug Modes
 
-`$turtle-debug` has two modes.
+`$turtle-engineer-debug` has two modes.
 
 ### Mode A: Diagnose
 
@@ -131,38 +131,38 @@ Mode A runs before Mode B. If Mode A identifies tests to add or update, run `$tu
 - Fix the correct layer: code, plan alignment, or tests.
 - Do not introduce unrelated scope.
 
-Use `$turtle-debug` when a workflow or runtime/manual validation failure needs diagnosis. Follow its selected repair route; diagnosis or a fix alone is not evidence that the step is complete.
+Use `$turtle-engineer-debug` when a workflow or runtime/manual validation failure needs diagnosis. Follow its selected repair route; diagnosis or a fix alone is not evidence that the step is complete.
 
 ## Hardening
 
 | Order | Skill | Purpose |
 | --- | --- | --- |
-| 1 | `$turtle-security` | Review new or changed behavior for security risks. |
-| 2 | `$turtle-performance` | Review performance-sensitive paths when relevant. |
+| 1 | `$turtle-engineer-security` | Review new or changed behavior for security risks. |
+| 2 | `$turtle-engineer-performance` | Review performance-sensitive paths when relevant. |
 
 ## Finalization
 
 | Order | Skill | Purpose |
 | --- | --- | --- |
-| 1 | `$turtle-backlog-update` | Mark the feature complete in `docs/backlog.md`. |
-| 2 | `$turtle-document` | Capture completed feature decisions and outcomes in `docs/features/`. |
-| 3 | `$turtle-add` | Inspect and stage the reviewed changes for this work. |
-| 4 | `$turtle-commit` | Review staged content, prepare the message, create one commit, and verify it. |
-| 5 | `$turtle-push` | Inspect the destination and outgoing commits, push the current branch, and verify the result. |
-| 6 (optional) | `$turtle-pull-request` | Create a GitHub PR ready for review, create an explicitly requested draft, or return an existing matching open PR unchanged. |
+| 1 | `$turtle-engineer-backlog-update` | Mark the feature complete in `docs/backlog.md`. |
+| 2 | `$turtle-engineer-document` | Capture completed feature decisions and outcomes in `docs/features/`. |
+| 3 | `$turtle-engineer-add` | Inspect and stage the reviewed changes for this work. |
+| 4 | `$turtle-engineer-commit` | Review staged content, prepare the message, create one commit, and verify it. |
+| 5 | `$turtle-engineer-push` | Inspect the destination and outgoing commits, push the current branch, and verify the result. |
+| 6 (optional) | `$turtle-engineer-pull-request` | Create a GitHub PR ready for review, create an explicitly requested draft, or return an existing matching open PR unchanged. |
 
-Git finalization follows `$turtle-add` -> `$turtle-commit` -> `$turtle-push` -> optional `$turtle-pull-request`, invoked separately after existing completion gates. Direct-push workflows remain supported. Each skill owns one operation, reports its intent and result, and stops without invoking the next. An invocation authorizes its named action when scope is clear; ambiguous scope requires clarification, and platform permission requirements still apply. These skills cannot pass validation gates or mark plan/backlog state complete.
+Git finalization follows `$turtle-engineer-add` -> `$turtle-engineer-commit` -> `$turtle-engineer-push` -> optional `$turtle-engineer-pull-request`, invoked separately after existing completion gates. Direct-push workflows remain supported. Each skill owns one operation, reports its intent and result, and stops without invoking the next. An invocation authorizes its named action when scope is clear; ambiguous scope requires clarification, and platform permission requirements still apply. These skills cannot pass validation gates or mark plan/backlog state complete.
 
 - ADD stages explicit relevant paths, including additions and deletions, while preserving unrelated staging and working-folder changes. Mixed-purpose or uncertain partial-staging intent requires clarification before changing the index.
 - COMMIT creates one ordinary commit from the reviewed index and never stages or pushes. Empty or unrelated staging blocks commit creation. Unstaged content is not included. A normal invocation now creates the commit, replacing the former message-only default; an explicit message-only/preview request remains read-only.
 - PR text belongs to PULL REQUEST preview, not COMMIT. Commit-message-only requests remain with COMMIT.
-- PUSH publishes existing commits only, with a clean working folder and attached branch. It resolves the configured upstream or, without one, an unambiguous origin/current-branch destination; inspects fresh evidence and all outgoing commits; and verifies the resulting remote tip. A bare `$turtle-push` authorizes the current branch and resolved destination, including main/master on either end, without additional branch confirmation. A differently named configured upstream remains the destination. Ambiguous or conflicting destinations still require clarification; preview-only requests remain read-only and platform permissions still apply.
+- PUSH publishes existing commits only, with a clean working folder and attached branch. It resolves the configured upstream or, without one, an unambiguous origin/current-branch destination; inspects fresh evidence and all outgoing commits; and verifies the resulting remote tip. A bare `$turtle-engineer-push` authorizes the current branch and resolved destination, including main/master on either end, without additional branch confirmation. A differently named configured upstream remains the destination. Ambiguous or conflicting destinations still require clarification; preview-only requests remain read-only and platform permissions still apply.
 
-- PULL REQUEST creates one ready-for-review PR by default, or a draft on explicit request, after the same completion gates. It requires a clean attached branch and fresh proof that the published head matches reviewed local HEAD. It resolves the head and base repositories/branches independently, including existing forks, and reviews the complete proposed diff and commit range. An exact matching open PR is returned unchanged. `$turtle-pull-request preview` drafts committed changes without remote writes, may include labeled unpublished work or outstanding gates, and excludes uncommitted changes. Preview does not establish readiness.
+- PULL REQUEST creates one ready-for-review PR by default, or a draft on explicit request, after the same completion gates. It requires a clean attached branch and fresh proof that the published head matches reviewed local HEAD. It resolves the head and base repositories/branches independently, including existing forks, and reviews the complete proposed diff and commit range. An exact matching open PR is returned unchanged. `$turtle-engineer-pull-request preview` drafts committed changes without remote writes, may include labeled unpublished work or outstanding gates, and excludes uncommitted changes. Preview does not establish readiness.
 
 For PR workflows, begin implementation on an appropriate feature branch under the repository's branch conventions. These finalization skills do not create or switch branches or repair work already published to the base branch. PUSH may recommend the optional PR skill after a verified push or synchronized result; it never invokes it.
 
-PR creation requires sufficient connected GitHub tools or authenticated GitHub CLI/API access. Prefer a sufficient connector; otherwise use explicit CLI/API targets that cannot implicitly push or fork. Preview must not call `gh pr create --dry-run`, which may push. GitHub owns PR state; no new Turtle state file is added, and creation does not imply approval, passing CI, or merge. See the [PR skill](../../.agents/skills/turtle-pull-request/SKILL.md) for templates, duplicate lookup, failure reconciliation, and readback verification.
+PR creation requires sufficient connected GitHub tools or authenticated GitHub CLI/API access. Prefer a sufficient connector; otherwise use explicit CLI/API targets that cannot implicitly push or fork. Preview must not call `gh pr create --dry-run`, which may push. GitHub owns PR state; no new Turtle state file is added, and creation does not imply approval, passing CI, or merge. See the [PR skill](../../.agents/skills/turtle-engineer-pull-request/SKILL.md) for templates, duplicate lookup, failure reconciliation, and readback verification.
 
 Rejected operations stop without automatic history repair or retries. Never force-push, push tags or all branches, amend commits, bypass hooks, automatically pull/rebase, or resolve conflicts in these skills. ADD, COMMIT, and PUSH never open PRs; only PULL REQUEST owns creation. None merges PRs, enables auto-merge, or publishes releases. See each skill's contract for inspection, verification, and failure handling.
 
@@ -196,33 +196,33 @@ project-root
 |       |   `-- SKILL.md
 |       |-- turtle-plan/
 |       |   `-- SKILL.md
-|       |-- turtle-execute/
+|       |-- turtle-engineer-execute/
 |       |   `-- SKILL.md
-|       |-- turtle-verify/
+|       |-- turtle-engineer-verify/
 |       |   `-- SKILL.md
 |       |-- turtle-engineer-checkpoint/
 |       |   `-- SKILL.md
-|       |-- turtle-test/
+|       |-- turtle-engineer-test/
 |       |   `-- SKILL.md
-|       |-- turtle-debug/
+|       |-- turtle-engineer-debug/
 |       |   `-- SKILL.md
-|       |-- turtle-plan-step-update/
+|       |-- turtle-engineer-plan-step-update/
 |       |   `-- SKILL.md
-|       |-- turtle-security/
+|       |-- turtle-engineer-security/
 |       |   `-- SKILL.md
-|       |-- turtle-performance/
+|       |-- turtle-engineer-performance/
 |       |   `-- SKILL.md
-|       |-- turtle-backlog-update/
+|       |-- turtle-engineer-backlog-update/
 |       |   `-- SKILL.md
-|       |-- turtle-document/
+|       |-- turtle-engineer-document/
 |       |   `-- SKILL.md
-|       |-- turtle-add/
+|       |-- turtle-engineer-add/
 |       |   `-- SKILL.md
-|       |-- turtle-commit/
+|       |-- turtle-engineer-commit/
 |       |   `-- SKILL.md
-|       |-- turtle-push/
+|       |-- turtle-engineer-push/
 |       |   `-- SKILL.md
-|       `-- turtle-pull-request/
+|       `-- turtle-engineer-pull-request/
 |           `-- SKILL.md
 |-- docs/
 |   |-- analysis/

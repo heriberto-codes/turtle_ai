@@ -90,9 +90,9 @@ Turtle does not provide an application runtime, API, database, authentication or
 | Discovery | `turtle-ideate`, `turtle-backlog`, `turtle-analyze` | Develop grounded understanding and persist candidate work. |
 | Optional design | `turtle-design-next`, `turtle-design-audit`, `turtle-design-mockup`, `turtle-design-checkpoint` | Produce and approve isolated design evidence without changing production code. |
 | Planning | `turtle-plan` | Convert one backlog item and any approved design into an atomic implementation plan. |
-| Implementation | `turtle-execute`, `turtle-verify`, `turtle-engineer-checkpoint`, `turtle-test`, `turtle-debug`, `turtle-plan-step-update` | Implement one plan step through correctness, comprehension, testing, recovery, and controlled state transition. |
-| Hardening | `turtle-security`, `turtle-performance` | Review completed behavior for security and performance risks. |
-| Finalization | `turtle-backlog-update`, `turtle-document`, `turtle-add`, `turtle-commit`, `turtle-push`, `turtle-pull-request` | Close backlog state, record the completed feature, then stage reviewed changes, create a commit, push existing commits, and optionally open a GitHub PR through separate invocations. |
+| Implementation | `turtle-engineer-execute`, `turtle-engineer-verify`, `turtle-engineer-checkpoint`, `turtle-engineer-test`, `turtle-engineer-debug`, `turtle-engineer-plan-step-update` | Implement one plan step through correctness, comprehension, testing, recovery, and controlled state transition. |
+| Hardening | `turtle-engineer-security`, `turtle-engineer-performance` | Review completed behavior for security and performance risks. |
+| Finalization | `turtle-engineer-backlog-update`, `turtle-engineer-document`, `turtle-engineer-add`, `turtle-engineer-commit`, `turtle-engineer-push`, `turtle-engineer-pull-request` | Close backlog state, record the completed feature, then stage reviewed changes, create a commit, push existing commits, and optionally open a GitHub PR through separate invocations. |
 
 ## Request and Control Flow
 
@@ -128,19 +128,19 @@ Turtle uses repository files as durable coordination boundaries.
 
 - Source of truth: `docs/plans/<feature_slug>_plan.md`.
 - Active step: the first unchecked `[ ]` checklist item.
-- Sole completion writer: `turtle-plan-step-update`.
+- Sole completion writer: `turtle-engineer-plan-step-update`.
 - The active step remains unchecked through execute, verify, engineer checkpoint, test, and any debug cycle.
 - No unchecked items means implementation is complete and may proceed to hardening and finalization.
 
 ### Git and PR finalization
 
-Git remains the source of truth for staging, commits, and remote branch refs; no Turtle state file is added. `turtle-add` owns scoped index updates, `turtle-commit` owns one ordinary commit from the reviewed index, and `turtle-push` owns publishing existing commits to one resolved branch. They cannot change plan/backlog completion state or bypass unfinished gates.
+Git remains the source of truth for staging, commits, and remote branch refs; no Turtle state file is added. `turtle-engineer-add` owns scoped index updates, `turtle-engineer-commit` owns one ordinary commit from the reviewed index, and `turtle-engineer-push` owns publishing existing commits to one resolved branch. They cannot change plan/backlog completion state or bypass unfinished gates.
 
-`turtle-pull-request` owns PR text preparation and optional creation after push; it defaults to ready for review, supports explicit draft creation after the same gates, and returns exact matching open PRs unchanged. Preview is read-only and may describe committed unpublished work with outstanding gates labeled. Creation requires a clean attached branch and a published head matching reviewed local HEAD, with head and base resolved independently. GitHub owns PR state; no third Turtle state system is introduced. PR creation neither changes completion markers nor implies approval, passing CI, or merge. PR review workflows begin implementation on an appropriate feature branch; these finalization skills never create or switch branches.
+`turtle-engineer-pull-request` owns PR text preparation and optional creation after push; it defaults to ready for review, supports explicit draft creation after the same gates, and returns exact matching open PRs unchanged. Preview is read-only and may describe committed unpublished work with outstanding gates labeled. Creation requires a clean attached branch and a published head matching reviewed local HEAD, with head and base resolved independently. GitHub owns PR state; no third Turtle state system is introduced. PR creation neither changes completion markers nor implies approval, passing CI, or merge. PR review workflows begin implementation on an appropriate feature branch; these finalization skills never create or switch branches.
 
 The PR skill prefers sufficient connected GitHub tools, with authenticated CLI/API fallback and explicit targets preventing implicit pushes or forks. It never pushes, modifies existing PRs, merges, or enables auto-merge. COMMIT routes PR drafting to PR preview; PUSH may recommend PR creation after a verified push/synchronized result without invoking it. Direct-push workflows remain supported.
 
-Each invocation authorizes only its named action when scope is clear. A bare `turtle-push` authorizes pushing the current branch to its resolved destination after the usual checks, including a local or destination main/master branch, without additional branch confirmation. Preview-only requests remain read-only, and platform permissions still apply. Ambiguous scope or configuration and rejected operations stop without automatic repair. A normal `turtle-commit` now creates a commit; an explicit message-only request preserves read-only drafting.
+Each invocation authorizes only its named action when scope is clear. A bare `turtle-engineer-push` authorizes pushing the current branch to its resolved destination after the usual checks, including a local or destination main/master branch, without additional branch confirmation. Preview-only requests remain read-only, and platform permissions still apply. Ambiguous scope or configuration and rejected operations stop without automatic repair. A normal `turtle-engineer-commit` now creates a commit; an explicit message-only request preserves read-only drafting.
 
 ### Supporting artifacts
 
@@ -149,11 +149,11 @@ Each invocation authorizes only its named action when scope is clear. A bare `tu
 | `AGENTS.md` | `turtle-agents` | Repository conventions and safety constraints. |
 | `architecture.md` | `turtle-architecture` | Current structural blueprint and constraints. |
 | `repo_map.md` | `turtle-repo-map` | High-level navigation and protected paths. |
-| `docs/backlog.md` | `turtle-backlog`, then `turtle-backlog-update` | Candidate and completed feature state. |
+| `docs/backlog.md` | `turtle-backlog`, then `turtle-engineer-backlog-update` | Candidate and completed feature state. |
 | `docs/design/<feature_slug>/` | Design controller and specialist skills according to contract | Audit, mockups, decisions, approval, and controller state. |
-| `docs/plans/<feature_slug>_plan.md` | `turtle-plan`, then `turtle-plan-step-update` for checklist transitions | Ordered implementation steps and progress. |
+| `docs/plans/<feature_slug>_plan.md` | `turtle-plan`, then `turtle-engineer-plan-step-update` for checklist transitions | Ordered implementation steps and progress. |
 | `docs/analysis/repo_analysis.md` | `turtle-analyze` when persistence is useful | Optional repository understanding. |
-| `docs/features/<feature_slug>.md` | `turtle-document` | Final implementation record. |
+| `docs/features/<feature_slug>.md` | `turtle-engineer-document` | Final implementation record. |
 
 ## Architectural Principles
 

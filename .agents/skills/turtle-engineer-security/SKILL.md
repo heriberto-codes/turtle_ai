@@ -1,5 +1,5 @@
 ---
-name: turtle-security
+name: turtle-engineer-security
 description: Use this when reviewing a completed feature for security risks across authentication, authorization, data handling, and API boundaries. Typically run after implementation and verification, before finalization. Do not use for planning, implementation, debugging, or testing.
 ---
 

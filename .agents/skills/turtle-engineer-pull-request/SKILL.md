@@ -1,6 +1,6 @@
 ---
-name: turtle-pull-request
-description: Create a GitHub pull request for completed, pushed Turtle work, optionally after turtle-push. Default to ready for review; support explicit draft and read-only preview requests. Return an existing matching open PR unchanged. Do not push, merge, or change workflow completion state.
+name: turtle-engineer-pull-request
+description: Create a GitHub pull request for completed, pushed Turtle work, optionally after turtle-engineer-push. Default to ready for review; support explicit draft and read-only preview requests. Return an existing matching open PR unchanged. Do not push, merge, or change workflow completion state.
 ---
 
 # Open a Reviewed Pull Request
@@ -20,18 +20,18 @@ Identify the intended work from the request and conversation. Read the matching 
 
 | Request | Action |
 | --- | --- |
-| `$turtle-pull-request` | Create a PR ready for review. |
-| `$turtle-pull-request draft` | Create a draft PR. |
-| `$turtle-pull-request preview` or a PR-text-only request | Inspect and return proposed PR text and destination without creating or updating a PR. |
+| `$turtle-engineer-pull-request` | Create a PR ready for review. |
+| `$turtle-engineer-pull-request draft` | Create a draft PR. |
+| `$turtle-engineer-pull-request preview` or a PR-text-only request | Inspect and return proposed PR text and destination without creating or updating a PR. |
 
 Preview may describe committed local changes before push; label unpublished work and outstanding gates. Exclude staged, unstaged, and untracked content from the proposed changes. Preview does not establish readiness or waive creation requirements.
 
 ## Inspect and resolve the comparison
 
-1. Confirm the repository root, current branch, HEAD, and staged/unstaged/untracked status. Stop for detached HEAD, no commits, unresolved conflicts, or an in-progress merge, rebase, cherry-pick, or revert. Creation requires a clean working folder. Route necessary staging/committing to `$turtle-add`/`$turtle-commit`; do not perform them. Preview may inspect committed work in a dirty folder, explicitly excluding uncommitted changes.
+1. Confirm the repository root, current branch, HEAD, and staged/unstaged/untracked status. Stop for detached HEAD, no commits, unresolved conflicts, or an in-progress merge, rebase, cherry-pick, or revert. Creation requires a clean working folder. Route necessary staging/committing to `$turtle-engineer-add`/`$turtle-engineer-commit`; do not perform them. Preview may inspect committed work in a dirty folder, explicitly excluding uncommitted changes.
 2. Resolve the head repository and published branch from the current branch's upstream and effective push destination, or an unambiguous origin/current-branch destination without an upstream. The published branch name may differ from the local name. Inspect configuration without printing credentials or credential-bearing URLs. Clarify conflicting configuration or explicit requests; do not silently change upstreams, remotes, or the selected local branch.
 3. Resolve the base repository separately. Respect explicit targets and applicable repository conventions; for an existing fork, use its verified GitHub parent when no other target is specified, otherwise the head repository. Resolve the base branch from the explicit request or unambiguous repository convention (including configured PR base); otherwise query the target repository's default branch. Never assume `main`, `master`, origin, or the local branch is the PR target. Ask when the target remains ambiguous. Support existing forks within GitHub's permitted repository network; stop for unsupported hosts or targets.
-4. Obtain fresh GitHub/remote evidence for both repository identities and branch tips. For creation, require the published head to exist and exactly match the recorded local HEAD; route missing/unpublished commits to `$turtle-push`. Stop for ahead/diverged remote head or inaccessible evidence. Safe object fetching for comparison may update remote-tracking refs only; do not update local branches, prune, pull, merge, or rebase. Preview may compare local committed HEAD before publication and must label that source.
+4. Obtain fresh GitHub/remote evidence for both repository identities and branch tips. For creation, require the published head to exist and exactly match the recorded local HEAD; route missing/unpublished commits to `$turtle-engineer-push`. Stop for ahead/diverged remote head or inaccessible evidence. Safe object fetching for comparison may update remote-tracking refs only; do not update local branches, prune, pull, merge, or rebase. Preview may compare local committed HEAD before publication and must label that source.
 5. Compare the complete proposed commit range and merge-base diff against the resolved base, using equivalent complete GitHub comparison data when sufficient. Stop for the same repository/branch on both sides, no common history, no proposed commits or file changes, unrelated work, or a diff that cannot be fully inspected. Do not mistake equal branch names in different fork repositories for an identical head/base. Do not assume the latest commit is the whole PR. Keep secret values and unrelated private content out of reports and PR text.
 
 ## Draft from the reviewed scope

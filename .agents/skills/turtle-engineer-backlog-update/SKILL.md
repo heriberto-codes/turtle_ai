@@ -1,5 +1,5 @@
 ---
-name: turtle-backlog-update
+name: turtle-engineer-backlog-update
 description: Use this only after a feature has fully completed the Plan-Driven State System and needs to be marked done in docs/backlog.md. This skill updates one matching backlog item from unchecked to checked. Do not use for creating backlog items, planning, implementation, debugging, testing, or summarizing the backlog.
 ---
 

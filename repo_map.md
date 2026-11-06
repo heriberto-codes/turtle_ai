@@ -25,8 +25,8 @@ This map provides fast navigation for Turtle AI maintainers and for Turtle skill
 | --- | --- |
 | Understand Turtle AI | `README.md` |
 | Plan, implement, and finalize a feature | `docs/guides/planning_workflow.md` |
-| Stage reviewed changes, create a commit, or publish existing commits | `.agents/skills/turtle-add/SKILL.md`, `.agents/skills/turtle-commit/SKILL.md`, `.agents/skills/turtle-push/SKILL.md` |
-| Prepare PR text or optionally open a GitHub PR after push | `.agents/skills/turtle-pull-request/SKILL.md` |
+| Stage reviewed changes, create a commit, or publish existing commits | `.agents/skills/turtle-engineer-add/SKILL.md`, `.agents/skills/turtle-engineer-commit/SKILL.md`, `.agents/skills/turtle-engineer-push/SKILL.md` |
+| Prepare PR text or optionally open a GitHub PR after push | `.agents/skills/turtle-engineer-pull-request/SKILL.md` |
 | Apply repository-wide maintenance rules | `AGENTS.md` |
 | Understand system structure and state ownership | `architecture.md` |
 | Run or modify one workflow phase | `.agents/skills/<skill>/SKILL.md` |
@@ -63,28 +63,28 @@ Every tracked skill lives at `.agents/skills/<skill-name>/SKILL.md`.
 
 ### Implementation Loop
 
-- `.agents/skills/turtle-execute/SKILL.md`
-- `.agents/skills/turtle-verify/SKILL.md`
+- `.agents/skills/turtle-engineer-execute/SKILL.md`
+- `.agents/skills/turtle-engineer-verify/SKILL.md`
 - `.agents/skills/turtle-engineer-checkpoint/SKILL.md`
-- `.agents/skills/turtle-test/SKILL.md`
-- `.agents/skills/turtle-debug/SKILL.md`
-- `.agents/skills/turtle-plan-step-update/SKILL.md`
+- `.agents/skills/turtle-engineer-test/SKILL.md`
+- `.agents/skills/turtle-engineer-debug/SKILL.md`
+- `.agents/skills/turtle-engineer-plan-step-update/SKILL.md`
 
 ### Hardening
 
-- `.agents/skills/turtle-security/SKILL.md`
-- `.agents/skills/turtle-performance/SKILL.md`
+- `.agents/skills/turtle-engineer-security/SKILL.md`
+- `.agents/skills/turtle-engineer-performance/SKILL.md`
 
 ### Finalization
 
-- `.agents/skills/turtle-backlog-update/SKILL.md`
-- `.agents/skills/turtle-document/SKILL.md`
-- `.agents/skills/turtle-add/SKILL.md`
-- `.agents/skills/turtle-commit/SKILL.md`
-- `.agents/skills/turtle-push/SKILL.md`
-- `.agents/skills/turtle-pull-request/SKILL.md`
+- `.agents/skills/turtle-engineer-backlog-update/SKILL.md`
+- `.agents/skills/turtle-engineer-document/SKILL.md`
+- `.agents/skills/turtle-engineer-add/SKILL.md`
+- `.agents/skills/turtle-engineer-commit/SKILL.md`
+- `.agents/skills/turtle-engineer-push/SKILL.md`
+- `.agents/skills/turtle-engineer-pull-request/SKILL.md`
 
-Invoke ADD -> COMMIT -> PUSH -> optional PULL REQUEST separately after existing workflow gates. Each owns only its named operation; `turtle-commit` creates a commit by default and supports explicit message-only drafting. A bare `turtle-push` authorizes the current branch, including main/master, after the usual checks without another branch confirmation. Direct-push workflows remain supported. PR drafting belongs to `turtle-pull-request preview`; PR creation defaults to ready for review, supports an explicit draft after the same gates, and reuses an exact matching open PR unchanged. PUSH may recommend it after verified push/synchronization without invoking it. GitHub owns PR state; these skills never change plan/backlog completion markers. See the skill contracts for scope, targets, tooling requirements, and verified outcomes.
+Invoke ADD -> COMMIT -> PUSH -> optional PULL REQUEST separately after existing workflow gates. Each owns only its named operation; `turtle-engineer-commit` creates a commit by default and supports explicit message-only drafting. A bare `turtle-engineer-push` authorizes the current branch, including main/master, after the usual checks without another branch confirmation. Direct-push workflows remain supported. PR drafting belongs to `turtle-engineer-pull-request preview`; PR creation defaults to ready for review, supports an explicit draft after the same gates, and reuses an exact matching open PR unchanged. PUSH may recommend it after verified push/synchronization without invoking it. GitHub owns PR state; these skills never change plan/backlog completion markers. See the skill contracts for scope, targets, tooling requirements, and verified outcomes.
 
 ## Public Workflow Guides
 

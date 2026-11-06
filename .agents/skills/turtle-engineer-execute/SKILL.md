@@ -1,5 +1,5 @@
 ---
-name: turtle-execute
+name: turtle-engineer-execute
 description: Use this to implement exactly the first unchecked step in the active plan file, or apply minimal fixes after VERIFY fails. Do not skip steps, expand scope, modify plan state, update backlog status, test, review, or perform multi-step changes.
 ---
 
@@ -26,10 +26,10 @@ These rules apply to both Mode A and Mode B.
 - do NOT modify `docs/backlog.md`
 - do NOT mark plan steps complete
 - do NOT check off backlog items
-- do NOT run `$turtle-plan-step-update`
-- do NOT run `$turtle-backlog-update`
+- do NOT run `$turtle-engineer-plan-step-update`
+- do NOT run `$turtle-engineer-backlog-update`
 
-The current step remains unchecked until the full validation loop passes and `$turtle-plan-step-update` is run.
+The current step remains unchecked until the full validation loop passes and `$turtle-engineer-plan-step-update` is run.
 
 ## Architecture Alignment
 Implementation must follow the system structure documented in `architecture.md`.
@@ -306,6 +306,6 @@ Do NOT:
 - Proceed beyond this step
 
 Next step:
-- after Mode A or Mode B completes, proceed to `$turtle-verify`
+- after Mode A or Mode B completes, proceed to `$turtle-engineer-verify`
 - do not mark the current plan step complete from this skill
 - do not update backlog status from this skill

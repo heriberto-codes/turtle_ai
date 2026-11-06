@@ -2,7 +2,7 @@
 
 ## Summary
 
-Added `turtle-add` and `turtle-push`, and changed `turtle-commit` to create and verify one commit from reviewed staged changes. The sequence is `$turtle-add` -> `$turtle-commit` -> `$turtle-push`, with each skill invoked separately after the existing workflow gates.
+Added `turtle-engineer-add` and `turtle-engineer-push`, and changed `turtle-engineer-commit` to create and verify one commit from reviewed staged changes. The sequence is `$turtle-engineer-add` -> `$turtle-engineer-commit` -> `$turtle-engineer-push`, with each skill invoked separately after the existing workflow gates.
 
 ## Architecture Impact
 
@@ -16,7 +16,7 @@ Added `turtle-add` and `turtle-push`, and changed `turtle-commit` to create and 
 - ADD uses explicit relevant paths, includes deletions, preserves unrelated staging and edits, and asks before changing mixed-purpose or uncertain partial staging.
 - COMMIT reviews the index, shows an accurate message, creates one ordinary commit with normal hooks/signing, and verifies its ancestry and contents. It never stages or pushes. Explicit `message only` or preview requests retain read-only drafting.
 - PUSH requires a clean working folder and attached branch. It resolves the upstream or an unambiguous origin/current-branch destination, obtains fresh evidence from the effective destination, lists all outgoing commits, and verifies the remote tip after an ordinary single-branch push.
-- A bare `$turtle-push` authorizes pushing the current branch to its resolved destination after the usual checks, including a local or destination `main`/`master` branch, without additional branch confirmation. A differently named configured upstream remains the destination. Preview-only requests remain read-only and platform permissions still apply. Ambiguous destinations and rejected operations stop without automatic recovery, force-pushing, tag pushing, amending, hook bypass, pulling, or rebasing.
+- A bare `$turtle-engineer-push` authorizes pushing the current branch to its resolved destination after the usual checks, including a local or destination `main`/`master` branch, without additional branch confirmation. A differently named configured upstream remains the destination. Preview-only requests remain read-only and platform permissions still apply. Ambiguous destinations and rejected operations stop without automatic recovery, force-pushing, tag pushing, amending, hook bypass, pulling, or rebasing.
 - Maintenance update (2026-11-02): the user replaced the original named-branch confirmation rule with invocation authorization for all branches. This supersedes that rule in the completed implementation plan; its original checklist and validation history remain intact.
 
 ## Test Impact
@@ -34,7 +34,7 @@ Added `turtle-add` and `turtle-push`, and changed `turtle-commit` to create and 
 ## Deployment Notes
 
 - Copy the two new skill folders and updated commit contract alongside the updated shared workflow document when updating an adopting repository. Start a fresh Codex chat to discover copied skills.
-- The commit default intentionally changed: use `$turtle-commit message only` for the former read-only behavior.
+- The commit default intentionally changed: use `$turtle-engineer-commit message only` for the former read-only behavior.
 
 ## Follow-ups / Accepted Risks
 

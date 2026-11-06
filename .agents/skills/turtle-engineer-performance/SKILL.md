@@ -1,5 +1,5 @@
 ---
-name: turtle-performance
+name: turtle-engineer-performance
 description: Use this when reviewing a completed feature for performance risks across API, database, and frontend paths. Typically run after implementation and verification, before finalization. Do not use for planning, implementation, debugging, or testing.
 ---
 

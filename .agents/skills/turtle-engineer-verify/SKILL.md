@@ -1,5 +1,5 @@
 ---
-name: turtle-verify
+name: turtle-engineer-verify
 description: Use this to review the latest implementation for the current plan step and determine PASS or FAIL based on correctness, scope, risks, and alignment with the plan. Do not implement fixes or expand scope.
 ---
 

@@ -9,7 +9,7 @@ These rules protect the workflow from partial execution, unclear ownership, and 
 | Active step remains unchecked | The current step stays `[ ]` during the loop. |
 | Completion gating | A step is marked `[x]` only after the full loop passes. |
 | Loop order enforcement | `EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> PLAN STEP UPDATE`; use DEBUG for recovery when needed. |
-| Single write authority | Only `turtle-plan-step-update` can change `[ ]` to `[x]`. |
+| Single write authority | Only `turtle-engineer-plan-step-update` can change `[ ]` to `[x]`. |
 | Scope of work | `EXECUTE`, `VERIFY`, `ENGINEER CHECKPOINT`, and `TEST` operate on the first unchecked step. |
 
 Rules:

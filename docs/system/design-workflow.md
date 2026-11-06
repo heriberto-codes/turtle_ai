@@ -241,7 +241,7 @@ An approved design is a valid feature source for `turtle-backlog`. The backlog s
 
 When a matching design workspace exists, `turtle-plan` requires `checkpoint.md` and `approved-design.md` to prove approval. It uses the approved design as the source of truth for design decisions. Repository code and `architecture.md` continue to control technical architecture and implementation constraints. Any conflict is recorded in the plan rather than silently resolved.
 
-The automated workflow stops after creating `docs/plans/<feature_slug>_plan.md`. Production implementation begins only through an explicit later `$turtle-execute` invocation.
+The automated workflow stops after creating `docs/plans/<feature_slug>_plan.md`. Production implementation begins only through an explicit later `$turtle-engineer-execute` invocation.
 
 ## Invariants
 

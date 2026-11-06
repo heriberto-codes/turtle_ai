@@ -1,5 +1,5 @@
 ---
-name: turtle-plan-step-update
+name: turtle-engineer-plan-step-update
 description: Use this to safely mark the current plan step as complete only after the full loop (EXECUTE → VERIFY → ENGINEER CHECKPOINT → TEST → DEBUG if needed) has passed, ensuring strict state integrity. Do not use for planning, implementation, debugging, or partial progress.
 ---
 

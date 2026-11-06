@@ -1,5 +1,5 @@
 ---
-name: turtle-test
+name: turtle-engineer-test
 description: Use this to determine and implement the minimal, correct set of tests for the current active plan step, ensuring behavior validation without modifying feature logic or expanding scope.
 ---
 

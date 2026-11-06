@@ -2,11 +2,11 @@
 
 ## Summary
 
-Added `turtle-pull-request` as an optional, separately invoked finalization skill after push. The default creates a PR ready for review; `draft` uses the same completion gates; `preview` prepares text and a proposed destination without remote writes. Direct-push workflows remain supported.
+Added `turtle-engineer-pull-request` as an optional, separately invoked finalization skill after push. The default creates a PR ready for review; `draft` uses the same completion gates; `preview` prepares text and a proposed destination without remote writes. Direct-push workflows remain supported.
 
 ## Architecture Impact
 
-- Added the Markdown-only [skill contract](../../.agents/skills/turtle-pull-request/SKILL.md), with no runtime, dependency, or additional Turtle state system.
+- Added the Markdown-only [skill contract](../../.agents/skills/turtle-engineer-pull-request/SKILL.md), with no runtime, dependency, or additional Turtle state system.
 - Git owns commits and published branches; GitHub owns PR state. PR creation cannot change implementation, backlog, design, or feature-record completion, and does not imply approval, passing CI, or merge.
 - Updated shared workflow/state documents, the engineering guide, architecture, and navigation together. The implementation loop and engineer checkpoint remain unchanged.
 - Updated public installation guidance and the catalog to 25 skills, with ready/draft/preview examples. The overview retains five implementation steps and two state systems.
@@ -18,7 +18,7 @@ Added `turtle-pull-request` as an optional, separately invoked finalization skil
 - Follow the target repository's PR template when present and ground descriptions in actual changes and observed test evidence.
 - Return an exact matching open PR unchanged. Recheck reviewed state and duplicates immediately before creating once, then read back and verify the result. An uncertain response permits read-only reconciliation, never an automatic second creation attempt.
 - Prefer sufficient connected GitHub tools, with authenticated CLI/API fallback and explicit destinations. Preview never uses `gh pr create --dry-run`; creation must prevent implicit pushes or forks.
-- `turtle-commit` routes PR text requests to PR preview. `turtle-push` may recommend the optional skill after a verified push or synchronized result. Neither automatically invokes it.
+- `turtle-engineer-commit` routes PR text requests to PR preview. `turtle-engineer-push` may recommend the optional skill after a verified push or synchronized result. Neither automatically invokes it.
 - PR review begins on an appropriate feature branch before implementation. The skill never creates or switches branches, stages, commits, pushes, modifies existing PRs, merges, assigns reviewers, or publishes releases.
 - Preserved pre-existing edits, including current push authorization for main/master. Historical feature records were not rewritten for this feature.
 

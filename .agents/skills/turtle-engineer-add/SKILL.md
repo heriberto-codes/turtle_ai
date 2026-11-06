@@ -1,6 +1,6 @@
 ---
-name: turtle-add
-description: Stage reviewed changes relevant to the requested Turtle work using explicit file paths. Use before turtle-commit when files need staging. Do not create commits, push, discard changes, or update workflow completion state.
+name: turtle-engineer-add
+description: Stage reviewed changes relevant to the requested Turtle work using explicit file paths. Use before turtle-engineer-commit when files need staging. Do not create commits, push, discard changes, or update workflow completion state.
 ---
 
 # Stage Relevant Changes
@@ -44,6 +44,6 @@ Return a concise result:
 - Outcome: staged, already staged, nothing to stage, or stopped with reason.
 - Files staged for this request and a short staged-change summary.
 - Any pre-existing unrelated staging and remaining unstaged or untracked work, without exposing sensitive contents.
-- Next action: `$turtle-commit` when the staged scope is ready; if unrelated staging remains, explain that its scope must be resolved before committing.
+- Next action: `$turtle-engineer-commit` when the staged scope is ready; if unrelated staging remains, explain that its scope must be resolved before committing.
 
 Do not create or amend commits, push, invoke the next skill automatically, change file contents, discard or unstage changes, bypass hooks, or mark plan/backlog items complete.

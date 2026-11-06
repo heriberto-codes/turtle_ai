@@ -25,7 +25,7 @@ Turtle AI keeps AI-assisted development small, reviewable, and understood. Prese
 - The first unchecked item in `docs/plans/<feature_slug>_plan.md` is active.
 - Follow `EXECUTE -> VERIFY -> ENGINEER CHECKPOINT -> TEST -> DEBUG if needed -> PLAN STEP UPDATE`.
 - Keep the active step unchecked throughout that loop.
-- Only `turtle-plan-step-update` may change it from `[ ]` to `[x]` after every gate passes.
+- Only `turtle-engineer-plan-step-update` may change it from `[ ]` to `[x]` after every gate passes.
 - Do not expand scope, skip stages, or combine phases.
 
 ## Repository guardrails

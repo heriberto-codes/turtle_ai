@@ -52,7 +52,7 @@ Instead of tracking progress manually, Turtle AI determines the current step, ne
 | Source of truth | `docs/plans/<feature_slug>_plan.md` |
 | Active step | First unchecked `[ ]` item |
 | Completed step | Most recent checked `[x]` item |
-| Step transition | Only via `turtle-plan-step-update` |
+| Step transition | Only via `turtle-engineer-plan-step-update` |
 | Completion condition | No unchecked `[ ]` items remain |
 | State ownership | Controlled by the plan file |
 
@@ -102,7 +102,7 @@ If the first unchecked step already appears implemented in the working tree, the
 | Step appears complete but is not marked | The step remains unchecked `[ ]`. |
 | Verification required | `VERIFY` must review the existing implementation. |
 | Testing required | `TEST` still runs if applicable. |
-| State update | Only `turtle-plan-step-update` can change `[ ]` to `[x]`. |
+| State update | Only `turtle-engineer-plan-step-update` can change `[ ]` to `[x]`. |
 
 Rules:
 
@@ -114,6 +114,6 @@ This prevents workflow deadlocks and keeps the plan file as the single source of
 
 ## Git and Pull Request State
 
-Finalization adds no third Turtle state system. Git owns staging, commits, and published branch refs; GitHub owns PR identity, head/base, open/closed status, and draft state. `$turtle-pull-request` inspects current evidence and may create one PR after the existing gates, or return an exact matching open PR unchanged. It never writes a PR-state file or changes plan, backlog, design, or feature-record state.
+Finalization adds no third Turtle state system. Git owns staging, commits, and published branch refs; GitHub owns PR identity, head/base, open/closed status, and draft state. `$turtle-engineer-pull-request` inspects current evidence and may create one PR after the existing gates, or return an exact matching open PR unchanged. It never writes a PR-state file or changes plan, backlog, design, or feature-record state.
 
 Plan/backlog completion describes completed and understood implementation; it does not mean the change has been pushed, reviewed, approved, or merged. PR creation is optional and does not change those completion markers. Draft creation requires the same gates as ready-for-review creation. Preview may describe committed unpublished work and outstanding gates, but performs no remote writes and cannot establish completion or PR readiness.

@@ -96,6 +96,10 @@ This is **Codex-assisted copying**, not a built-in Turtle installer. Codex may a
 
 If a destination skill folder or system document already has the same name, compare it with the incoming copy before replacing anything. Preserve local customizations and resolve differences explicitly. For later Turtle updates, repeat this comparison using skills and system documents from the same source revision.
 
+### Upgrade an Existing Installation
+
+The implementation, debugging, hardening, and finalization skills now use the `turtle-engineer-<skill>` prefix. Use the [skill catalog](#skill-catalog) to identify the new names. Compare each corresponding legacy folder with the incoming version and carry forward any local customizations before replacing it with the renamed folder. Keep only the renamed copy of each affected skill, update the shared system documents from the same revision, and start a fresh Codex chat to rediscover the skills.
+
 ### Check Your Installation
 
 After either installation option, start a fresh Codex chat in **your project** so it can discover the copied skills.
@@ -191,21 +195,21 @@ Turtle includes 25 project-local skills in `.agents/skills/`. Their names descri
 | Discovery | `turtle-ideate`, `turtle-backlog`, `turtle-analyze` |
 | Design (optional) | `turtle-design-next`, `turtle-design-audit`, `turtle-design-mockup`, `turtle-design-checkpoint` |
 | Planning | `turtle-plan` |
-| Implementation | `turtle-execute`, `turtle-verify`, `turtle-engineer-checkpoint`, `turtle-test`, `turtle-debug`, `turtle-plan-step-update` |
-| Hardening | `turtle-security`, `turtle-performance` |
-| Finalization | `turtle-backlog-update`, `turtle-document`, `turtle-add`, `turtle-commit`, `turtle-push`, `turtle-pull-request` (optional) |
+| Implementation | `turtle-engineer-execute`, `turtle-engineer-verify`, `turtle-engineer-checkpoint`, `turtle-engineer-test`, `turtle-engineer-debug`, `turtle-engineer-plan-step-update` |
+| Hardening | `turtle-engineer-security`, `turtle-engineer-performance` |
+| Finalization | `turtle-engineer-backlog-update`, `turtle-engineer-document`, `turtle-engineer-add`, `turtle-engineer-commit`, `turtle-engineer-push`, `turtle-engineer-pull-request` (optional) |
 
-After feature finalization, invoke `$turtle-add` to stage reviewed files, `$turtle-commit` to create a commit, and `$turtle-push` to publish it, one at a time. Each invocation authorizes only its named action when scope is clear; `$turtle-push` authorizes pushing the current branch, including `main` or `master`, after its usual checks without another branch confirmation. **Changed behavior:** `$turtle-commit` previously prepared only a message; it now creates the commit by default. Request `$turtle-commit message only` for a draft without committing. See [Finalize the Feature](docs/guides/planning_workflow.md#finalize-the-feature) for the full sequence and checks.
+After feature finalization, invoke `$turtle-engineer-add` to stage reviewed files, `$turtle-engineer-commit` to create a commit, and `$turtle-engineer-push` to publish it, one at a time. Each invocation authorizes only its named action when scope is clear; `$turtle-engineer-push` authorizes pushing the current branch, including `main` or `master`, after its usual checks without another branch confirmation. **Changed behavior:** `$turtle-engineer-commit` previously prepared only a message; it now creates the commit by default. Request `$turtle-engineer-commit message only` for a draft without committing. See [Finalize the Feature](docs/guides/planning_workflow.md#finalize-the-feature) for the full sequence and checks.
 
-For GitHub PR review, begin implementation on an appropriate feature branch, then optionally invoke `$turtle-pull-request` separately after push. Direct-push workflows remain supported. PR creation requires the existing completed gates and a clean branch whose published head matches the reviewed local commit. It returns an existing matching open PR unchanged and does not imply approval, passing CI, or merge.
+For GitHub PR review, begin implementation on an appropriate feature branch, then optionally invoke `$turtle-engineer-pull-request` separately after push. Direct-push workflows remain supported. PR creation requires the existing completed gates and a clean branch whose published head matches the reviewed local commit. It returns an existing matching open PR unchanged and does not imply approval, passing CI, or merge.
 
 | Enter in Codex chat | Result |
 | --- | --- |
-| `$turtle-pull-request` | Create a PR ready for review. |
-| `$turtle-pull-request draft` | Create a draft after the same completion gates. |
-| `$turtle-pull-request preview` | Prepare PR text and destination without creating or updating a PR. |
+| `$turtle-engineer-pull-request` | Create a PR ready for review. |
+| `$turtle-engineer-pull-request draft` | Create a draft after the same completion gates. |
+| `$turtle-engineer-pull-request preview` | Prepare PR text and destination without creating or updating a PR. |
 
-PR text drafting now belongs to `$turtle-pull-request preview`; commit-message drafting remains with `$turtle-commit message only`. PR preview may describe committed unpublished work with outstanding gates labeled, excluding uncommitted changes. Optional PR inspection/creation requires sufficient connected GitHub tools or authenticated GitHub CLI/API access. The [PR skill](.agents/skills/turtle-pull-request/SKILL.md) defines target resolution, templates, creation checks, and verification.
+PR text drafting now belongs to `$turtle-engineer-pull-request preview`; commit-message drafting remains with `$turtle-engineer-commit message only`. PR preview may describe committed unpublished work with outstanding gates labeled, excluding uncommitted changes. Optional PR inspection/creation requires sufficient connected GitHub tools or authenticated GitHub CLI/API access. The [PR skill](.agents/skills/turtle-engineer-pull-request/SKILL.md) defines target resolution, templates, creation checks, and verification.
 
 ## Foundation and Workflow Files
 

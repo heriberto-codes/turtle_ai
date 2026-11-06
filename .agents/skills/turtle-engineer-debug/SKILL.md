@@ -1,5 +1,5 @@
 ---
-name: turtle-debug
+name: turtle-engineer-debug
 description: Use this when diagnosing failures detected in VERIFY, TEST, ENGINEER CHECKPOINT, or runtime validation, and determining the minimal safe fix and correct routing (EXECUTE or TEST). Do not use for planning, feature implementation, or routine changes.
 ---
 
